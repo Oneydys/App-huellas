@@ -1,0 +1,336 @@
+@import "tailwindcss";
+
+/* Identidad visual aprobada. No cambies paleta, tipografía ni radios. */
+@theme {
+  --font-sans: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
+
+  --color-fondo: #ffe0c8;
+  --color-papel: #fffdfb;
+  --color-hundido: #fff0d9;
+  --color-tinta: #241d45;
+  /* Gris lavanda de la ficha: solo texto grande, íconos y decoración (3,9:1 sobre papel). */
+  --color-suave: #817d8e;
+  /* Mismo tono, más oscuro, para texto pequeño: cumple AA (5,4:1 sobre papel). */
+  --color-suave-texto: #6b6779;
+  --color-naranja: #ffa51f;
+  --color-naranja-claro: #ffb536;
+  --color-naranja-hondo: #ff9619;
+  --color-turquesa: #16a6a8;
+  --color-linea: #efd0af;
+  --color-exito: #237a48;
+  --color-error: #b93b3b;
+  --color-aviso: #a76000;
+
+  --radius-tarjeta: 26px;
+  --radius-control: 22px;
+  --radius-chip: 14px;
+
+  --shadow-calida: 0 10px 25px rgba(112, 77, 34, 0.1);
+  --shadow-boton: 0 10px 22px rgba(227, 157, 44, 0.35);
+  --shadow-marco: 0 20px 55px rgba(156, 98, 45, 0.2);
+
+  --ease-huellas: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Escala fluida: se reduce en móvil (320 px) y llega al tamaño de referencia desde ~600 px. Misma fuente y peso. */
+  --text-display: clamp(2rem, 1.5rem + 2vw, 2.25rem);
+  --text-display--line-height: 40px;
+  --text-titulo: 22px;
+  --text-titulo--line-height: 28px;
+  --text-cuerpo: 16px;
+  --text-cuerpo--line-height: 24px;
+  /* Solo etiquetas: mayúsculas de sección, chips, navegación y rótulos de dato. Nunca texto de cuerpo. */
+  --text-etiqueta: 12px;
+  --text-etiqueta--line-height: 16px;
+  /* Escala viral: titular de la portada y etiqueta de botón (17 px, peso 900). */
+  --text-heroe: clamp(2.25rem, 1.6rem + 2.4vw, 2.75rem);
+  --text-heroe--line-height: clamp(2.5rem, 2rem + 1.4vw, 2.75rem);
+  --text-boton: 17px;
+  --text-boton--line-height: 22px;
+}
+
+html {
+  background: var(--color-fondo);
+}
+
+body {
+  min-height: 100dvh;
+  background:
+    radial-gradient(600px 360px at 50% 0, #fff4e7, transparent 72%), var(--color-fondo);
+  color: var(--color-tinta);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-tinta);
+  outline-offset: 2px;
+}
+
+/* Titulares equilibrados y párrafos sin una palabra suelta al final de la línea. */
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p,
+li,
+dd {
+  text-wrap: pretty;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.sin-barra {
+  scrollbar-width: none;
+}
+.sin-barra::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes brillo {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.esqueleto {
+  background: linear-gradient(
+    90deg,
+    var(--color-hundido) 25%,
+    #ffe8c9 50%,
+    var(--color-hundido) 75%
+  );
+  background-size: 200% 100%;
+  animation: brillo 1.6s linear infinite;
+}
+
+/* Movimiento en CSS (sin librerías). Duraciones y curvas de la FICHA: 200 a 300 ms, escalonado de 60 ms. */
+@keyframes entrada {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes entrada-paso {
+  from {
+    opacity: 0;
+    transform: translateY(9px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes aviso {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes hoja {
+  from {
+    opacity: 0;
+    transform: translateY(48px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fondo {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes celebrar {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes flotar {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.entrada {
+  animation: entrada 300ms var(--ease-huellas) both;
+}
+.entrada-paso {
+  animation: entrada-paso 200ms var(--ease-huellas) both;
+}
+.escalonado > :nth-child(n + 2) {
+  animation-delay: 60ms;
+}
+.escalonado > :nth-child(n + 3) {
+  animation-delay: 120ms;
+}
+.escalonado > :nth-child(n + 4) {
+  animation-delay: 180ms;
+}
+.escalonado > :nth-child(n + 5) {
+  animation-delay: 240ms;
+}
+.escalonado > :nth-child(n + 6) {
+  animation-delay: 300ms;
+}
+.escalonado > :nth-child(n + 7) {
+  animation-delay: 360ms;
+}
+.escalonado > :nth-child(n + 8) {
+  animation-delay: 420ms;
+}
+.aviso-entrada {
+  animation: aviso 250ms var(--ease-huellas) both;
+}
+.fondo-hoja {
+  animation: fondo 200ms ease-out both;
+}
+.hoja-entrada {
+  animation: hoja 300ms var(--ease-huellas) both;
+}
+.celebrar {
+  animation: celebrar 380ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.flotar {
+  animation: flotar 4s ease-in-out infinite;
+}
+
+/* Flotado lento de la captura de la portada: 7 s y 8 px, solo el marco del dispositivo. */
+@keyframes flotar-lento {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+.flotar-lento {
+  animation: flotar-lento 7s ease-in-out infinite;
+}
+
+/* Máscara del carnet de la portada: la base se funde con el papel de la sección sin corte brusco. */
+.heroe-mascara {
+  -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent);
+  mask-image: linear-gradient(to bottom, #000 62%, transparent);
+}
+
+/* Halo de luz papel detrás del personaje: separa su collar y su dije del fondo naranja. */
+.escenario-personaje {
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--color-papel) 70%, transparent),
+    transparent
+  );
+}
+
+/* Con movimiento reducido: sin entradas, escalonado, celebraciones ni flotado. El contenido aparece en su estado final. */
+@media (prefers-reduced-motion: reduce) {
+  .escalonado > * {
+    animation-delay: 0ms !important;
+  }
+  .entrada,
+  .entrada-paso,
+  .aviso-entrada,
+  .hoja-entrada,
+  .fondo-hoja,
+  .celebrar,
+  .flotar,
+  .flotar-lento {
+    animation: none !important;
+  }
+}
+
+@page {
+  size: A4;
+  margin: 12mm;
+}
+
+@media print {
+  html,
+  body {
+    background: #fff !important;
+  }
+  .no-imprimir {
+    display: none !important;
+  }
+  .marco-app {
+    box-shadow: none !important;
+    max-width: none !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+  }
+  /* Resumen veterinario: una sola hoja, texto compacto y sin adornos. */
+  .documento {
+    border: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+    color: #000;
+  }
+  .documento * {
+    font-size: 9.5pt !important;
+    line-height: 1.3 !important;
+    color: #000 !important;
+  }
+  .documento h2 {
+    font-size: 18pt !important;
+  }
+  .documento h3 {
+    font-size: 11pt !important;
+  }
+  .documento section,
+  .documento li {
+    break-inside: avoid;
+  }
+  /* Tarjeta de mascota perdida: tamaño de tarjeta, centrada en la hoja. */
+  .tarjeta-perdida {
+    box-shadow: none !important;
+    width: 100mm !important;
+    max-width: 100mm !important;
+    margin: 10mm auto !important;
+    break-inside: avoid;
+  }
+}

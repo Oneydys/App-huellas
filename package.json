@@ -1,0 +1,43 @@
+{
+  "name": "huellas",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "verificar": "vitest run --config vitest.gate.mts",
+    "typecheck": "tsc --noEmit",
+    "test:e2e": "playwright test"
+  },
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "dependencies": {
+    "lucide-react": "^1.59.0",
+    "next": "^16.4.2",
+    "qrcode": "^1.5.4",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "@tailwindcss/turbopack": "^4",
+    "@types/node": "^24.19.2",
+    "@types/qrcode": "^1.5.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "axe-core": "^4.14.0",
+    "babel-plugin-react-compiler": "^1.0.0",
+    "eslint": "^10.13.0",
+    "eslint-config-next": "^16.4.2",
+    "jsqr": "^1.4.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^6.0.3",
+    "vitest": "^5.0.5"
+  },
+  "license": "SEE LICENSE IN LICENSE"
+}
