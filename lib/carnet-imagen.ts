@@ -90,7 +90,7 @@ export async function generarImagenCarnet(
 
   ctx.fillStyle = c.tinta;
   ctx.font = fuente(900, 30);
-  ctx.fillText("HUELLAS · CARNET", x + 56, y + 84);
+  ctx.fillText("PELUVET · CARNET", x + 56, y + 84);
   ctx.font = fuente(900, datos.nombre.length > 9 ? 96 : 130);
   ctx.fillText(ajustarTexto(ctx, datos.nombre, w - 112), x + 56, y + 240);
   ctx.font = fuente(700, 36);

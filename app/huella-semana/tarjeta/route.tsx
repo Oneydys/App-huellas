@@ -26,7 +26,7 @@ export async function GET() {
             }}
           >
             <div style={{ display: "flex", flexDirection: "column", width: 500 }}>
-              <div style={{ display: "flex", fontSize: 30, fontWeight: 900, letterSpacing: 3 }}>HUELLAS</div>
+              <div style={{ display: "flex", fontSize: 30, fontWeight: 900, letterSpacing: 3 }}>PELUVET</div>
               <div style={{ display: "flex", marginTop: 28, fontSize: 100, fontWeight: 900, lineHeight: 1.04 }}>{HUELLA_SEMANA.titulo}</div>
             </div>
             <div style={{ display: "flex", flex: 1, alignItems: "flex-end", justifyContent: "center" }}>

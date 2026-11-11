@@ -41,7 +41,7 @@ export function CarnetDigital({ mascota, datos, alCompartir }: { mascota: Mascot
     >
       <header className="relative bg-gradient-to-br from-naranja-claro to-naranja-hondo px-6 pb-16 pt-4 text-tinta">
         <div className="flex items-center justify-between gap-3">
-          <p className="text-etiqueta font-black tracking-wider">HUELLAS · CARNET DE SALUD</p>
+          <p className="text-etiqueta font-black tracking-wider">PELUVET · CARNET DE SALUD</p>
           {mascota.origen === "demo" && <Chip data-captura="oculto">DEMO</Chip>}
         </div>
         <button

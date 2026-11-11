@@ -66,7 +66,7 @@ export default function Paywall() {
         </div>
       ) : (
         <>
-          <p className="mt-6 text-etiqueta font-black tracking-wider text-aviso">HUELLAS PRO</p>
+          <p className="mt-6 text-etiqueta font-black tracking-wider text-aviso">PELUVET PRO</p>
           <h1 className="mt-2 text-display font-black tracking-tight">Ya puedes usar el carnet de {mascota.nombre}</h1>
           <p className="mt-2 text-cuerpo text-suave-texto">
             Gratis: un carnet completo para una mascota. Pro permite hasta {PLANTILLA.limites.mascotasPro} mascotas.
