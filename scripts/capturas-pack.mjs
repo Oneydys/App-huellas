@@ -1,4 +1,4 @@
-// Capturas del pack de Huellas: tres pantallas de 390×844 px en JPG, desde el build de producción y con
+// Capturas del pack de Peluvet: tres pantallas de 390×844 px en JPG, desde el build de producción y con
 // reducción de movimiento. Requiere `npm run build` antes. Arranca `next start` en el puerto 3705, guarda su PID
 // y lo cierra al terminar. No reutiliza servidores ajenos.
 //

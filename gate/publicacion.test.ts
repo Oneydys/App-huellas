@@ -6,7 +6,7 @@ import { DATOS_PENDIENTES, PLANTILLA } from "../lib/plantilla";
 // Gate de publicación: lo ejecuta `npm run verificar`, no `npm test`.
 // Falla a propósito mientras queden datos del alumno sin completar o conexiones sin activar.
 
-// Huellas vende planes Pro (app/paywall). La protección de /app es local hasta conectar Supabase y no es protección real (components/capa-app.tsx).
+// Peluvet vende planes Pro (app/paywall). La protección de /app es local hasta conectar Supabase y no es protección real (components/capa-app.tsx).
 // Por eso el gate exige Supabase y Hotmart conectados antes de publicar.
 // Las conexiones se comprueban con las variables de entorno (lib/backend/config.ts), no con PLANTILLA.conexiones.
 const VENDE = true;

@@ -51,9 +51,9 @@ describe("resumen veterinario", () => {
 
 describe("plantilla editable", () => {
   it("define precios sugeridos dentro del rango de su categoría y los marca para validar (sin nota visible)", () => {
-    // Salud o seguimiento personal: mensualidad entre 4,99 y 9,99 USD.
-    expect(PLANTILLA.precios.mensual).toBe(4.99);
-    expect(PLANTILLA.precios.anual).toBe(49.9);
+    // Salud o seguimiento personal: mensualidad entre 2,99 y 9,99 USD.
+    expect(PLANTILLA.precios.mensual).toBe(2.99);
+    expect(PLANTILLA.precios.anual).toBe(29.9);
     expect(PLANTILLA.precios.anual).toBeCloseTo(PLANTILLA.precios.mensual * 10, 6);
     expect(PLANTILLA.precios.diasPrueba).toBe(7);
     expect(PLANTILLA.precios.pendienteDeValidar).toBe(true);
@@ -61,17 +61,17 @@ describe("plantilla editable", () => {
   });
 
   it("formatea precios y calcula un ahorro anual honesto", () => {
-    expect(formatearPrecio(4.99)).toBe("US$4,99");
-    expect(formatearPrecio(49.9)).toBe("US$49,90");
+    expect(formatearPrecio(2.99)).toBe("US$2,99");
+    expect(formatearPrecio(29.9)).toBe("US$29,90");
     expect(ahorroAnualPorcentaje()).toBe(17);
   });
 
-  it("garantía de 7 días en todas las apps y datos propios", () => {
-    expect(PLANTILLA.garantia.garantiaDias).toBe(7);
-    expect(textoGarantia()).toMatch(/^Garantía de 7 días\./);
+  it("garantía de 15 días en todas las apps y datos propios", () => {
+    expect(PLANTILLA.garantia.garantiaDias).toBe(15);
+    expect(textoGarantia()).toMatch(/^Garantía de 15 días\./);
     expect(textoGarantia()).toMatch(/Tus datos son tuyos/);
     // La versión corta de la barra fija usa el mismo plazo.
-    expect(textoGarantiaCorta()).toMatch(/^Garantía de 7 días ·/);
+    expect(textoGarantiaCorta()).toMatch(/^Garantía de 15 días ·/);
   });
 
   it("los límites de mascotas dependen del plan", () => {

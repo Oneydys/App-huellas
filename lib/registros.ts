@@ -83,7 +83,7 @@ export const registroSchema = z.discriminatedUnion("tipo", [
     ...base,
     tipo: z.literal("medicamento"),
     nombre: texto(60, "Indica el nombre del medicamento."),
-    // Se copia lo que indicó el veterinario; Huellas nunca sugiere dosis.
+    // Se copia lo que indicó el veterinario; Peluvet nunca sugiere dosis.
     dosis: opcional(80),
     fin: fechaOpcional,
   }),

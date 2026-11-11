@@ -8,7 +8,7 @@
 import { LEGAL } from "./legal";
 
 export const PLANTILLA = {
-  nombreApp: "Huellas",
+  nombreApp: "Peluvet",
   eslogan: "El carnet de salud de tu perro o gato, siempre contigo",
 
   /** Dirección pública del sitio, sin barra final. Mientras sea una marca [COMPLETAR], no se genera mapa del sitio. */
@@ -24,14 +24,14 @@ export const PLANTILLA = {
   // Sin variables, la app sigue en demostración local. Ver GUIA-PARA-COMPRADORES.md, "Conexiones".
 
   /**
-   * Precios sugeridos para una app de salud y seguimiento personal (rango orientativo de 4,99 a 9,99 USD al mes).
-   * US$4,99 queda en la parte baja del rango: Pro solo suma mascotas (de 1 a 3) y el plan gratis ya es completo.
+   * Precios sugeridos para una app de salud y seguimiento personal (rango orientativo de 2,99 a 9,99 USD al mes).
+   * US$2,99 queda en la parte baja del rango: Pro solo suma mascotas (de 1 a 3) y el plan gratis ya es completo.
    * Regla: el anual equivale a 10 mensualidades (dos meses gratis). Confirma tu oferta en Hotmart antes de vender.
    */
   precios: {
     moneda: "USD",
-    mensual: 4.99,
-    anual: 49.9,
+    mensual: 2.99,
+    anual: 29.9,
     /**
      * Prueba de 7 días, ya configurada en la plantilla. Confírmala en Hotmart antes de vender, cambia el número
      * o quita la prueba (0) si tu oferta no la incluye.
@@ -65,7 +65,7 @@ export const PLANTILLA = {
    * en Hotmart, cambia también este valor. La plantilla no tramita reembolsos por su cuenta.
    */
   garantia: {
-    garantiaDias: 7,
+    garantiaDias: 15,
     datos: "Tus datos son tuyos: descárgalos cuando quieras, con o sin plan.",
   },
 
@@ -81,7 +81,7 @@ export const PLANTILLA = {
       "Simulación local: esta plantilla no cobra, no envía correos ni avisos, y tus datos se guardan solo en este dispositivo.",
     avisoOrientativo: "Orientativo, confirma con tu veterinario.",
     avisoNoVeterinario:
-      "Huellas organiza información. No diagnostica, no receta ni reemplaza a tu veterinario.",
+      "Peluvet organiza información. No diagnostica, no receta ni reemplaza a tu veterinario.",
     avisoCalendarioGenerico:
       "Usamos reglas generales y conservadoras. Aún no hay un calendario verificado para tu país, así que no lo tomes como oficial.",
     avisoUrgencia:

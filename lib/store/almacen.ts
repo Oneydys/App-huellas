@@ -92,7 +92,7 @@ export function importarJSON(texto: string): ResultadoImportacion {
   try {
     crudo = JSON.parse(texto);
   } catch {
-    return { ok: false, error: "El archivo no es una copia válida de Huellas." };
+    return { ok: false, error: "El archivo no es una copia válida de Peluvet." };
   }
   const esCopia =
     typeof crudo === "object" && crudo !== null && (crudo as Record<string, unknown>).formato === FORMATO_COPIA;

@@ -13,7 +13,7 @@ export const ETIQUETA_CATEGORIA: Record<CategoriaCuidado, string> = {
   medicamento: "Medicamento",
 };
 
-/** Cuidado que la propia persona programa; Huellas no envía avisos por sí sola. */
+/** Cuidado que la propia persona programa; Peluvet no envía avisos por sí sola. */
 export const cuidadoSchema = z.object({
   id: z.string().min(1),
   mascotaId: z.string().min(1),

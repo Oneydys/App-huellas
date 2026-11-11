@@ -10,7 +10,7 @@ import type { Accion } from "./reductor";
 
 const sinSuscripcion = () => () => {};
 
-export interface Huellas {
+export interface Peluvet {
   estado: EstadoApp;
   /** Falso durante el render del servidor y la hidratación: muestra esqueletos, no datos. */
   listo: boolean;
@@ -20,7 +20,7 @@ export interface Huellas {
   despachar: (accion: Accion) => void;
 }
 
-export function useHuellas(): Huellas {
+export function useHuellas(): Peluvet {
   const estado = useSyncExternalStore(suscribir, obtenerEstado, () => ESTADO_SERVIDOR);
   const listo = useSyncExternalStore(sinSuscripcion, () => true, () => false);
   const hoy = listo ? hoyISO() : "";

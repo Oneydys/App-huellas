@@ -101,7 +101,7 @@ export default function Perfil() {
       <Aparece className="flex flex-col gap-3">
         <h2 className="text-titulo font-black">Legal</h2>
         <Fila href="/legal/privacidad" icono={ShieldCheck} titulo="Política de privacidad" texto="Qué datos guardamos y dónde" />
-        <Fila href="/legal/terminos" icono={FileText} titulo="Términos de uso" texto="Qué hace y qué no hace Huellas" />
+        <Fila href="/legal/terminos" icono={FileText} titulo="Términos de uso" texto="Qué hace y qué no hace Peluvet" />
         <Fila href="/legal/cookies" icono={Cookie} titulo="Política de cookies" texto="Qué guarda la app en tu navegador" />
       </Aparece>
 

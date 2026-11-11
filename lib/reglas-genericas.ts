@@ -151,7 +151,7 @@ export const REGLAS_GENERICAS: readonly ReglaCuidado[] = [
     especies: AMBAS,
     etapas: ["adulto"],
     titulo: "Revisión anual con tu veterinario",
-    detalle: "Una revisión al año sirve para conversar con tu veterinario sobre su estado. Lleva el resumen de Huellas si quieres.",
+    detalle: "Una revisión al año sirve para conversar con tu veterinario sobre su estado. Lleva el resumen de Peluvet si quieres.",
     intervaloDias: 365,
     primeraVezDias: 30,
   },

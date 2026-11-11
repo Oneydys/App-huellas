@@ -24,7 +24,7 @@ test("la portada tiene preguntas frecuentes con objeciones reales y garantía ju
   await expect(page.getByRole("heading", { name: "¿Y si pido un reembolso?" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "¿Sirve si nunca he llevado un registro?" })).toBeVisible();
   // La garantía se nombra igual en todas sus menciones.
-  await expect(page.getByText(/Garantía de \d+ días/).first()).toHaveText(/Garantía de 7 días/);
+  await expect(page.getByText(/Garantía de \d+ días/).first()).toHaveText(/Garantía de 15 días/);
   await expect(page.getByText(/\(ejemplo\)/i)).toHaveCount(0);
 });
 

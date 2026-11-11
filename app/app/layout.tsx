@@ -5,7 +5,7 @@ import { CapaApp } from "@/components/capa-app";
 // La plantilla solo llega a los hijos directos. Por eso las rutas de tercer nivel (p. ej.
 // /app/carnet/perdida) usan `absolute` en su propio layout.
 export const metadata: Metadata = {
-  title: { default: "Inicio", template: "%s · Huellas" },
+  title: { default: "Inicio", template: "%s · Peluvet" },
   robots: { index: false, follow: false },
 };
 

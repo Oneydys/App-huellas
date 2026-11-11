@@ -23,7 +23,7 @@ export function TarjetaCarnet({
       aria-label={`Carnet de ${mascota.nombre}`}
       className="relative flex min-h-56 items-stretch overflow-hidden rounded-tarjeta bg-gradient-to-br from-naranja-claro to-naranja-hondo p-6 text-tinta shadow-calida"
     >
-      {/* Huellas decorativas del escenario */}
+      {/* Peluvet decorativas del escenario */}
       <svg aria-hidden viewBox="0 0 120 120" className="pointer-events-none absolute -right-6 -top-6 size-40 fill-papel/20">
         <ellipse cx="60" cy="78" rx="22" ry="18" />
         <ellipse cx="32" cy="52" rx="9" ry="12" />

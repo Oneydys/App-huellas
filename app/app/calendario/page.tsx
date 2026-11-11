@@ -93,7 +93,7 @@ function FormularioCuidado({
         onChange={(e) => setFecha(e.target.value)}
       />
       <AreaTexto etiqueta="Nota (opcional)" value={nota} maxLength={280} onChange={(e) => setNota(e.target.value)} />
-      <Aviso>Huellas no envía avisos: este cuidado aparecerá en tu calendario y en el inicio.</Aviso>
+      <Aviso>Peluvet no envía avisos: este cuidado aparecerá en tu calendario y en el inicio.</Aviso>
       <Boton type="submit">Programar cuidado</Boton>
     </form>
   );

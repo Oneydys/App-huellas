@@ -234,7 +234,7 @@ export function FormularioRegistro({ tipo: tipoParam = null, cuidadoId = null, e
               maxLength={80}
               placeholder="Cópiala tal como te la dieron"
               error={errores.dosis}
-              ayuda="Huellas nunca sugiere medicamentos ni dosis: solo guarda lo que tu veterinario indicó."
+              ayuda="Peluvet nunca sugiere medicamentos ni dosis: solo guarda lo que tu veterinario indicó."
               onChange={poner("dosis")}
             />
             <Campo etiqueta="Hasta cuándo (opcional)" type="date" value={v("fin")} min={fecha} error={errores.fin} onChange={poner("fin")} />

@@ -112,7 +112,7 @@ function HojaHuella({
         <div className="aspect-[4/5] w-44 overflow-hidden rounded-control bg-hundido">
           {lista ? (
             // eslint-disable-next-line @next/next/no-img-element -- vista previa de un blob local
-            <img src={lista.url} alt={`${HUELLA_SEMANA.titulo}, tarjeta con la marca Huellas`} className="size-full object-cover" />
+            <img src={lista.url} alt={`${HUELLA_SEMANA.titulo}, tarjeta con la marca Peluvet`} className="size-full object-cover" />
           ) : imagen === "error" ? (
             <p role="alert" className="grid size-full place-items-center p-4 text-center text-cuerpo font-bold text-error">
               No pudimos crear la tarjeta. Cierra y vuelve a intentarlo.

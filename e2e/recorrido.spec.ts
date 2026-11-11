@@ -238,7 +238,7 @@ test("cada pantalla de la app tiene su título y no se indexa", async ({ page })
   await expect(page).toHaveURL(/\/app$/);
 
   await page.goto("/app/calendario");
-  await expect(page).toHaveTitle("Calendario · Huellas");
+  await expect(page).toHaveTitle("Calendario · Peluvet");
   const robots = await page.locator('meta[name="robots"]').getAttribute("content");
   expect(robots).toContain("noindex");
 });

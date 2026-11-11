@@ -41,7 +41,7 @@ const PREGUNTAS = [
 ] as const;
 
 const CAPTURAS = [
-  { src: "/images/capturas/inicio.png", titulo: "Inicio", texto: "Su próximo cuidado, siempre al frente.", alt: "Pantalla de inicio de Huellas con el carnet de Luna y su próximo cuidado" },
+  { src: "/images/capturas/inicio.png", titulo: "Inicio", texto: "Su próximo cuidado, siempre al frente.", alt: "Pantalla de inicio de Peluvet con el carnet de Luna y su próximo cuidado" },
   { src: "/images/capturas/calendario.png", titulo: "Calendario", texto: "Qué toca, qué viene y qué ya pasó.", alt: "Calendario de cuidados de Luna con próximas fechas" },
   { src: "/images/capturas/carnet.png", titulo: "Carnet", texto: "Su carnet digital, listo para compartir.", alt: "Carnet digital de Luna con foto, datos y estado de vacunas" },
 ] as const;

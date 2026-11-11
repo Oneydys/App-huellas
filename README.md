@@ -1,4 +1,4 @@
-# Huellas — plantilla Next.js
+# Peluvet — plantilla Next.js
 
 Carnet de salud digital para perros y gatos (hispanohablantes). **Plantilla de demostración con datos locales:** no cobra, no envía correos ni avisos, no usa base de datos ni IA. Todo se guarda en el navegador (`localStorage`).
 
@@ -20,8 +20,8 @@ Para adaptarla paso a paso, lee [GUIA-PARA-COMPRADORES.md](GUIA-PARA-COMPRADORES
 ## Cobro, garantía y medición
 
 - **Cobro y reembolso: Hotmart.** La demostración no cobra. Cuando conectes Hotmart, los cobros, las cancelaciones y los reembolsos de Pro los gestiona Hotmart.
-- **Garantía de 7 días:** `garantia.garantiaDias: 7` en `lib/plantilla.ts`. Cada mención dice «Garantía de 7 días».
-- **Precios sugeridos: confirma tu oferta en Hotmart antes de vender.** Están en `lib/plantilla.ts` (mensual US$4,99; anual US$49,90, equivalente a 10 mensualidades), junto con la prueba de 7 días (`precios.diasPrueba`).
+- **Garantía de 15 días:** `garantia.garantiaDias: 15` en `lib/plantilla.ts`. Cada mención dice «Garantía de 15 días».
+- **Precios sugeridos: confirma tu oferta en Hotmart antes de vender.** Están en `lib/plantilla.ts` (mensual US$2,99; anual US$29,90, equivalente a 10 mensualidades), junto con la prueba de 7 días (`precios.diasPrueba`).
 - **Medición (píxel de Meta):** cada CTA de la portada tiene `id` y `data-evento="inicio-compra"`. La guía explica cómo enlazar `ViewContent` e `InitiateCheckout`. La plantilla no carga scripts de terceros.
 
 ## Qué edita quien compra la plantilla

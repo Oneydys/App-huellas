@@ -1,8 +1,8 @@
-# Guía para compradores — Huellas
+# Guía para compradores — Peluvet
 
 ## Qué recibes
 
-Huellas es una **app web de demostración y adaptable**, hecha con Next.js, para un carnet de salud de perros y gatos. Incluye:
+Peluvet es una **app web de demostración y adaptable**, hecha con Next.js, para un carnet de salud de perros y gatos. Incluye:
 
 - Portada, onboarding para crear el carnet de una mascota, planes y acceso.
 - Inicio, carnet, calendario, registro de cuidados y peso, resumen para el veterinario, mascotas, orientación de urgencia y tarjeta de mascota perdida.
@@ -78,19 +78,19 @@ npm run dev
 
 Los precios vienen como **sugeridos**: revísalos con tus clientes antes de publicarlos.
 
-**Precios sugeridos: confirma tu oferta en Hotmart antes de vender.** Están en `lib/plantilla.ts` (`precios`): mensual US$4,99 y anual US$49,90 (el anual equivale a 10 mensualidades). Cámbialos aquí y en Hotmart para que coincidan.
+**Precios sugeridos: confirma tu oferta en Hotmart antes de vender.** Están en `lib/plantilla.ts` (`precios`): mensual US$2,99 y anual US$29,90 (el anual equivale a 10 mensualidades). Cámbialos aquí y en Hotmart para que coincidan.
 
 ## Datos que debes cambiar antes de vender
 
 - **Titular:** `MILLION BUSINESS DIGITAL` en `lib/legal.ts`. Completa el país y la ley aplicable (`[COMPLETAR: país]`) con tus datos.
 - **Correo de contacto:** `correo@correo.com` es un **ejemplo**. DEBES cambiarlo por un correo tuyo que vayas a usar con la app (`lib/legal.ts`).
 - **Prueba:** `diasPrueba` en `lib/plantilla.ts` (hoy 7 días, ya configurados). Antes de vender, confírmala en Hotmart con estos días, cambia el número o quita la prueba (0) si tu oferta no la incluye. Con 0, la portada y el paywall ocultan la prueba y su botón.
-- **Garantía:** `garantia.garantiaDias` en `lib/plantilla.ts` viene en 7 días y se muestra en la portada y el paywall. Si cambias el plazo en Hotmart, cambia también ese valor.
+- **Garantía:** `garantia.garantiaDias` en `lib/plantilla.ts` viene en 15 días y se muestra en la portada y el paywall. Si cambias el plazo en Hotmart, cambia también ese valor.
 
 ## Cobro, prueba, garantía y reembolso
 
 - **Cobro y reembolso: Hotmart.** Todo se cobra y se reembolsa a través de Hotmart. La plantilla no cobra: `iniciarSuscripcion` es una simulación local (ver "Antes de conectar servicios reales").
-- **Garantía de 7 días.** Está en `lib/plantilla.ts` (`garantia.garantiaDias: 7`). Cada mención dice «Garantía de 7 días». Si cambias el plazo en Hotmart, cambia también ese valor. Dentro de esos días, la solicitud de reembolso se gestiona con Hotmart: la plantilla no tiene un proceso propio.
+- **Garantía de 15 días.** Está en `lib/plantilla.ts` (`garantia.garantiaDias: 15`). Cada mención dice «Garantía de 15 días». Si cambias el plazo en Hotmart, cambia también ese valor. Dentro de esos días, la solicitud de reembolso se gestiona con Hotmart: la plantilla no tiene un proceso propio.
 - **Precios y prueba:** los precios (`precios`) y la prueba de 7 días (`precios.diasPrueba`) son sugeridos. Confirma en Hotmart cada precio, la prueba y la garantía antes de vender.
 - **Cancelación.** La app no tiene una opción para cancelar Pro: las cancelaciones de suscripción se gestionan con Hotmart. No escribas «cancelas cuando quieras» hasta que lo confirmes en tu cuenta de Hotmart.
 - **Textos legales.** La sección «Cobro, prueba y reembolso» de los términos (`lib/legal.ts`) describe ese reparto. Revísala con tu asesor.
@@ -167,7 +167,7 @@ Si cambias el recorrido o los textos clave, actualiza esas pruebas. Las pruebas 
 
 ## Conexiones
 
-Huellas trae el kit de backend **inactivo**. Se activa solo con variables de entorno. Sin ellas, la app sigue en demo: el webhook responde `503` y `/app` no cambia.
+Peluvet trae el kit de backend **inactivo**. Se activa solo con variables de entorno. Sin ellas, la app sigue en demo: el webhook responde `503` y `/app` no cambia.
 
 ### Variables de entorno
 
@@ -190,7 +190,7 @@ Las variables `PRUEBA_RLS_*` de `.env.example` solo sirven para las pruebas de R
 | --- | --- | --- |
 | `supabase` | `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` | El control de acceso de `/app` y el registro de compras. |
 | `hotmart` | `HOTMART_HOTTOK`, más Supabase para guardar las compras | El webhook de `/api/hotmart/webhook`. |
-| `resend` | Sin kit | No aplica: Huellas no envía correos. |
+| `resend` | Sin kit | No aplica: Peluvet no envía correos. |
 
 El bloque `conexiones` de `lib/plantilla.ts` ya no decide el gate. `npm run verificar` comprueba las variables de arriba y falla, con sus nombres, mientras falte alguna. También falla mientras queden marcas `[COMPLETAR]` o `[VERIFICAR]`.
 
@@ -233,7 +233,7 @@ El nombre de la cabecera del token y la forma del evento deben confirmarse en la
 - [ ] Ninguna promesa en pantalla que la app no cumpla.
 - [ ] Textos legales revisados con tu asesor y marcas `[COMPLETAR]` reemplazadas (`lib/legal.ts`).
 - [ ] Correo de contacto `correo@correo.com` cambiado por uno tuyo (`lib/legal.ts`).
-- [ ] Precios, prueba de 7 días y garantía de 7 días confirmados en Hotmart (`lib/plantilla.ts`).
+- [ ] Precios, prueba de 7 días y garantía de 15 días confirmados en Hotmart (`lib/plantilla.ts`).
 - [ ] Si usas el píxel de Meta: eventos `ViewContent` e `InitiateCheckout` comprobados con su herramienta de prueba.
 - [ ] Dominio público configurado (`urlSitio` en `lib/plantilla.ts`). Sin él, el QR del carnet solo se lee en tu red.
 - [ ] `npm run verificar` pasa (bloque `conexiones` en `true` donde aplique).

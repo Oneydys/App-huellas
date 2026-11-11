@@ -123,7 +123,7 @@ export async function generarImagenCarnet(
   // Pie de marca
   ctx.fillStyle = c.tinta;
   ctx.font = fuente(900, 64);
-  ctx.fillText("Huellas", x + 56, y + escenario + 120);
+  ctx.fillText("Peluvet", x + 56, y + escenario + 120);
   ctx.fillStyle = c.suave;
   ctx.font = fuente(700, 32);
   ctx.fillText("Carnet de salud digital para perros y gatos", x + 56, y + escenario + 176);

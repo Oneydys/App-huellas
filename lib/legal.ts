@@ -38,7 +38,7 @@ export const PRIVACIDAD: DocumentoLegal = {
   secciones: [
     {
       titulo: "Quién es responsable",
-      parrafos: [`${RESPONSABLE} es responsable de los datos que registras en Huellas. Para cualquier duda, escribe a ${CONTACTO}.`],
+      parrafos: [`${RESPONSABLE} es responsable de los datos que registras en Peluvet. Para cualquier duda, escribe a ${CONTACTO}.`],
     },
     {
       titulo: "Qué datos se guardan",
@@ -59,7 +59,7 @@ export const PRIVACIDAD: DocumentoLegal = {
     {
       titulo: "Para qué los usamos",
       parrafos: [
-        "Solo para mostrarte el carnet, el calendario, el resumen para el veterinario y la tarjeta de mascota perdida. Huellas no los usa para publicidad.",
+        "Solo para mostrarte el carnet, el calendario, el resumen para el veterinario y la tarjeta de mascota perdida. Peluvet no los usa para publicidad.",
       ],
     },
     {
@@ -83,18 +83,18 @@ export const PRIVACIDAD: DocumentoLegal = {
 
 export const TERMINOS: DocumentoLegal = {
   titulo: "Términos de uso",
-  resumen: "Huellas te ayuda a organizar el historial de tu mascota. No reemplaza a tu veterinario.",
+  resumen: "Peluvet te ayuda a organizar el historial de tu mascota. No reemplaza a tu veterinario.",
   secciones: [
     {
-      titulo: "Qué es Huellas",
+      titulo: "Qué es Peluvet",
       parrafos: [
-        "Huellas es una herramienta para organizar el carnet, los cuidados y el historial de tu mascota. Puedes usarla sin cuenta. Los planes y la prueba que muestra la app son los que estén activos en cada momento.",
+        "Peluvet es una herramienta para organizar el carnet, los cuidados y el historial de tu mascota. Puedes usarla sin cuenta. Los planes y la prueba que muestra la app son los que estén activos en cada momento.",
       ],
     },
     {
       titulo: "No es atención veterinaria",
       parrafos: [
-        "Huellas no diagnostica, no receta ni sustituye a tu veterinario. La orientación de urgencia solo señala situaciones para consultar. Ante una emergencia, llama a tu veterinario o a una clínica de urgencias.",
+        "Peluvet no diagnostica, no receta ni sustituye a tu veterinario. La orientación de urgencia solo señala situaciones para consultar. Ante una emergencia, llama a tu veterinario o a una clínica de urgencias.",
       ],
     },
     {
@@ -119,7 +119,7 @@ export const TERMINOS: DocumentoLegal = {
       titulo: "Cobro, prueba y reembolso",
       parrafos: [
         "Los cobros, las cancelaciones y los reembolsos de Pro los gestiona Hotmart, la plataforma de venta, cuando la compra está activa. En esta demostración no se cobra nada.",
-        "Garantía de 7 días: si pides el reembolso dentro de los 7 días desde la compra, la solicitud se gestiona con Hotmart. Huellas no tiene un proceso de reembolso propio.",
+        "Garantía de 15 días: si pides el reembolso dentro de los 15 días desde la compra, la solicitud se gestiona con Hotmart. Peluvet no tiene un proceso de reembolso propio.",
         "Dejar Pro no borra tus datos: siguen en tu navegador y puedes descargarlos desde Perfil.",
       ],
     },
@@ -138,7 +138,7 @@ export const TERMINOS: DocumentoLegal = {
 
 export const COOKIES: DocumentoLegal = {
   titulo: "Política de cookies",
-  resumen: "Huellas no usa cookies de seguimiento ni publicidad.",
+  resumen: "Peluvet no usa cookies de seguimiento ni publicidad.",
   secciones: [
     {
       titulo: "Qué usamos en su lugar",

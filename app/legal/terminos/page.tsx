@@ -4,7 +4,7 @@ import { TERMINOS } from "@/lib/legal";
 
 export const metadata: Metadata = {
   title: TERMINOS.titulo,
-  description: "Qué hace Huellas y qué no hace: no diagnostica ni reemplaza al veterinario.",
+  description: "Qué hace Peluvet y qué no hace: no diagnostica ni reemplaza al veterinario.",
 };
 
 export default function Terminos() {

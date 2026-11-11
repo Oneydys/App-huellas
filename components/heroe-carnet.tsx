@@ -41,7 +41,7 @@ export function HeroeCarnet({ className }: { className?: string }) {
           <div className="flotar-lento rounded-[2.2rem] bg-tinta p-1.5 shadow-marco">
             <Image
               src="/images/capturas/heroe-huellas.webp"
-              alt="Pantalla principal de la app Huellas"
+              alt="Pantalla principal de la app Peluvet"
               width={780}
               height={2130}
               priority

@@ -31,7 +31,7 @@ export function SinMascota() {
           <h1 className="mt-2 text-display font-black tracking-tight">Aún no hay ninguna mascota</h1>
           <Image
             src="/images/huellas-mascot.png"
-            alt="Cachorro de Huellas con collar turquesa y dije de huella"
+            alt="Cachorro de Peluvet con collar turquesa y dije de huella"
             width={1368}
             height={1149}
             sizes="220px"

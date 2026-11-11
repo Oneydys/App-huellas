@@ -4,7 +4,7 @@ import { PRIVACIDAD } from "@/lib/legal";
 
 export const metadata: Metadata = {
   title: PRIVACIDAD.titulo,
-  description: "Qué datos guarda Huellas, dónde se quedan y cómo borrarlos.",
+  description: "Qué datos guarda Peluvet, dónde se quedan y cómo borrarlos.",
 };
 
 export default function Privacidad() {

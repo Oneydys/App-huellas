@@ -3,9 +3,9 @@
 import { useMemo } from "react";
 import { calcularCalendario, cuidadoDestacado, type ResultadoCalendario } from "../calendario-vivo";
 import { registrosDe, type Registro } from "../registros";
-import { useHuellas, type Huellas } from "./hooks";
+import { useHuellas, type Peluvet } from "./hooks";
 
-export interface VistaMascota extends Huellas {
+export interface VistaMascota extends Peluvet {
   registros: Registro[];
   calendario: ResultadoCalendario | null;
   destacado: ReturnType<typeof cuidadoDestacado>;

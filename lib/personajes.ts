@@ -1,4 +1,4 @@
-// Personajes 3D originales de Huellas. Cada uno trae su propio collar y dije.
+// Personajes 3D originales de Peluvet. Cada uno trae su propio collar y dije.
 export type Especie = "perro" | "gato";
 
 export const IDS_PERSONAJE = ["europeo", "persa", "beagle", "husky"] as const;
