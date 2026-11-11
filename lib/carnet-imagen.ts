@@ -43,7 +43,13 @@ export async function generarImagenCarnet(
   datos: DatosCompartibles,
   visual: { personaje: IdPersonaje; foto?: string },
 ): Promise<Blob> {
-  await Promise.all([document.fonts.load(`900 80px ${FAMILIA}`), document.fonts.load(`700 36px ${FAMILIA}`)]);
+  // Si una fuente de respaldo no carga, la imagen se dibuja igual con la letra del sistema.
+  const sinFuente = (promesa: Promise<unknown>) => promesa.catch(() => undefined);
+  const [, , emblema] = await Promise.all([
+    sinFuente(document.fonts.load(`900 80px ${FAMILIA}`)),
+    sinFuente(document.fonts.load(`700 36px ${FAMILIA}`)),
+    cargar("/images/peluvet-emblema.png"),
+  ]);
   const c = {
     fondo: token("--color-fondo"),
     papel: token("--color-papel"),
@@ -90,7 +96,9 @@ export async function generarImagenCarnet(
 
   ctx.fillStyle = c.tinta;
   ctx.font = fuente(900, 30);
-  ctx.fillText("PELUVET · CARNET", x + 56, y + 84);
+  ctx.fillText("CARNET DE SALUD", x + 56, y + 84);
+  // Emblema de marca arriba a la derecha del escenario.
+  ctx.drawImage(emblema, x + w - 56 - 150, y + 30, 150, 150);
   ctx.font = fuente(900, datos.nombre.length > 9 ? 96 : 130);
   ctx.fillText(ajustarTexto(ctx, datos.nombre, w - 112), x + 56, y + 240);
   ctx.font = fuente(700, 36);

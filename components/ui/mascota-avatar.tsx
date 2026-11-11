@@ -58,7 +58,7 @@ export function Logotipo() {
       alt={PLANTILLA.nombreApp}
       width={58}
       height={64}
-      className="h-16 w-auto"
+      className="h-16 w-auto self-start"
       priority
     />
   );
