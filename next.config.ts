@@ -26,7 +26,7 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   // Las imágenes de next/og leen fuentes y el personaje del disco: deben viajar con el despliegue.
   outputFileTracingIncludes: {
-    "/opengraph-image": ["./app/_og/*.woff", "./public/images/huellas-mascot.png"],
+    "/opengraph-image": ["./app/_og/*.woff", "./public/images/huellas-mascot.png", "./public/images/peluvet-emblema.png"],
     "/huella-semana/tarjeta": ["./app/_og/*.woff", "./public/images/huellas-mascot.png"],
   },
   async headers() {

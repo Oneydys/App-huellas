@@ -1,4 +1,4 @@
-import { CalendarDays, Check, FileText, IdCard } from "lucide-react";
+import { CalendarDays, Check, FileText, IdCard, QrCode } from "lucide-react";
 import Link from "next/link";
 import { AccionesInicio, CtaPrincipal } from "@/components/acciones-inicio";
 import { BarraCtaFija } from "@/components/barra-cta-fija";
@@ -17,6 +17,11 @@ const VALORES = [
   },
   { icono: IdCard, titulo: "Carnet siempre a mano", texto: "Vacunas, peso y visitas en una sola línea de tiempo." },
   { icono: FileText, titulo: "Resumen para el veterinario", texto: "Lleva su historial ordenado a la consulta." },
+  {
+    icono: QrCode,
+    titulo: "Si se pierde, la encuentran",
+    texto: "Quien la encuentre escanea su QR y ve su nombre y su raza. Tu teléfono no aparece.",
+  },
 ] as const;
 
 // Objeciones reales de quien compra. Las cifras salen de la configuración: si cambias precios o garantía, cambian aquí.
@@ -33,6 +38,11 @@ const PREGUNTAS = [
   {
     pregunta: "¿Y si pido un reembolso?",
     respuesta: `Garantía de ${PLANTILLA.garantia.garantiaDias} días: la solicitud de reembolso dentro de ese plazo se gestiona con Hotmart. Tus datos siguen en tu navegador.`,
+  },
+  {
+    pregunta: "¿Qué pasa si borro los datos del navegador?",
+    respuesta:
+      "Se pierden, porque se guardan solo en ese dispositivo. Desde Perfil puedes descargar una copia cuando quieras.",
   },
   {
     pregunta: "¿Sirve si nunca he llevado un registro?",
@@ -94,7 +104,7 @@ export default function Portada() {
 
       <section aria-labelledby="que-hace" className="mt-10">
         <h2 id="que-hace" className="text-titulo font-black">
-          Tres cosas, bien hechas
+          Lo que hace por tu mascota
         </h2>
         <ul className="mt-4 flex flex-col gap-4">
           {VALORES.map(({ icono: Icono, titulo, texto }) => (

@@ -14,6 +14,11 @@ export async function leerMascota(): Promise<ArrayBuffer> {
   return bytesDe(path.join(process.cwd(), "public", "images", "huellas-mascot.png"));
 }
 
+/** Emblema de marca (aro y pata, sin texto) de public/images. */
+export async function leerEmblema(): Promise<ArrayBuffer> {
+  return bytesDe(path.join(process.cwd(), "public", "images", "peluvet-emblema.png"));
+}
+
 async function bytesDe(ruta: string): Promise<ArrayBuffer> {
   const bytes = await readFile(ruta);
   return bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer;

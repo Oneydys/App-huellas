@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
   appleWebApp: { capable: true, title: MARCA, statusBarStyle: "default" },
   // Declarar el icono aquí evita que el navegador pida /favicon.ico (no existe) y lo registre como error.
-  icons: { icon: [{ url: "/icon.svg", type: "image/svg+xml", sizes: "any" }], apple: "/icons/apple-touch-icon.png" },
+  icons: { icon: [{ url: "/icon.png", type: "image/png", sizes: "512x512" }], apple: "/icons/apple-touch-icon.png" },
 };
 
 export const viewport: Viewport = {

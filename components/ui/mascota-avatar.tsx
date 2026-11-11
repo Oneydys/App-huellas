@@ -50,15 +50,16 @@ export function MascotaAvatar({
   );
 }
 
+/** Logo de marca (aro, pata y nombre en una sola imagen). El nombre va como texto alternativo. */
 export function Logotipo() {
   return (
-    <span className="flex items-center gap-2 text-cuerpo font-black">
-      <span aria-hidden className="grid size-8 place-items-center rounded-chip bg-naranja text-tinta">
-        <svg viewBox="0 0 24 24" className="size-5" fill="currentColor">
-          <path d="M12 21c-1.6-1.4-6-4.3-6-8a3.6 3.6 0 0 1 6-2.6A3.6 3.6 0 0 1 18 13c0 3.7-4.4 6.6-6 8Z" />
-        </svg>
-      </span>
-      {PLANTILLA.nombreApp}
-    </span>
+    <Image
+      src="/images/peluvet-logo.png"
+      alt={PLANTILLA.nombreApp}
+      width={58}
+      height={64}
+      className="h-16 w-auto"
+      priority
+    />
   );
 }

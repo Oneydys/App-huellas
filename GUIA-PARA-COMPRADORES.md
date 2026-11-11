@@ -69,7 +69,8 @@ npm run dev
 | Nombre de la app, título y colores de la barra | `lib/plantilla.ts` (`nombreApp`, `colores`): alimentan el título, el manifest y el `Logotipo` |
 | Descripción del sitio | `app/layout.tsx` |
 | Dominio público | `urlSitio` en `lib/plantilla.ts` (sin él no se genera el mapa del sitio) |
-| Ícono de la pestaña | `app/icon.svg` |
+| Ícono de la pestaña | `app/icon.png` (y los iconos de `public/icons/`) |
+| Logo de marca | `public/images/peluvet-logo.png` (lo muestra `Logotipo`) |
 | Textos legales y datos del responsable | `lib/legal.ts` (reemplaza las marcas `[COMPLETAR]`) |
 | Ícono de la app instalable | `app/manifest.ts` y `public/icons/` |
 | Personajes y su nombre | `lib/personajes.ts` y `public/images/` |
