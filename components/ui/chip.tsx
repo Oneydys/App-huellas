@@ -1,13 +1,15 @@
 import type { HTMLAttributes } from "react";
 import { cn } from "@/lib/cn";
 
-type Tono = "neutro" | "naranja" | "exito" | "aviso" | "error";
+type Tono = "neutro" | "naranja" | "turquesa" | "exito" | "aviso" | "error";
 
 // Los chips llevan su propio fondo papel con borde sutil: el contraste del texto no
 // depende de la tarjeta donde se coloquen.
+// Relleno naranja o turquesa: texto morado (blanco no llega a 4,5:1 sobre ninguno de los dos).
 const TONOS: Record<Tono, string> = {
   neutro: "bg-papel text-suave-texto ring-1 ring-linea",
   naranja: "bg-naranja text-tinta",
+  turquesa: "bg-turquesa text-tinta",
   exito: "bg-papel text-exito ring-1 ring-linea",
   aviso: "bg-papel text-aviso ring-1 ring-aviso/40",
   error: "bg-papel text-error ring-1 ring-error/40",

@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ButtonHTMLAttributes, ComponentProps } from "react";
 import { cn } from "@/lib/cn";
 
-type Variante = "primario" | "secundario" | "fantasma" | "peligro";
+type Variante = "primario" | "turquesa" | "secundario" | "fantasma" | "peligro";
 
 const BASE =
   "inline-flex items-center justify-center gap-2 rounded-control px-6 text-boton font-black transition-[transform,background-color,opacity] duration-[120ms] ease-huellas active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50 disabled:active:scale-100";
@@ -11,6 +11,8 @@ const BASE =
 const VARIANTES: Record<Variante, string> = {
   // El contorno tenue de tinta da forma visible al botón sobre papel (el naranja solo da 1,95:1).
   primario: "min-h-14 bg-naranja text-tinta shadow-boton ring-1 ring-tinta/25 hover:bg-naranja-hondo max-[479px]:w-full",
+  // Turquesa de marca con texto morado (5,3:1). El blanco sobre turquesa no se lee.
+  turquesa: "min-h-12 bg-turquesa text-tinta ring-1 ring-tinta/15 hover:brightness-95",
   secundario: "min-h-12 bg-hundido text-tinta hover:bg-fondo",
   fantasma: "min-h-11 bg-transparent text-tinta underline-offset-4 hover:underline",
   peligro: "min-h-12 border-2 border-error bg-papel text-error hover:bg-hundido",

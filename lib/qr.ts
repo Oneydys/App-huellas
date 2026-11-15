@@ -4,7 +4,7 @@ import { IDS_PERSONAJE } from "./personajes";
 import { esMarcador, PLANTILLA } from "./plantilla";
 
 /** Colores del QR: tinta sobre papel. Son los tokens de app/globals.css (lo comprueba lib/qr.test.ts). */
-export const COLORES_QR = { oscuro: "#241d45", claro: "#fffdfb" } as const;
+export const COLORES_QR = { oscuro: "#241d45", claro: "#ffffff" } as const;
 
 /**
  * Lo único que viaja en el código QR: lo que identifica a la mascota.

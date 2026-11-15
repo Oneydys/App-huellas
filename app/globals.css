@@ -1,12 +1,15 @@
 @import "tailwindcss";
 
-/* Identidad visual aprobada. No cambies paleta, tipografía ni radios. */
+/* Identidad visual oficial de Peluvet (aprobada por el dueño). Tipografía y radios sin cambios. */
 @theme {
   --font-sans: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
 
-  --color-fondo: #ffe0c8;
-  --color-papel: #fffdfb;
-  --color-hundido: #fff0d9;
+  /* Fondo general: crema. Tarjetas y superficies: blanco. */
+  --color-fondo: #fffdfb;
+  --color-papel: #ffffff;
+  /* Superficie secundaria: crema-turquesa muy suave. */
+  --color-hundido: #eff9f8;
+  /* Morado oscuro: títulos y texto importante. Sobre crema, blanco, naranja y turquesa supera 5:1. */
   --color-tinta: #241d45;
   /* Gris lavanda de la ficha: solo texto grande, íconos y decoración (3,9:1 sobre papel). */
   --color-suave: #817d8e;
@@ -15,7 +18,10 @@
   --color-naranja: #ffa51f;
   --color-naranja-claro: #ffb536;
   --color-naranja-hondo: #ff9619;
+  /* Turquesa de marca: fondos y decoración. Blanco sobre él no se lee (3,0:1); el texto va en morado. */
   --color-turquesa: #16a6a8;
+  /* Turquesa para texto e íconos pequeños sobre fondo claro: 5,0:1 sobre blanco. */
+  --color-turquesa-texto: #0e7c7e;
   --color-linea: #efd0af;
   --color-exito: #237a48;
   --color-error: #b93b3b;
@@ -25,7 +31,8 @@
   --radius-control: 22px;
   --radius-chip: 14px;
 
-  --shadow-calida: 0 10px 25px rgba(112, 77, 34, 0.1);
+  /* Tarjetas: borde cálido fino (1 px) y sombra suave. */
+  --shadow-calida: 0 0 0 1px rgba(239, 208, 175, 0.6), 0 10px 25px rgba(112, 77, 34, 0.08);
   --shadow-boton: 0 10px 22px rgba(227, 157, 44, 0.35);
   --shadow-marco: 0 20px 55px rgba(156, 98, 45, 0.2);
 
@@ -55,7 +62,7 @@ html {
 body {
   min-height: 100dvh;
   background:
-    radial-gradient(600px 360px at 50% 0, #fff4e7, transparent 72%), var(--color-fondo);
+    radial-gradient(600px 360px at 50% 0, var(--color-hundido), transparent 72%), var(--color-fondo);
   color: var(--color-tinta);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -111,7 +118,7 @@ dd {
   background: linear-gradient(
     90deg,
     var(--color-hundido) 25%,
-    #ffe8c9 50%,
+    #ddf1ef 50%,
     var(--color-hundido) 75%
   );
   background-size: 200% 100%;
