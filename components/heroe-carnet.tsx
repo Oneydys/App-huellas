@@ -26,6 +26,15 @@ export function HeroeCarnet({ className }: { className?: string }) {
   return (
     <div className={cn("mx-auto w-full max-w-88 md:max-w-none", className)}>
       <div className="relative overflow-hidden rounded-tarjeta bg-gradient-to-br from-naranja-claro to-naranja-hondo pt-14">
+        {/* Fondo fotográfico detrás del dispositivo: decorativo, la información va en el dispositivo. */}
+        <Image
+          src="/images/portada/perro-gato.webp"
+          alt="Perro dorado y gato atigrado tumbados juntos"
+          fill
+          sizes="(max-width: 767px) 100vw, 480px"
+          className="object-cover object-center"
+          priority
+        />
         <Huella className="-left-2 top-[18%] size-16 -rotate-12" />
         <Huella className="-right-3 top-[46%] size-14 rotate-12" />
         <Huella className="left-[6%] top-[68%] size-12 -rotate-6" />
