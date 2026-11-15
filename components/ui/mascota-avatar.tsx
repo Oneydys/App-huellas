@@ -44,7 +44,7 @@ export function MascotaAvatar({
       priority={priority}
       // Sin prioridad, la imagen se carga ya: son pequeñas y casi siempre están en la primera pantalla.
       loading={priority ? undefined : "eager"}
-      className={cn("object-contain drop-shadow-[0_14px_10px_rgba(154,86,30,0.35)]", className)}
+      className={cn("object-contain drop-shadow-[0_14px_10px_rgba(36,29,69,0.25)]", className)}
       style={{ width: tamano, height: tamano }}
     />
   );

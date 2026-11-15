@@ -74,7 +74,7 @@ export async function generarImagenCarnet(
   const w = ANCHO - 120;
   const h = ALTO - 120;
   ctx.save();
-  ctx.shadowColor = "rgba(112,77,34,0.22)";
+  ctx.shadowColor = "rgba(36,29,69,0.22)";
   ctx.shadowBlur = 50;
   ctx.shadowOffsetY = 20;
   ctx.fillStyle = c.papel;

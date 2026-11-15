@@ -16,8 +16,8 @@
   /* Mismo tono, más oscuro, para texto pequeño: cumple AA (5,4:1 sobre papel). */
   --color-suave-texto: #6b6779;
   --color-naranja: #ffa51f;
-  --color-naranja-claro: #ffb536;
-  --color-naranja-hondo: #ff9619;
+  --color-naranja-claro: #ffa51f;
+  --color-naranja-hondo: #ffa51f;
   /* Turquesa de marca: fondos y decoración. Blanco sobre él no se lee (3,0:1); el texto va en morado. */
   --color-turquesa: #16a6a8;
   /* Turquesa para texto e íconos pequeños sobre fondo claro: 5,0:1 sobre blanco. */
@@ -32,9 +32,9 @@
   --radius-chip: 14px;
 
   /* Tarjetas: borde cálido fino (1 px) y sombra suave. */
-  --shadow-calida: 0 0 0 1px rgba(239, 208, 175, 0.6), 0 10px 25px rgba(112, 77, 34, 0.08);
-  --shadow-boton: 0 10px 22px rgba(227, 157, 44, 0.35);
-  --shadow-marco: 0 20px 55px rgba(156, 98, 45, 0.2);
+  --shadow-calida: 0 0 0 1px rgba(239, 208, 175, 0.6), 0 10px 25px rgba(36, 29, 69, 0.08);
+  --shadow-boton: 0 10px 22px rgba(255, 165, 31, 0.35);
+  --shadow-marco: 0 20px 55px rgba(36, 29, 69, 0.2);
 
   --ease-huellas: cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -118,7 +118,7 @@ dd {
   background: linear-gradient(
     90deg,
     var(--color-hundido) 25%,
-    #ddf1ef 50%,
+    var(--color-papel) 50%,
     var(--color-hundido) 75%
   );
   background-size: 200% 100%;

@@ -36,7 +36,7 @@ export function SinMascota() {
             height={1149}
             sizes="220px"
             priority
-            className="mx-auto mt-4 h-auto w-56 drop-shadow-[0_16px_12px_rgba(154,86,30,0.4)]"
+            className="mx-auto mt-4 h-auto w-56 drop-shadow-[0_16px_12px_rgba(36,29,69,0.3)]"
           />
         </section>
       </Aparece>

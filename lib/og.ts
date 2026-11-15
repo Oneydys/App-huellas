@@ -44,7 +44,7 @@ export const COLOR_OG = {
   hundido: "#eff9f8",
   tinta: "#241d45",
   suave: "#6b6779",
-  naranjaClaro: "#ffb536",
-  naranjaHondo: "#ff9619",
+  naranjaClaro: "#ffa51f",
+  naranjaHondo: "#ffa51f",
   naranja: "#ffa51f",
 } as const;

@@ -10,7 +10,7 @@ const BASE =
 // Alturas del programa: CTA principal 56 px (ancho completo bajo 480 px), secundario 48 px, terciario al menos 44 px.
 const VARIANTES: Record<Variante, string> = {
   // El contorno tenue de tinta da forma visible al botón sobre papel (el naranja solo da 1,95:1).
-  primario: "min-h-14 bg-naranja text-tinta shadow-boton ring-1 ring-tinta/25 hover:bg-naranja-hondo max-[479px]:w-full",
+  primario: "min-h-14 bg-naranja text-tinta shadow-boton ring-1 ring-tinta/25 hover:brightness-95 max-[479px]:w-full",
   // Turquesa de marca con texto morado (5,3:1). El blanco sobre turquesa no se lee.
   turquesa: "min-h-12 bg-turquesa text-tinta ring-1 ring-tinta/15 hover:brightness-95",
   secundario: "min-h-12 bg-hundido text-tinta hover:bg-fondo",

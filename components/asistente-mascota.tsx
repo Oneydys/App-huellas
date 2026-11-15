@@ -258,7 +258,7 @@ export function AsistenteMascota({
                     height={1149}
                     priority
                     sizes="(max-width: 440px) calc(100vw - 96px), 344px"
-                    className="relative h-auto w-full drop-shadow-[0_14px_10px_rgba(154,86,30,0.35)]"
+                    className="relative h-auto w-full drop-shadow-[0_14px_10px_rgba(36,29,69,0.25)]"
                   />
                 </div>
               </div>
