@@ -15,7 +15,7 @@ export const PLANTILLA = {
   urlSitio: "[COMPLETAR: dominio del sitio, p. ej. https://tu-dominio.com]",
 
   /** Colores de la app instalable y de la barra del navegador. Deben coincidir con los tokens de app/globals.css. */
-  colores: { tema: "#f5a04e", fondo: "#fdf9f6" },
+  colores: { tema: "#e89d5c", fondo: "#f9f2e7" },
 
   /** Mientras sea true, la app avisa que cobros, cuentas y avisos son simulaciones locales. */
   modoSimulacion: true,

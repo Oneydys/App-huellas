@@ -5,23 +5,23 @@
   --font-sans: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
 
   /* Fondo general: crema. Tarjetas y superficies: blanco. */
-  --color-fondo: #fdf9f6;
-  --color-papel: #ffffff;
+  --color-fondo: #f9f2e7;
+  --color-papel: #fafafa;
   /* Superficie secundaria: crema-turquesa muy suave. */
-  --color-hundido: #f6e9df;
+  --color-hundido: #ece8f4;
   /* Morado oscuro: títulos y texto importante. Sobre crema, blanco, naranja y turquesa supera 5:1. */
-  --color-tinta: #3b2d5c;
+  --color-tinta: #3b3b45;
   /* Gris lavanda de la ficha: solo texto grande, íconos y decoración (3,9:1 sobre papel). */
-  --color-suave: #817d8e;
+  --color-suave: #8a76ae;
   /* Mismo tono, más oscuro, para texto pequeño: cumple AA (5,4:1 sobre papel). */
-  --color-suave-texto: #6b6779;
-  --color-naranja: #f5a04e;
-  --color-naranja-claro: #f5a04e;
-  --color-naranja-hondo: #f5a04e;
+  --color-suave-texto: #5e5e68;
+  --color-naranja: #e89d5c;
+  --color-naranja-claro: #e89d5c;
+  --color-naranja-hondo: #e89d5c;
   /* Turquesa de marca: fondos y decoración. Blanco sobre él no se lee (3,0:1); el texto va en morado. */
-  --color-turquesa: #8fd0c4;
+  --color-turquesa: #7ab5ac;
   /* Turquesa para texto e íconos pequeños sobre fondo claro: 5,0:1 sobre blanco. */
-  --color-turquesa-texto: #2c7a72;
+  --color-turquesa-texto: #2f6b63;
   --color-linea: #efd0af;
   --color-exito: #237a48;
   --color-error: #b93b3b;

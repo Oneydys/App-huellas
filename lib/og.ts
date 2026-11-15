@@ -39,12 +39,12 @@ export function mascotaOg(png: ArrayBuffer): string {
 
 /** Colores de la identidad para las imágenes (los mismos tokens de app/globals.css). */
 export const COLOR_OG = {
-  fondo: "#fdf9f6",
-  papel: "#ffffff",
-  hundido: "#f6e9df",
-  tinta: "#3b2d5c",
-  suave: "#6b6779",
-  naranjaClaro: "#f5a04e",
-  naranjaHondo: "#f5a04e",
-  naranja: "#f5a04e",
+  fondo: "#f9f2e7",
+  papel: "#fafafa",
+  hundido: "#ece8f4",
+  tinta: "#3b3b45",
+  suave: "#5e5e68",
+  naranjaClaro: "#e89d5c",
+  naranjaHondo: "#e89d5c",
+  naranja: "#e89d5c",
 } as const;
