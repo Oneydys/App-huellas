@@ -2,9 +2,8 @@
 
 import { Chip } from "@/components/ui/chip";
 import { MascotaAvatar } from "@/components/ui/mascota-avatar";
-import { describirEdad, razaOMestizo, type Mascota } from "@/lib/mascota";
+import { dijeDe, describirEdad, razaOMestizo, type Mascota } from "@/lib/mascota";
 import { nombreDePais } from "@/lib/paises";
-import { personajePorId } from "@/lib/personajes";
 
 /** Portada de la mascota: escenario naranja con el personaje en primer plano. El nombre se ve siempre. */
 export function TarjetaCarnet({
@@ -16,7 +15,6 @@ export function TarjetaCarnet({
   hoy: string;
   etiqueta?: string;
 }) {
-  const personaje = personajePorId(mascota.personaje);
   const nombreLargo = mascota.nombre.length > 6;
   return (
     <section
@@ -49,7 +47,7 @@ export function TarjetaCarnet({
         <p className="mt-2 text-cuerpo font-bold">
           {/* El dije va en turquesa, el único color secundario de la marca, para que se distinga del collar. Punto en línea: así el texto se equilibra. */}
           <span aria-hidden className="mr-2 inline-block size-3 rounded-full bg-turquesa align-middle ring-2 ring-papel" />
-          Dije: {personaje.dije}
+          Dije: {dijeDe(mascota)}
         </p>
         {mascota.origen === "demo" && (
           <Chip data-captura="oculto" className="mt-2 self-start">

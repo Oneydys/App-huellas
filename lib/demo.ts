@@ -24,6 +24,7 @@ export function crearDemo(hoy: FechaISO): DatosDemo {
     foto: FOTO_DEMO_MILO,
     especie: "gato",
     personaje: "europeo",
+    dije: "Huella turquesa",
     nacimiento: sumarMeses(hoy, -36),
     nacimientoAproximado: true,
     raza: "",

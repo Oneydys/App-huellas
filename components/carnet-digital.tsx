@@ -8,9 +8,8 @@ import { Chip } from "@/components/ui/chip";
 import { MascotaAvatar } from "@/components/ui/mascota-avatar";
 import type { DatosCarnet } from "@/lib/compartir";
 import { reducirFoto } from "@/lib/foto";
-import { codigoMascota, type Mascota } from "@/lib/mascota";
+import { codigoMascota, dijeDe, type Mascota } from "@/lib/mascota";
 import { PLANTILLA } from "@/lib/plantilla";
-import { personajePorId } from "@/lib/personajes";
 import { datosDeIdentificacion } from "@/lib/qr";
 import { useHuellas } from "@/lib/store/hooks";
 
@@ -19,7 +18,6 @@ export function CarnetDigital({ mascota, datos, alCompartir }: { mascota: Mascot
   const { despachar } = useHuellas();
   const { mostrar } = useAvisos();
   const entrada = useRef<HTMLInputElement>(null);
-  const personaje = personajePorId(mascota.personaje);
 
   async function alElegirFoto(e: React.ChangeEvent<HTMLInputElement>) {
     const archivo = e.target.files?.[0];
@@ -108,7 +106,7 @@ export function CarnetDigital({ mascota, datos, alCompartir }: { mascota: Mascot
         </div>
 
         <p className="mt-3 text-cuerpo text-suave-texto">
-          Dije: {personaje.dije}. {PLANTILLA.textos.avisoNoVeterinario}
+          Dije: {dijeDe(mascota)}. {PLANTILLA.textos.avisoNoVeterinario}
         </p>
       </div>
     </article>

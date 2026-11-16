@@ -3,6 +3,7 @@ import {
   codigoMascota,
   crearMascota,
   describirEdad,
+  dijeDe,
   edadEnMeses,
   etapaDeVida,
   nacimientoDesdeEdad,
@@ -21,6 +22,17 @@ const datos: DatosMascota = {
   pais: "CO",
   prioridad: "vacuna",
 };
+
+describe("dijeDe", () => {
+  it("usa el dije propio de la mascota cuando lo tiene", () => {
+    expect(dijeDe({ dije: "Huella turquesa", personaje: "europeo" })).toBe("Huella turquesa");
+  });
+
+  it("usa el dije del personaje si la mascota no tiene uno propio", () => {
+    expect(dijeDe({ personaje: "europeo" })).toBe("Corazón turquesa");
+    expect(dijeDe({ dije: "   ", personaje: "europeo" })).toBe("Corazón turquesa");
+  });
+});
 
 describe("mascota", () => {
   it("crea una mascota válida y limpia el nombre", () => {

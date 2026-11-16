@@ -48,6 +48,8 @@ export const mascotaSchema = z
     nacimiento: fechaISOSchema,
     nacimientoAproximado: z.boolean({ error: "Indica si la fecha es aproximada." }),
     raza: z.string({ error: "Revisa la raza." }).trim().max(40, { error: "La raza admite hasta 40 caracteres." }),
+    /** Dije propio de la mascota. Si falta, se usa el del personaje. */
+    dije: z.string().trim().max(40, { error: "El dije admite hasta 40 caracteres." }).optional(),
     pais: z.enum(CODIGOS_PAIS, { error: "Elige el país donde vive." }),
     prioridad: z.enum(PRIORIDADES, { error: "Elige un cuidado prioritario." }),
     creadaEn: fechaISOSchema,
@@ -61,6 +63,11 @@ export const mascotaSchema = z
   });
 
 export type Mascota = z.infer<typeof mascotaSchema>;
+
+/** Dije que muestra el carnet: el propio de la mascota o, si no tiene, el del personaje. */
+export function dijeDe(m: Pick<Mascota, "dije" | "personaje">): string {
+  return m.dije?.trim() || personajePorId(m.personaje).dije;
+}
 
 export type DatosMascota = Omit<Mascota, "id" | "creadaEn" | "origen"> & { origen?: Origen };
 
