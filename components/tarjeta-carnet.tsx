@@ -44,11 +44,13 @@ export function TarjetaCarnet({
           {razaOMestizo(mascota)} · {describirEdad(mascota, hoy)}
         </p>
         <p className="text-cuerpo font-bold">{nombreDePais(mascota.pais)}</p>
-        <p className="mt-2 text-cuerpo font-bold">
-          {/* El dije va en turquesa, el único color secundario de la marca, para que se distinga del collar. Punto en línea: así el texto se equilibra. */}
-          <span aria-hidden className="mr-2 inline-block size-3 rounded-full bg-turquesa align-middle ring-2 ring-papel" />
-          Dije: {dijeDe(mascota)}
-        </p>
+        {dijeDe(mascota) && (
+          <p className="mt-2 text-cuerpo font-bold">
+            {/* El dije va en turquesa, el único color secundario de la marca, para que se distinga del collar. Punto en línea: así el texto se equilibra. */}
+            <span aria-hidden className="mr-2 inline-block size-3 rounded-full bg-turquesa align-middle ring-2 ring-papel" />
+            Dije: {dijeDe(mascota)}
+          </p>
+        )}
         {mascota.origen === "demo" && (
           <Chip data-captura="oculto" className="mt-2 self-start">
             DEMO

@@ -37,6 +37,7 @@ export function crearDemo(hoy: FechaISO): DatosDemo {
     id: `${PREFIJO_DEMO}max`,
     nombre: "Toby",
     foto: FOTO_DEMO_TOBY,
+    dije: "",
     especie: "perro",
     personaje: "beagle",
     nacimiento: sumarMeses(hoy, -24),

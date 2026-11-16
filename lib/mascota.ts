@@ -64,9 +64,12 @@ export const mascotaSchema = z
 
 export type Mascota = z.infer<typeof mascotaSchema>;
 
-/** Dije que muestra el carnet: el propio de la mascota o, si no tiene, el del personaje. */
+/**
+ * Dije que muestra el carnet. Sin campo `dije` (datos anteriores), el del personaje. Con `dije` vacío, la mascota
+ * no tiene dije y el carnet no lo muestra.
+ */
 export function dijeDe(m: Pick<Mascota, "dije" | "personaje">): string {
-  return m.dije?.trim() || personajePorId(m.personaje).dije;
+  return m.dije === undefined ? personajePorId(m.personaje).dije : m.dije.trim();
 }
 
 export type DatosMascota = Omit<Mascota, "id" | "creadaEn" | "origen"> & { origen?: Origen };

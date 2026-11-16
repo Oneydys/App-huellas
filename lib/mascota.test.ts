@@ -28,9 +28,13 @@ describe("dijeDe", () => {
     expect(dijeDe({ dije: "Huella turquesa", personaje: "europeo" })).toBe("Huella turquesa");
   });
 
-  it("usa el dije del personaje si la mascota no tiene uno propio", () => {
+  it("usa el dije del personaje en datos anteriores, sin campo dije", () => {
     expect(dijeDe({ personaje: "europeo" })).toBe("Corazón turquesa");
-    expect(dijeDe({ dije: "   ", personaje: "europeo" })).toBe("Corazón turquesa");
+  });
+
+  it("no muestra dije cuando la mascota lo tiene vacío", () => {
+    expect(dijeDe({ dije: "", personaje: "beagle" })).toBe("");
+    expect(dijeDe({ dije: "   ", personaje: "beagle" })).toBe("");
   });
 });
 

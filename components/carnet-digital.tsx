@@ -106,7 +106,8 @@ export function CarnetDigital({ mascota, datos, alCompartir }: { mascota: Mascot
         </div>
 
         <p className="mt-3 text-cuerpo text-suave-texto">
-          Dije: {dijeDe(mascota)}. {PLANTILLA.textos.avisoNoVeterinario}
+          {dijeDe(mascota) && `Dije: ${dijeDe(mascota)}. `}
+          {PLANTILLA.textos.avisoNoVeterinario}
         </p>
       </div>
     </article>
