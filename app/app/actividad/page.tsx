@@ -87,7 +87,7 @@ export default function ActividadDiaria() {
               <div className="h-full rounded-full bg-turquesa transition-[width] duration-300 ease-huellas" style={{ width: `${Math.round(progreso * 100)}%` }} />
             </div>
             <p className="text-etiqueta font-extrabold text-suave-texto">
-              Objetivo de referencia: {objetivo} min. Lo eliges tú en Mascotas y no es una recomendación veterinaria.
+              Objetivo de referencia: {objetivo} min. Lo eliges tú en Mascotas: es una referencia configurable, no una recomendación veterinaria ni una obligación.
             </p>
             <Boton variante="turquesa" onClick={() => abrir({ tipo: "actividad" })}>
               Registrar actividad

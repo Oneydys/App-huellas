@@ -114,7 +114,7 @@ test("Actividad de hoy abre la sección, registra un paseo y el historial lo mue
   // Registrar un paseo con distancia: la distancia solo se pide en los paseos.
   await page.getByRole("button", { name: "Registrar actividad" }).click();
   await expect(page.getByLabel("Distancia en km (opcional)")).toHaveCount(0);
-  await page.getByLabel("Tipo de actividad").selectOption("paseo");
+  await page.getByRole("radio", { name: "Paseo", exact: true }).click();
   await expect(page.getByLabel("Distancia en km (opcional)")).toBeVisible();
   await page.getByLabel("Minutos", { exact: true }).fill("25");
   await page.getByLabel("Distancia en km (opcional)").fill("1,2");
@@ -124,6 +124,37 @@ test("Actividad de hoy abre la sección, registra un paseo y el historial lo mue
   await page.goto("/app/actividad");
   await expect(page.getByRole("heading", { name: "Historial de actividades" })).toBeVisible();
   await expect(page.getByText("Paseo", { exact: true })).toBeVisible();
+});
+
+test("un gato ve sus actividades, el paseo con arnés es opcional y el registro se guarda", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Ver con datos de demostración" }).click();
+  await expect(page).toHaveURL(/\/paywall$/);
+  await page.getByRole("button", { name: "Seguir con el plan gratis" }).click();
+  await page.getByLabel("Tu correo").fill("prueba@ejemplo.com");
+  await page.getByRole("button", { name: "Entrar a la app" }).click();
+  await expect(page).toHaveURL(/\/app$/);
+
+  // Milo es un gato: sus actividades son las de gato, sin paseo obligatorio.
+  await page.goto("/app/actividad");
+  await page.getByRole("button", { name: "Registrar actividad" }).click();
+  await expect(page.getByRole("radio", { name: "Juego en casa" })).toBeVisible();
+  await expect(page.getByRole("radio", { name: "Exploración en casa" })).toBeVisible();
+  await expect(page.getByRole("radio", { name: "Paseo con arnés (opcional)" })).toBeVisible();
+  await expect(page.getByRole("radio", { name: "Paseo", exact: true })).toHaveCount(0);
+  await expect(page.getByRole("radio", { name: "Ejercicio" })).toHaveCount(0);
+
+  // El paseo con arnés se explica como voluntario y no pide distancia salvo que sea un paseo.
+  await page.getByRole("radio", { name: "Paseo con arnés (opcional)" }).click();
+  await expect(page.getByText("El paseo con arnés es voluntario.")).toBeVisible();
+
+  await page.getByRole("radio", { name: "Juego en casa" }).click();
+  await expect(page.getByLabel("Distancia en km (opcional)")).toHaveCount(0);
+  await page.getByLabel("Minutos", { exact: true }).fill("12");
+  await page.getByRole("button", { name: "Guardar registro" }).click();
+
+  await page.goto("/app/actividad");
+  await expect(page.getByText("Juego en casa", { exact: true })).toBeVisible();
 });
 
 test("el onboarding muestra el carnet listo tras el nombre, responde dudas y lleva a planes sin errores", async ({ page }) => {

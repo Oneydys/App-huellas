@@ -134,7 +134,7 @@ function FormularioEdicion({ mascota, hoy, alGuardar }: { mascota: Mascota; hoy:
         inputMode="numeric"
         maxLength={3}
         error={errores.objetivoMinutos}
-        ayuda="Es una referencia que tú eliges, no una recomendación veterinaria. Si lo dejas vacío, usamos 30 minutos."
+        ayuda="Es una referencia configurable que tú eliges, no una recomendación veterinaria ni una obligación. Si lo dejas vacío, usamos 30 minutos."
         onChange={(e) => setObjetivo(e.target.value)}
       />
       <Selector etiqueta="País" value={pais} onChange={(e) => setPais(e.target.value as CodigoPais)}>

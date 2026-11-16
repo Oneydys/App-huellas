@@ -1,6 +1,6 @@
 "use client";
 
-import { Check } from "lucide-react";
+import { Activity, Check } from "lucide-react";
 import { useState } from "react";
 import { GraficoPeso } from "@/components/grafico-peso";
 import { IconoTipo } from "@/components/iconos";
@@ -12,12 +12,16 @@ import { AreaTexto, Campo, Selector } from "@/components/ui/campo";
 import { describirDias, formatearFecha } from "@/lib/fechas";
 import { cn } from "@/lib/cn";
 import {
+  actividadesPara,
+  admiteDistancia,
   crearRegistro,
+  ETIQUETA_ACTIVIDAD,
   ETIQUETA_TIPO,
   historialDePeso,
   parsearKg,
   TIPOS_REGISTRO,
   type Registro,
+  type TipoActividad,
   type TipoRegistro,
 } from "@/lib/registros";
 import { nuevoId } from "@/lib/store/hooks";
@@ -224,12 +228,44 @@ export function FormularioRegistro({ tipo: tipoParam = null, cuidadoId = null, e
         )}
         {tipo === "actividad" && (
           <>
-            <Selector data-autofocus etiqueta="Tipo de actividad" value={v("tipoActividad")} error={errores.tipoActividad} onChange={poner("tipoActividad")}>
-              <option value="">Elige una opción</option>
-              <option value="paseo">Paseo</option>
-              <option value="juego">Juego</option>
-              <option value="ejercicio">Ejercicio</option>
-            </Selector>
+            <fieldset className="flex flex-col gap-2">
+              <legend className="mb-2 text-cuerpo font-black">
+                {mascota.especie === "gato" ? "¿Qué hizo hoy?" : "¿Qué tipo de actividad fue?"}
+              </legend>
+              <div role="radiogroup" aria-label="Tipo de actividad" className="grid grid-cols-1 gap-2 min-[430px]:grid-cols-2">
+                {actividadesPara(mascota.especie).map((t) => {
+                  const activo = v("tipoActividad") === t;
+                  return (
+                    <button
+                      key={t}
+                      type="button"
+                      role="radio"
+                      aria-checked={activo}
+                      onClick={() => {
+                        setValores((prev) => ({ ...prev, tipoActividad: t }));
+                        setErrores((prev) => ({ ...prev, tipoActividad: "" }));
+                      }}
+                      data-valor={t}
+                      className={cn(
+                        "flex min-h-14 items-center gap-3 rounded-control border-2 px-4 text-left text-cuerpo font-black transition-[border-color,background-color] duration-[120ms] ease-huellas active:scale-[0.98]",
+                        activo ? "border-naranja bg-hundido" : "border-linea bg-papel",
+                      )}
+                    >
+                      <span className={cn("grid size-9 shrink-0 place-items-center rounded-full", activo ? "bg-naranja text-tinta" : "bg-hundido text-tinta")}>
+                        <Activity aria-hidden className="size-4" />
+                      </span>
+                      {ETIQUETA_ACTIVIDAD[t]}
+                    </button>
+                  );
+                })}
+              </div>
+              {errores.tipoActividad && <p role="alert" className="text-etiqueta font-extrabold text-error">{errores.tipoActividad}</p>}
+              {v("tipoActividad") === "paseo-arnes" && (
+                <p className="rounded-control bg-hundido p-3 text-cuerpo text-suave-texto">
+                  El paseo con arnés es voluntario. Tu gato no necesita salir a pasear para estar bien: úsalo solo si le gusta.
+                </p>
+              )}
+            </fieldset>
             <Campo
               enterKeyHint="done"
               etiqueta="Minutos"
@@ -241,7 +277,7 @@ export function FormularioRegistro({ tipo: tipoParam = null, cuidadoId = null, e
               error={errores.minutos}
               onChange={poner("minutos")}
             />
-            {v("tipoActividad") === "paseo" && (
+            {admiteDistancia(v("tipoActividad") as TipoActividad) && (
               <Campo
                 etiqueta="Distancia en km (opcional)"
                 value={v("distanciaKm")}
