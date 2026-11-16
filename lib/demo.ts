@@ -94,7 +94,18 @@ export function crearDemo(hoy: FechaISO): DatosDemo {
   );
   const cuidados = programado.ok ? [programado.cuidado] : [];
 
-  return { mascotas: [luna, max], registros, cuidados };
+  // Actividad de demostración: separada de los registros reales por origen "demo" y su id.
+  const actividades: Registro[] = [
+    reg({ id: "demo-a1", mascotaId: max.id, tipo: "actividad", tipoActividad: "paseo", minutos: 35, distanciaKm: 2.1, fecha: hoy }),
+    reg({ id: "demo-a2", mascotaId: max.id, tipo: "actividad", tipoActividad: "paseo", minutos: 40, distanciaKm: 2.8, fecha: sumarDias(hoy, -1) }),
+    reg({ id: "demo-a3", mascotaId: max.id, tipo: "actividad", tipoActividad: "ejercicio", minutos: 20, fecha: sumarDias(hoy, -2) }),
+    reg({ id: "demo-a4", mascotaId: max.id, tipo: "actividad", tipoActividad: "juego", minutos: 10, fecha: sumarDias(hoy, -5) }),
+    reg({ id: "demo-a5", mascotaId: luna.id, tipo: "actividad", tipoActividad: "juego", minutos: 15, fecha: hoy }),
+    reg({ id: "demo-a6", mascotaId: luna.id, tipo: "actividad", tipoActividad: "juego", minutos: 10, fecha: sumarDias(hoy, -1) }),
+    reg({ id: "demo-a7", mascotaId: luna.id, tipo: "actividad", tipoActividad: "juego", minutos: 20, fecha: sumarDias(hoy, -4) }),
+  ];
+
+  return { mascotas: [luna, max], registros: [...registros, ...actividades], cuidados };
 }
 
 export function esDemoId(id: string): boolean {

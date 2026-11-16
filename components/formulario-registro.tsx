@@ -40,6 +40,14 @@ function armarDatos(tipo: TipoRegistro, v: Valores, mascotaId: string): Record<s
       return { ...comun, texto: v.texto };
     case "medicamento":
       return { ...comun, nombre: v.nombre, dosis: v.dosis, fin: v.fin || undefined, nota: v.nota };
+    case "actividad":
+      return {
+        ...comun,
+        tipoActividad: v.tipoActividad || undefined,
+        minutos: v.minutos ? Number(v.minutos) : undefined,
+        distanciaKm: v.distanciaKm ? Number(v.distanciaKm.replace(",", ".")) : undefined,
+        nota: v.nota,
+      };
   }
 }
 
@@ -146,7 +154,7 @@ export function FormularioRegistro({ tipo: tipoParam = null, cuidadoId = null, e
       </div>
 
       <div role="radiogroup" aria-label="Tipo de registro" className="grid grid-cols-2 gap-2">
-        {TIPOS_REGISTRO.map((t) => {
+        {TIPOS_REGISTRO.filter((t) => t !== "actividad").map((t) => {
           const activo = t === tipo;
           return (
             <button

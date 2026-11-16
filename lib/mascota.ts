@@ -50,6 +50,13 @@ export const mascotaSchema = z
     raza: z.string({ error: "Revisa la raza." }).trim().max(40, { error: "La raza admite hasta 40 caracteres." }),
     /** Dije propio de la mascota. Si falta, se usa el del personaje. */
     dije: z.string().trim().max(40, { error: "El dije admite hasta 40 caracteres." }).optional(),
+    /** Referencia de minutos de actividad al día, configurable por el propietario. No es una recomendación veterinaria. */
+    objetivoMinutos: z
+      .number({ error: "Escribe el objetivo en minutos." })
+      .int({ error: "El objetivo debe ser un número entero." })
+      .min(5, { error: "El objetivo mínimo es de 5 minutos." })
+      .max(300, { error: "El objetivo máximo es de 300 minutos." })
+      .optional(),
     pais: z.enum(CODIGOS_PAIS, { error: "Elige el país donde vive." }),
     prioridad: z.enum(PRIORIDADES, { error: "Elige un cuidado prioritario." }),
     creadaEn: fechaISOSchema,
@@ -68,6 +75,13 @@ export type Mascota = z.infer<typeof mascotaSchema>;
  * Dije que muestra el carnet. Sin campo `dije` (datos anteriores), el del personaje. Con `dije` vacío, la mascota
  * no tiene dije y el carnet no lo muestra.
  */
+/** Valor inicial de la referencia diaria de actividad (editable por mascota). No es una recomendación veterinaria. */
+export const OBJETIVO_ACTIVIDAD_INICIAL = 30;
+
+export function objetivoDe(m: Pick<Mascota, "objetivoMinutos">): number {
+  return m.objetivoMinutos ?? OBJETIVO_ACTIVIDAD_INICIAL;
+}
+
 export function dijeDe(m: Pick<Mascota, "dije" | "personaje">): string {
   return m.dije === undefined ? personajePorId(m.personaje).dije : m.dije.trim();
 }

@@ -9,8 +9,18 @@ export const TIPOS_REGISTRO = [
   "visita",
   "observacion",
   "medicamento",
+  "actividad",
 ] as const;
 export type TipoRegistro = (typeof TIPOS_REGISTRO)[number];
+
+/** Tipos de actividad diaria. Sirven para perros y gatos. */
+export const TIPOS_ACTIVIDAD = ["paseo", "juego", "ejercicio"] as const;
+export type TipoActividad = (typeof TIPOS_ACTIVIDAD)[number];
+export const ETIQUETA_ACTIVIDAD: Record<TipoActividad, string> = {
+  paseo: "Paseo",
+  juego: "Juego",
+  ejercicio: "Ejercicio",
+};
 
 export const ETIQUETA_TIPO: Record<TipoRegistro, string> = {
   vacuna: "Vacuna",
@@ -19,6 +29,7 @@ export const ETIQUETA_TIPO: Record<TipoRegistro, string> = {
   visita: "Visita veterinaria",
   observacion: "Observación",
   medicamento: "Medicamento",
+  actividad: "Actividad",
 };
 
 const texto = (max: number, vacio: string) =>
@@ -81,6 +92,22 @@ export const registroSchema = z.discriminatedUnion("tipo", [
   }),
   z.object({
     ...base,
+    tipo: z.literal("actividad"),
+    tipoActividad: z.enum(TIPOS_ACTIVIDAD, { error: "Elige si fue paseo, juego o ejercicio." }),
+    minutos: z
+      .number({ error: "Escribe cuántos minutos duró." })
+      .int({ error: "Los minutos deben ser un número entero." })
+      .min(1, { error: "Debe durar al menos 1 minuto." })
+      .max(600, { error: "Revisa los minutos: parece demasiado tiempo." }),
+    // Solo tiene sentido en un paseo; si no corresponde, no se pide ni se guarda.
+    distanciaKm: z
+      .number({ error: "Escribe la distancia en kilómetros." })
+      .positive({ error: "La distancia debe ser mayor que cero." })
+      .max(100, { error: "Revisa la distancia: parece demasiado larga." })
+      .optional(),
+  }),
+  z.object({
+    ...base,
     tipo: z.literal("medicamento"),
     nombre: texto(60, "Indica el nombre del medicamento."),
     // Se copia lo que indicó el veterinario; Peluvet nunca sugiere dosis.
@@ -121,6 +148,9 @@ export function crearRegistro(
   }
   if (reg.tipo === "vacuna" && reg.proximaFecha && reg.proximaFecha <= reg.fecha) {
     return { ok: false, errores: { proximaFecha: "La próxima dosis debe ser posterior a esta fecha." } };
+  }
+  if (reg.tipo === "actividad" && reg.distanciaKm !== undefined && reg.tipoActividad !== "paseo") {
+    return { ok: false, errores: { distanciaKm: "La distancia solo se registra en los paseos." } };
   }
   if (reg.tipo === "medicamento" && reg.fin && reg.fin < reg.fecha) {
     return { ok: false, errores: { fin: "La fecha de fin no puede ser anterior al inicio." } };
@@ -188,6 +218,8 @@ export function tituloRegistro(r: Registro): string {
       return r.motivo;
     case "observacion":
       return "Observación";
+    case "actividad":
+      return ETIQUETA_ACTIVIDAD[r.tipoActividad];
     case "medicamento":
       return r.nombre;
   }

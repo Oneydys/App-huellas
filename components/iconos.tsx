@@ -1,4 +1,4 @@
-import { Bug, NotebookPen, Pill, Scale, Stethoscope, Syringe, type LucideIcon } from "lucide-react";
+import { Activity, Bug, NotebookPen, Pill, Scale, Stethoscope, Syringe, type LucideIcon } from "lucide-react";
 import type { TipoRegistro } from "@/lib/registros";
 
 export const ICONOS_TIPO: Record<TipoRegistro, LucideIcon> = {
@@ -8,6 +8,7 @@ export const ICONOS_TIPO: Record<TipoRegistro, LucideIcon> = {
   visita: Stethoscope,
   observacion: NotebookPen,
   medicamento: Pill,
+  actividad: Activity,
 };
 
 export function IconoTipo({ tipo, className }: { tipo: TipoRegistro; className?: string }) {

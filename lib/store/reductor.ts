@@ -8,7 +8,7 @@ import { estadoVacio, type EstadoApp, type Plan } from "./estado";
 export type CambiosMascota = Partial<
   Pick<
     Mascota,
-    "nombre" | "personaje" | "especie" | "nacimiento" | "nacimientoAproximado" | "raza" | "dije" | "pais" | "prioridad" | "foto" | "contacto"
+    "nombre" | "personaje" | "especie" | "nacimiento" | "nacimientoAproximado" | "raza" | "dije" | "objetivoMinutos" | "pais" | "prioridad" | "foto" | "contacto"
   >
 >;
 
