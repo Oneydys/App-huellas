@@ -55,7 +55,7 @@ export function NavInferior() {
             <span
               className={cn(
                 "grid h-8 w-12 place-items-center rounded-chip transition-colors duration-200",
-                activo ? "bg-naranja text-tinta" : "bg-transparent",
+                activo ? "bg-turquesa text-tinta" : "bg-transparent",
               )}
             >
               <Icono aria-hidden className="size-5" />

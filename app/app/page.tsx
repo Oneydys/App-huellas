@@ -52,8 +52,15 @@ export default function Inicio() {
         <SelectorMascota />
       </Aparece>
 
+      {/* Bloque principal: la tarjeta de la mascota sobre una forma turquesa. La foto real irá aquí cuando haya archivos con licencia. */}
       <Aparece>
-        <TarjetaCarnet mascota={mascota} hoy={hoy} />
+        <div className="relative overflow-hidden rounded-tarjeta bg-turquesa/25 p-3">
+          <span aria-hidden className="pointer-events-none absolute -right-10 -top-10 size-40 rounded-full bg-turquesa/50" />
+          <span aria-hidden className="pointer-events-none absolute -bottom-12 -left-8 size-32 rounded-full bg-naranja/25" />
+          <div className="relative">
+            <TarjetaCarnet mascota={mascota} hoy={hoy} />
+          </div>
+        </div>
       </Aparece>
 
       <Aparece className="flex flex-col gap-3">
