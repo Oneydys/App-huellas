@@ -14,7 +14,7 @@ describe("compartir el carnet", () => {
   const datos = datosDelCarnet(luna, demo.registros, propuestas, HOY);
 
   it("redacta los datos del carnet con el estado de vacunas según los registros", () => {
-    expect(datos.nombre).toBe("Luna");
+    expect(datos.nombre).toBe("Milo");
     expect(datos.peso).toBe("4,5 kg");
     expect(datos.vacunas.estado).toMatch(/según tus registros|Próximo|Pasó/);
     expect(datos.codigo).toMatch(/^HU-/);
@@ -22,10 +22,10 @@ describe("compartir el carnet", () => {
 
   it("al compartir solo salen la mascota y la marca: sin peso, vacunas, código, edad ni país", () => {
     const compartible = datosParaCompartir(luna);
-    expect(compartible.nombre).toBe("Luna");
+    expect(compartible.nombre).toBe("Milo");
     expect(compartible.linea).not.toMatch(/años|Colombia|kg|HU-/);
     const texto = textoParaCompartir(compartible, true);
-    expect(texto).toContain("Carnet de Luna (demostración)");
+    expect(texto).toContain("Carnet de Milo (demostración)");
     expect(texto).toContain("no reemplaza a un veterinario");
     expect(texto).not.toMatch(/peso|kg|vacun|código|HU-|años|\+\d|tel/i);
   });

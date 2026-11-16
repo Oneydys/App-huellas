@@ -62,7 +62,7 @@ export function TarjetaCarnet({
         <span aria-hidden className="escenario-personaje absolute -inset-3" />
         <div className="flotar relative">
           {/* Tamaño fluido: en 320 px el personaje mide 120 px y deja sitio al nombre y a los datos (el tamaño inline se sustituye con !). */}
-          <MascotaAvatar personaje={mascota.personaje} tamano={168} priority className="!size-[clamp(120px,36vw,168px)]" />
+          <MascotaAvatar personaje={mascota.personaje} foto={mascota.foto} tamano={168} priority className="!size-[clamp(120px,36vw,168px)]" />
         </div>
       </div>
     </section>

@@ -1,7 +1,6 @@
 "use client";
 
 import { Siren } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { CuidadoDestacado } from "@/components/cuidado";
 import { IconoTipo } from "@/components/iconos";
@@ -53,20 +52,12 @@ export default function Inicio() {
         <SelectorMascota />
       </Aparece>
 
-      {/* Bloque principal: la tarjeta de la mascota sobre una forma turquesa. La foto real irá aquí cuando haya archivos con licencia. */}
+      {/* Bloque principal: la tarjeta de la mascota sobre una forma turquesa. */}
       <Aparece>
         <div className="relative overflow-hidden rounded-tarjeta bg-turquesa/25 p-3">
           <span aria-hidden className="pointer-events-none absolute -right-10 -top-10 size-40 rounded-full bg-turquesa/50" />
           <span aria-hidden className="pointer-events-none absolute -bottom-12 -left-8 size-32 rounded-full bg-naranja/25" />
-          <div className="relative flex flex-col gap-3">
-            <Image
-              src="/images/portada/gato-blanco-gris.webp"
-              alt="Gato blanco y gris con collar turquesa"
-              width={900}
-              height={822}
-              sizes="(max-width: 480px) 100vw, 480px"
-              className="h-40 w-full rounded-tarjeta object-cover object-[50%_30%]"
-            />
+          <div className="relative">
             <TarjetaCarnet mascota={mascota} hoy={hoy} />
           </div>
         </div>

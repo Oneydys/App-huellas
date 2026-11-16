@@ -58,7 +58,7 @@ test("la demo pasa por planes y acceso antes de entrar a la app", async ({ page 
   await page.getByLabel("Tu correo").fill("prueba@ejemplo.com");
   await page.getByRole("button", { name: "Entrar a la app" }).click();
   await expect(page).toHaveURL(/\/app$/);
-  await expect(page.getByRole("heading", { name: "Próximo cuidado de Luna" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Próximo cuidado de Milo" })).toBeVisible();
 });
 
 test("los datos de la demostración siguen después de recargar", async ({ page }) => {
@@ -68,10 +68,10 @@ test("los datos de la demostración siguen después de recargar", async ({ page 
   await page.getByRole("button", { name: "Seguir con el plan gratis" }).click();
   await page.getByLabel("Tu correo").fill("prueba@ejemplo.com");
   await page.getByRole("button", { name: "Entrar a la app" }).click();
-  await expect(page.getByRole("heading", { name: "Próximo cuidado de Luna" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Próximo cuidado de Milo" })).toBeVisible();
 
   await page.reload();
-  await expect(page.getByRole("heading", { name: "Próximo cuidado de Luna" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Próximo cuidado de Milo" })).toBeVisible();
 });
 
 test("precarga el personaje de la mascota guardada antes de que cargue la app", async ({ page }) => {
@@ -83,12 +83,16 @@ test("precarga el personaje de la mascota guardada antes de que cargue la app", 
   await page.getByRole("button", { name: "Entrar a la app" }).click();
   await expect(page).toHaveURL(/\/app$/);
 
+  // Milo tiene foto propia, así que la precarga del personaje corresponde a Max (sin foto).
+  await page.getByRole("button", { name: /Max/ }).first().click();
+  await expect(page.getByRole("heading", { name: "Próximo cuidado de Max" })).toBeVisible();
+
   // La pista de precarga del layout pide el personaje guardado antes de que React cargue la app.
   await page.goto("/app");
   const precargada = await page.evaluate(() =>
     [...document.querySelectorAll('link[rel="preload"][as="image"]')].map((l) => l.getAttribute("href")),
   );
-  expect(precargada).toContain("/images/personajes/tabby.webp");
+  expect(precargada).toContain("/images/personajes/beagle.webp");
 });
 
 test("el onboarding muestra el carnet listo tras el nombre, responde dudas y lleva a planes sin errores", async ({ page }) => {
@@ -147,10 +151,10 @@ test("el QR de la tarjeta perdida se lee, sin el teléfono ni el nombre de quien
   await page.getByRole("button", { name: "Guardar contacto" }).click();
 
   // El QR se genera tras cargar la pantalla: esperar a verlo evita leer antes de tiempo.
-  await expect(page.getByRole("img", { name: "Código QR de Luna" })).toBeVisible();
-  const texto = await leerQr(page, "Código QR de Luna");
+  await expect(page.getByRole("img", { name: "Código QR de Milo" })).toBeVisible();
+  const texto = await leerQr(page, "Código QR de Milo");
   expect(texto, "el QR debe leerse").not.toBeNull();
-  expect(texto).toMatch(/\/encontrada\/HU-[0-9A-Z]+#nombre=Luna&personaje=europeo&raza=/);
+  expect(texto).toMatch(/\/encontrada\/HU-[0-9A-Z]+#nombre=Milo&personaje=europeo&raza=/);
   expect(texto).not.toContain("1234");
   expect(texto).not.toContain("Ana");
   expect(texto).not.toContain("Pérez");
@@ -159,8 +163,8 @@ test("el QR de la tarjeta perdida se lee, sin el teléfono ni el nombre de quien
 test("el QR abre la ficha de identificación en otro teléfono, sin datos guardados", async ({ page, browser }) => {
   await entrarConDemo(page);
   await page.goto("/app/carnet/perdida");
-  await expect(page.getByRole("img", { name: "Código QR de Luna" })).toBeVisible();
-  const enlace = await leerQr(page, "Código QR de Luna");
+  await expect(page.getByRole("img", { name: "Código QR de Milo" })).toBeVisible();
+  const enlace = await leerQr(page, "Código QR de Milo");
   expect(enlace).not.toBeNull();
 
   // Otro teléfono: contexto nuevo, sin localStorage ni sesión.
@@ -170,7 +174,7 @@ test("el QR abre la ficha de identificación en otro teléfono, sin datos guarda
   otraPagina.on("console", (m) => m.type() === "error" && errores.push(m.text()));
   otraPagina.on("pageerror", (e) => errores.push(e.message));
   await otraPagina.goto(enlace ?? "");
-  await expect(otraPagina.getByRole("heading", { name: "Encontraste a Luna" })).toBeVisible();
+  await expect(otraPagina.getByRole("heading", { name: "Encontraste a Milo" })).toBeVisible();
   await expect(otraPagina.getByText("Gato · Europeo")).toBeVisible();
   await expect(otraPagina.getByText(/1234|Ana Pérez/)).toHaveCount(0);
   expect(await sinDesbordeHorizontal(otraPagina)).toBe(true);
@@ -181,9 +185,9 @@ test("el QR abre la ficha de identificación en otro teléfono, sin datos guarda
 test("el carnet muestra su QR de identificación y lo lee", async ({ page }) => {
   await entrarConDemo(page);
   await page.goto("/app/carnet");
-  await expect(page.getByRole("img", { name: "Código QR de identificación de Luna" })).toBeVisible();
-  const texto = await leerQr(page, "Código QR de identificación de Luna");
-  expect(texto).toMatch(/\/encontrada\/HU-[0-9A-Z]+#nombre=Luna/);
+  await expect(page.getByRole("img", { name: "Código QR de identificación de Milo" })).toBeVisible();
+  const texto = await leerQr(page, "Código QR de identificación de Milo");
+  expect(texto).toMatch(/\/encontrada\/HU-[0-9A-Z]+#nombre=Milo/);
 });
 
 test("quien encuentra un código sin datos ve un mensaje neutro, sin datos de ejemplo", async ({ page }) => {

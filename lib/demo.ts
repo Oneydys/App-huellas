@@ -2,6 +2,7 @@ import { crearCuidado, type CuidadoProgramado } from "./cuidados";
 import { sumarDias, sumarMeses, type FechaISO } from "./fechas";
 import type { Mascota } from "./mascota";
 import { registroSchema, type Registro } from "./registros";
+import { FOTO_DEMO_MILO } from "./demo-foto";
 
 export const PREFIJO_DEMO = "demo-";
 
@@ -19,7 +20,8 @@ export interface DatosDemo {
 export function crearDemo(hoy: FechaISO): DatosDemo {
   const luna: Mascota = {
     id: `${PREFIJO_DEMO}luna`,
-    nombre: "Luna",
+    nombre: "Milo",
+    foto: FOTO_DEMO_MILO,
     especie: "gato",
     personaje: "europeo",
     nacimiento: sumarMeses(hoy, -50),

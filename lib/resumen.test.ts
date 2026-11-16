@@ -18,7 +18,7 @@ describe("resumen veterinario", () => {
     expect(peso?.lineas[0]).toContain("4,5 kg");
     const todo = resumenATexto(r);
     expect(todo).not.toContain("Tratamiento de ejemplo"); // el medicamento es de Max
-    expect(todo).toContain("Luna");
+    expect(todo).toContain("Milo");
   });
 
   it("rotula la demostración y aclara que no diagnostica", () => {
