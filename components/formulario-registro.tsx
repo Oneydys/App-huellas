@@ -45,7 +45,8 @@ function armarDatos(tipo: TipoRegistro, v: Valores, mascotaId: string): Record<s
         ...comun,
         tipoActividad: v.tipoActividad || undefined,
         minutos: v.minutos ? Number(v.minutos) : undefined,
-        distanciaKm: v.distanciaKm ? Number(v.distanciaKm.replace(",", ".")) : undefined,
+        // La distancia solo corresponde a un paseo: en otros tipos no se envía aunque se haya escrito antes.
+        distanciaKm: v.tipoActividad === "paseo" && v.distanciaKm ? Number(v.distanciaKm.replace(",", ".")) : undefined,
         nota: v.nota,
       };
   }
@@ -154,7 +155,7 @@ export function FormularioRegistro({ tipo: tipoParam = null, cuidadoId = null, e
       </div>
 
       <div role="radiogroup" aria-label="Tipo de registro" className="grid grid-cols-2 gap-2">
-        {TIPOS_REGISTRO.filter((t) => t !== "actividad").map((t) => {
+        {TIPOS_REGISTRO.map((t) => {
           const activo = t === tipo;
           return (
             <button
@@ -219,6 +220,40 @@ export function FormularioRegistro({ tipo: tipoParam = null, cuidadoId = null, e
           <>
             <Campo data-autofocus etiqueta="Motivo de la visita" value={v("motivo")} maxLength={80} placeholder="Ejemplo: control anual" error={errores.motivo} onChange={poner("motivo")} />
             <Campo etiqueta="Clínica o veterinario (opcional)" value={v("lugar")} maxLength={60} error={errores.lugar} onChange={poner("lugar")} />
+          </>
+        )}
+        {tipo === "actividad" && (
+          <>
+            <Selector data-autofocus etiqueta="Tipo de actividad" value={v("tipoActividad")} error={errores.tipoActividad} onChange={poner("tipoActividad")}>
+              <option value="">Elige una opción</option>
+              <option value="paseo">Paseo</option>
+              <option value="juego">Juego</option>
+              <option value="ejercicio">Ejercicio</option>
+            </Selector>
+            <Campo
+              enterKeyHint="done"
+              etiqueta="Minutos"
+              value={v("minutos")}
+              inputMode="numeric"
+              maxLength={3}
+              autoComplete="off"
+              placeholder="Ejemplo: 30"
+              error={errores.minutos}
+              onChange={poner("minutos")}
+            />
+            {v("tipoActividad") === "paseo" && (
+              <Campo
+                etiqueta="Distancia en km (opcional)"
+                value={v("distanciaKm")}
+                inputMode="decimal"
+                maxLength={6}
+                autoComplete="off"
+                placeholder="Ejemplo: 2,1"
+                error={errores.distanciaKm}
+                ayuda="Solo se registra en los paseos. Déjalo vacío si no la mediste."
+                onChange={poner("distanciaKm")}
+              />
+            )}
           </>
         )}
         {tipo === "observacion" && (

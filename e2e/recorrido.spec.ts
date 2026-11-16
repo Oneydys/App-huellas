@@ -95,6 +95,36 @@ test("no precarga la ilustración de una mascota que tiene foto propia", async (
   expect((await precargas()).filter((h) => h?.startsWith("/images/personajes/"))).toEqual([]);
 });
 
+test("Actividad de hoy abre la sección, registra un paseo y el historial lo muestra", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Ver con datos de demostración" }).click();
+  await expect(page).toHaveURL(/\/paywall$/);
+  await page.getByRole("button", { name: "Seguir con el plan gratis" }).click();
+  await page.getByLabel("Tu correo").fill("prueba@ejemplo.com");
+  await page.getByRole("button", { name: "Entrar a la app" }).click();
+  await expect(page).toHaveURL(/\/app$/);
+
+  // Inicio muestra la tarjeta de actividad de hoy con la mascota seleccionada (Milo, datos DEMO).
+  await expect(page.getByText("ACTIVIDAD DE HOY")).toBeVisible();
+  await page.getByRole("link", { name: /Actividad de hoy de Milo/ }).click();
+  await expect(page).toHaveURL(/\/app\/actividad$/);
+  await expect(page.getByRole("heading", { name: "Actividad diaria" })).toBeVisible();
+
+  // Registrar un paseo con distancia: la distancia solo se pide en los paseos.
+  await page.getByRole("button", { name: "Registrar actividad" }).click();
+  await expect(page.getByLabel("Distancia en km (opcional)")).toHaveCount(0);
+  await page.getByLabel("Tipo de actividad").selectOption("paseo");
+  await expect(page.getByLabel("Distancia en km (opcional)")).toBeVisible();
+  await page.getByLabel("Minutos", { exact: true }).fill("25");
+  await page.getByLabel("Distancia en km (opcional)").fill("1,2");
+  await page.getByRole("button", { name: "Guardar registro" }).click();
+
+  // Vuelve a la sección: aparece en Hoy y en el historial, y el resumen del día suma los minutos.
+  await page.goto("/app/actividad");
+  await expect(page.getByRole("heading", { name: "Historial de actividades" })).toBeVisible();
+  await expect(page.getByText("Paseo", { exact: true })).toBeVisible();
+});
+
 test("el onboarding muestra el carnet listo tras el nombre, responde dudas y lleva a planes sin errores", async ({ page }) => {
   const errores: string[] = [];
   page.on("console", (m) => m.type() === "error" && errores.push(m.text()));

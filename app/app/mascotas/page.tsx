@@ -13,7 +13,7 @@ import { Chip } from "@/components/ui/chip";
 import { Hoja } from "@/components/ui/hoja";
 import { MascotaAvatar } from "@/components/ui/mascota-avatar";
 import { cn } from "@/lib/cn";
-import { dijeDe, describirEdad, ETIQUETA_PRIORIDAD, mascotaSchema, PRIORIDADES, razaOMestizo, type Mascota, type Prioridad } from "@/lib/mascota";
+import { dijeDe, objetivoDe, describirEdad, ETIQUETA_PRIORIDAD, mascotaSchema, PRIORIDADES, razaOMestizo, type Mascota, type Prioridad } from "@/lib/mascota";
 import { PAISES, type CodigoPais } from "@/lib/paises";
 import { ETIQUETA_ESPECIE, personajesDe, type IdPersonaje } from "@/lib/personajes";
 import { limiteDeMascotas } from "@/lib/plantilla";
@@ -25,6 +25,7 @@ function FormularioEdicion({ mascota, hoy, alGuardar }: { mascota: Mascota; hoy:
   const [raza, setRaza] = useState(mascota.raza);
   // Sin dije propio (datos anteriores) se muestra el que ya se ve en el carnet, para no cambiarlo sin querer.
   const [dije, setDije] = useState(dijeDe(mascota));
+  const [objetivo, setObjetivo] = useState(String(objetivoDe(mascota)));
   const [pais, setPais] = useState<CodigoPais>(mascota.pais);
   const [nacimiento, setNacimiento] = useState(mascota.nacimiento);
   const [aproximada, setAproximada] = useState(mascota.nacimientoAproximado);
@@ -37,7 +38,19 @@ function FormularioEdicion({ mascota, hoy, alGuardar }: { mascota: Mascota; hoy:
 
   function enviar(e: React.FormEvent) {
     e.preventDefault();
-    const candidata = { ...mascota, nombre, raza, dije, pais, nacimiento, nacimientoAproximado: aproximada, prioridad, personaje, foto };
+    const candidata = {
+      ...mascota,
+      nombre,
+      raza,
+      dije,
+      objetivoMinutos: objetivo.trim() ? Number(objetivo) : undefined,
+      pais,
+      nacimiento,
+      nacimientoAproximado: aproximada,
+      prioridad,
+      personaje,
+      foto,
+    };
     const r = mascotaSchema.safeParse(candidata);
     if (!r.success) {
       const errs: Record<string, string> = {};
@@ -114,6 +127,15 @@ function FormularioEdicion({ mascota, hoy, alGuardar }: { mascota: Mascota; hoy:
         error={errores.dije}
         ayuda="Si no lleva dije, déjalo vacío y el carnet no lo mostrará."
         onChange={(e) => setDije(e.target.value)}
+      />
+      <Campo
+        etiqueta="Objetivo diario de actividad (minutos, opcional)"
+        value={objetivo}
+        inputMode="numeric"
+        maxLength={3}
+        error={errores.objetivoMinutos}
+        ayuda="Es una referencia que tú eliges, no una recomendación veterinaria. Si lo dejas vacío, usamos 30 minutos."
+        onChange={(e) => setObjetivo(e.target.value)}
       />
       <Selector etiqueta="País" value={pais} onChange={(e) => setPais(e.target.value as CodigoPais)}>
         {PAISES.map((p) => (
@@ -244,6 +266,7 @@ export default function Mascotas() {
                   nombre: m.nombre,
                   raza: m.raza,
                   dije: m.dije,
+                  objetivoMinutos: m.objetivoMinutos,
                   pais: m.pais,
                   nacimiento: m.nacimiento,
                   nacimientoAproximado: m.nacimientoAproximado,

@@ -2,6 +2,7 @@
 
 import { Siren } from "lucide-react";
 import Link from "next/link";
+import { ActividadHoy } from "@/components/actividad-hoy";
 import { CuidadoDestacado } from "@/components/cuidado";
 import { IconoTipo } from "@/components/iconos";
 import { useRegistroRapido } from "@/components/registro-rapido";
@@ -61,6 +62,10 @@ export default function Inicio() {
             <TarjetaCarnet mascota={mascota} hoy={hoy} />
           </div>
         </div>
+      </Aparece>
+
+      <Aparece>
+        <ActividadHoy mascota={mascota} registros={registros} hoy={hoy} />
       </Aparece>
 
       <Aparece className="flex flex-col gap-3">
