@@ -91,7 +91,7 @@ export function FormularioRegistro({ tipo: tipoParam = null, cuidadoId = null, e
   function enviar(e: React.FormEvent) {
     e.preventDefault();
     if (!mascota) return;
-    const r = crearRegistro(armarDatos(tipo, { ...valores, fecha }, mascota.id), { id: nuevoId("r"), hoy });
+    const r = crearRegistro(armarDatos(tipo, { ...valores, fecha }, mascota.id), { id: nuevoId("r"), hoy, especie: mascota.especie });
     if (!r.ok) return setErrores(r.errores);
     despachar({ tipo: "registro/agregar", registro: r.registro });
     if (cuidadoId) despachar({ tipo: "cuidado/completar", id: cuidadoId, fecha: hoy });

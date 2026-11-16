@@ -1,5 +1,5 @@
 import type { FechaISO } from "./fechas";
-import type { Registro, RegistroDe, TipoActividad } from "./registros";
+import { admiteDistancia, TIPOS_ACTIVIDAD, type Registro, type RegistroDe, type TipoActividad } from "./registros";
 
 /** Resumen de la actividad de un día. Solo cuenta registros reales o de demostración de esa mascota; nunca los inventa. */
 export interface ResumenActividad {
@@ -18,13 +18,13 @@ function esActividadDeMascota(r: Registro, mascotaId: string): r is RegistroActi
 }
 
 function resumirDia(registros: readonly RegistroActividad[], fecha: FechaISO): ResumenActividad {
-  const porTipo: Record<TipoActividad, number> = { paseo: 0, juego: 0, ejercicio: 0 };
+  const porTipo = Object.fromEntries(TIPOS_ACTIVIDAD.map((t) => [t, 0])) as Record<TipoActividad, number>;
   let minutos = 0;
   let distancia: number | undefined;
   for (const r of registros) {
     minutos += r.minutos;
     porTipo[r.tipoActividad] += r.minutos;
-    if (r.tipoActividad === "paseo" && r.distanciaKm !== undefined) {
+    if (admiteDistancia(r.tipoActividad) && r.distanciaKm !== undefined) {
       distancia = (distancia ?? 0) + r.distanciaKm;
     }
   }

@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { actividadDelDia, historialActividad, progresoObjetivo } from "./actividad";
 import { crearDemo } from "./demo";
 import { objetivoDe, OBJETIVO_ACTIVIDAD_INICIAL } from "./mascota";
-import { crearRegistro, type Registro } from "./registros";
+import { ACTIVIDADES_POR_ESPECIE, actividadesPara, admiteDistancia, crearRegistro, type Registro } from "./registros";
 
 const HOY = "2026-11-10";
 const AYER = "2026-11-09";
@@ -74,7 +74,7 @@ describe("actividad del día", () => {
     const d = actividadDelDia(registros, "m1", HOY);
     expect(d.minutos).toBe(65);
     expect(d.cantidad).toBe(3);
-    expect(d.porTipo).toEqual({ paseo: 50, juego: 15, ejercicio: 0 });
+    expect(d.porTipo).toMatchObject({ paseo: 50, juego: 15, ejercicio: 0 });
   });
 
   it("suma la distancia de los paseos del día", () => {
@@ -139,5 +139,61 @@ describe("datos de demostración de actividad", () => {
       expect(r.origen).toBe("demo");
       expect(r.id.startsWith("demo-")).toBe(true);
     }
+  });
+});
+
+describe("actividades por especie", () => {
+  it("perros: paseos, juegos y ejercicio", () => {
+    expect(actividadesPara("perro")).toEqual(["paseo", "juego", "ejercicio"]);
+  });
+
+  it("gatos: juego y exploración en casa, y paseo con arnés como opción", () => {
+    expect(actividadesPara("gato")).toEqual(["juego-casa", "exploracion-casa", "paseo-arnes"]);
+    expect(ACTIVIDADES_POR_ESPECIE.gato).not.toContain("paseo");
+  });
+
+  it("la distancia solo corresponde a paseos", () => {
+    expect(admiteDistancia("paseo")).toBe(true);
+    expect(admiteDistancia("paseo-arnes")).toBe(true);
+    for (const t of ["juego", "ejercicio", "juego-casa", "exploracion-casa"] as const) {
+      expect(admiteDistancia(t)).toBe(false);
+    }
+  });
+
+  it("rechaza un paseo normal para un gato", () => {
+    const r = crearRegistro(
+      { origen: "usuario", tipo: "actividad", mascotaId: "m1", fecha: HOY, tipoActividad: "paseo", minutos: 20 },
+      { id: "a", hoy: HOY, especie: "gato" },
+    );
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.errores.tipoActividad).toBe("Esa actividad no corresponde a un gato.");
+  });
+
+  it("rechaza el juego en casa para un perro", () => {
+    const r = crearRegistro(
+      { origen: "usuario", tipo: "actividad", mascotaId: "m1", fecha: HOY, tipoActividad: "juego-casa", minutos: 20 },
+      { id: "a", hoy: HOY, especie: "perro" },
+    );
+    expect(r.ok).toBe(false);
+  });
+
+  it("acepta el paseo con arnés con distancia para un gato, porque es voluntario", () => {
+    const r = crearRegistro(
+      { origen: "usuario", tipo: "actividad", mascotaId: "m1", fecha: HOY, tipoActividad: "paseo-arnes", minutos: 15, distanciaKm: 0.5 },
+      { id: "a", hoy: HOY, especie: "gato" },
+    );
+    expect(r.ok).toBe(true);
+  });
+
+  it("un gato puede sumar varias sesiones cortas de juego en casa", () => {
+    const registros: Registro[] = [
+      actividad({ id: "s1", tipoActividad: "juego-casa", minutos: 5 }),
+      actividad({ id: "s2", tipoActividad: "exploracion-casa", minutos: 7 }),
+      actividad({ id: "s3", tipoActividad: "juego-casa", minutos: 4 }),
+    ];
+    const d = actividadDelDia(registros, "m1", HOY);
+    expect(d.minutos).toBe(16);
+    expect(d.cantidad).toBe(3);
+    expect(d.distanciaKm).toBeUndefined();
   });
 });

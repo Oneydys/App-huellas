@@ -13,13 +13,46 @@ export const TIPOS_REGISTRO = [
 ] as const;
 export type TipoRegistro = (typeof TIPOS_REGISTRO)[number];
 
-/** Tipos de actividad diaria. Sirven para perros y gatos. */
-export const TIPOS_ACTIVIDAD = ["paseo", "juego", "ejercicio"] as const;
+export const TIPOS_ACTIVIDAD = [
+  "paseo",
+  "juego",
+  "ejercicio",
+  "juego-casa",
+  "exploracion-casa",
+  "paseo-arnes",
+] as const;
 export type TipoActividad = (typeof TIPOS_ACTIVIDAD)[number];
+
+export type EspecieActividad = "perro" | "gato";
+
+/** Cada especie ve solo sus actividades. Ningún gato tiene un paseo obligatorio. */
+export const ACTIVIDADES_POR_ESPECIE: Record<EspecieActividad, readonly TipoActividad[]> = {
+  perro: ["paseo", "juego", "ejercicio"],
+  gato: ["juego-casa", "exploracion-casa", "paseo-arnes"],
+};
+
+/** Solo los paseos llevan distancia. El paseo con arnés es opcional para el gato. */
+const ADMITEN_DISTANCIA: readonly TipoActividad[] = ["paseo", "paseo-arnes"];
+
+export function actividadesPara(especie: EspecieActividad): readonly TipoActividad[] {
+  return ACTIVIDADES_POR_ESPECIE[especie];
+}
+
+export function actividadValidaPara(tipo: TipoActividad, especie: EspecieActividad): boolean {
+  return ACTIVIDADES_POR_ESPECIE[especie].includes(tipo);
+}
+
+export function admiteDistancia(tipo: TipoActividad): boolean {
+  return ADMITEN_DISTANCIA.includes(tipo);
+}
+
 export const ETIQUETA_ACTIVIDAD: Record<TipoActividad, string> = {
   paseo: "Paseo",
   juego: "Juego",
   ejercicio: "Ejercicio",
+  "juego-casa": "Juego en casa",
+  "exploracion-casa": "Exploración en casa",
+  "paseo-arnes": "Paseo con arnés (opcional)",
 };
 
 export const ETIQUETA_TIPO: Record<TipoRegistro, string> = {
@@ -130,7 +163,7 @@ export type ResultadoRegistro =
 
 export function crearRegistro(
   datos: unknown,
-  contexto: { id: string; hoy: FechaISO },
+  contexto: { id: string; hoy: FechaISO; especie?: EspecieActividad },
 ): ResultadoRegistro {
   const crudo = (typeof datos === "object" && datos !== null ? datos : {}) as Record<string, unknown>;
   const r = registroSchema.safeParse({ origen: "usuario", ...crudo, id: contexto.id });
@@ -149,7 +182,11 @@ export function crearRegistro(
   if (reg.tipo === "vacuna" && reg.proximaFecha && reg.proximaFecha <= reg.fecha) {
     return { ok: false, errores: { proximaFecha: "La próxima dosis debe ser posterior a esta fecha." } };
   }
-  if (reg.tipo === "actividad" && reg.distanciaKm !== undefined && reg.tipoActividad !== "paseo") {
+  if (reg.tipo === "actividad" && contexto.especie && !actividadValidaPara(reg.tipoActividad, contexto.especie)) {
+    const lugar = contexto.especie === "gato" ? "un gato" : "un perro";
+    return { ok: false, errores: { tipoActividad: `Esa actividad no corresponde a ${lugar}.` } };
+  }
+  if (reg.tipo === "actividad" && reg.distanciaKm !== undefined && !admiteDistancia(reg.tipoActividad)) {
     return { ok: false, errores: { distanciaKm: "La distancia solo se registra en los paseos." } };
   }
   if (reg.tipo === "medicamento" && reg.fin && reg.fin < reg.fecha) {

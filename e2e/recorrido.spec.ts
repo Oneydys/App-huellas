@@ -104,9 +104,10 @@ test("Actividad de hoy abre la sección, registra un paseo y el historial lo mue
   await page.getByRole("button", { name: "Entrar a la app" }).click();
   await expect(page).toHaveURL(/\/app$/);
 
-  // Inicio muestra la tarjeta de actividad de hoy con la mascota seleccionada (Milo, datos DEMO).
+  // Toby es un perro: el paseo es una actividad válida para él. Inicio muestra su tarjeta de actividad.
+  await page.getByRole("button", { name: /Toby/ }).first().click();
   await expect(page.getByText("ACTIVIDAD DE HOY")).toBeVisible();
-  await page.getByRole("link", { name: /Actividad de hoy de Milo/ }).click();
+  await page.getByRole("link", { name: /Actividad de hoy de Toby/ }).click();
   await expect(page).toHaveURL(/\/app\/actividad$/);
   await expect(page.getByRole("heading", { name: "Actividad diaria" })).toBeVisible();
 
