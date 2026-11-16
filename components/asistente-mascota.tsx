@@ -37,6 +37,7 @@ interface Borrador {
   anios: number;
   meses: number;
   raza: string;
+  dije: string;
   pais: CodigoPais | "";
   peso: string;
   prioridad: Prioridad;
@@ -54,6 +55,7 @@ const INICIAL: Borrador = {
   anios: 1,
   meses: 0,
   raza: "",
+  dije: "",
   pais: "",
   peso: "",
   prioridad: "vacuna",
@@ -180,6 +182,7 @@ export function AsistenteMascota({
         nacimiento: nacimientoDesdeEdad(b.anios, b.meses, hoy),
         nacimientoAproximado: true,
         raza: b.raza,
+        dije: b.dije,
         pais: b.pais,
         prioridad: b.prioridad,
       },
@@ -381,6 +384,16 @@ export function AsistenteMascota({
                 autoComplete="off"
                 placeholder="Criollo, beagle, persa"
                 onChange={(e) => actualizar("raza", e.target.value)}
+              />
+              <Campo
+                className="mt-4"
+                etiqueta="Dije (opcional)"
+                value={b.dije}
+                maxLength={40}
+                autoComplete="off"
+                placeholder="Huella turquesa, corazón rojo"
+                ayuda="Describe el dije que lleva el collar. Si no lleva dije, déjalo vacío y el carnet no lo mostrará."
+                onChange={(e) => actualizar("dije", e.target.value)}
               />
               <Selector
                 className="mt-4"
