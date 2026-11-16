@@ -2,7 +2,7 @@ import { crearCuidado, type CuidadoProgramado } from "./cuidados";
 import { sumarDias, sumarMeses, type FechaISO } from "./fechas";
 import type { Mascota } from "./mascota";
 import { registroSchema, type Registro } from "./registros";
-import { FOTO_DEMO_MILO } from "./demo-foto";
+import { FOTO_DEMO_MILO, FOTO_DEMO_TOBY } from "./demo-foto";
 
 export const PREFIJO_DEMO = "demo-";
 
@@ -34,7 +34,8 @@ export function crearDemo(hoy: FechaISO): DatosDemo {
   };
   const max: Mascota = {
     id: `${PREFIJO_DEMO}max`,
-    nombre: "Max",
+    nombre: "Toby",
+    foto: FOTO_DEMO_TOBY,
     especie: "perro",
     personaje: "beagle",
     nacimiento: sumarMeses(hoy, -8),

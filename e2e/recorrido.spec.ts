@@ -74,7 +74,7 @@ test("los datos de la demostración siguen después de recargar", async ({ page 
   await expect(page.getByRole("heading", { name: "Próximo cuidado de Milo" })).toBeVisible();
 });
 
-test("precarga el personaje de la mascota guardada antes de que cargue la app", async ({ page }) => {
+test("no precarga la ilustración de una mascota que tiene foto propia", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Ver con datos de demostración" }).click();
   await expect(page).toHaveURL(/\/paywall$/);
@@ -83,16 +83,16 @@ test("precarga el personaje de la mascota guardada antes de que cargue la app", 
   await page.getByRole("button", { name: "Entrar a la app" }).click();
   await expect(page).toHaveURL(/\/app$/);
 
-  // Milo tiene foto propia, así que la precarga del personaje corresponde a Max (sin foto).
-  await page.getByRole("button", { name: /Max/ }).first().click();
-  await expect(page.getByRole("heading", { name: "Próximo cuidado de Max" })).toBeVisible();
-
-  // La pista de precarga del layout pide el personaje guardado antes de que React cargue la app.
+  // Milo y Toby tienen foto propia: la pista de precarga del layout no debe pedir ninguna ilustración.
+  const precargas = () =>
+    page.evaluate(() => [...document.querySelectorAll('link[rel="preload"][as="image"]')].map((l) => l.getAttribute("href")));
   await page.goto("/app");
-  const precargada = await page.evaluate(() =>
-    [...document.querySelectorAll('link[rel="preload"][as="image"]')].map((l) => l.getAttribute("href")),
-  );
-  expect(precargada).toContain("/images/personajes/beagle.webp");
+  expect((await precargas()).filter((h) => h?.startsWith("/images/personajes/"))).toEqual([]);
+
+  await page.getByRole("button", { name: /Toby/ }).first().click();
+  await expect(page.getByRole("heading", { name: "Próximo cuidado de Toby" })).toBeVisible();
+  await page.reload();
+  expect((await precargas()).filter((h) => h?.startsWith("/images/personajes/"))).toEqual([]);
 });
 
 test("el onboarding muestra el carnet listo tras el nombre, responde dudas y lleva a planes sin errores", async ({ page }) => {
