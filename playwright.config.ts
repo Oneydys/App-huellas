@@ -16,6 +16,8 @@ export default defineConfig({
   use: {
     baseURL: `http://localhost:${PUERTO}`,
     trace: "retain-on-failure",
+    // Solo en pruebas: sin animaciones de entrada, para que axe mida el contraste con los textos ya visibles.
+    reducedMotion: "reduce",
     ...devices["Desktop Chrome"],
     viewport: { width: 375, height: 812 },
   },
