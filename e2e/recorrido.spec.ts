@@ -175,7 +175,7 @@ test("el QR abre la ficha de identificación en otro teléfono, sin datos guarda
   otraPagina.on("pageerror", (e) => errores.push(e.message));
   await otraPagina.goto(enlace ?? "");
   await expect(otraPagina.getByRole("heading", { name: "Encontraste a Milo" })).toBeVisible();
-  await expect(otraPagina.getByText("Gato · Europeo")).toBeVisible();
+  await expect(otraPagina.getByText("Gato · Gato mestizo")).toBeVisible();
   await expect(otraPagina.getByText(/1234|Ana Pérez/)).toHaveCount(0);
   expect(await sinDesbordeHorizontal(otraPagina)).toBe(true);
   expect(errores).toEqual([]);
