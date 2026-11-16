@@ -1,5 +1,18 @@
-import { Activity, Bug, NotebookPen, Pill, Scale, Stethoscope, Syringe, type LucideIcon } from "lucide-react";
-import type { TipoRegistro } from "@/lib/registros";
+import {
+  Bug,
+  Footprints,
+  House,
+  NotebookPen,
+  PersonStanding,
+  Pill,
+  Puzzle,
+  Scale,
+  Stethoscope,
+  Syringe,
+  Volleyball,
+  type LucideIcon,
+} from "lucide-react";
+import type { TipoActividad, TipoRegistro } from "@/lib/registros";
 
 export const ICONOS_TIPO: Record<TipoRegistro, LucideIcon> = {
   vacuna: Syringe,
@@ -8,7 +21,17 @@ export const ICONOS_TIPO: Record<TipoRegistro, LucideIcon> = {
   visita: Stethoscope,
   observacion: NotebookPen,
   medicamento: Pill,
-  actividad: Activity,
+  actividad: Volleyball,
+};
+
+/** Un icono por actividad: huellas para paseos, pelota para juegos, movimiento para ejercicio, juguete y casita en casa. */
+export const ICONOS_ACTIVIDAD: Record<TipoActividad, LucideIcon> = {
+  paseo: Footprints,
+  juego: Volleyball,
+  ejercicio: PersonStanding,
+  "juego-casa": Puzzle,
+  "exploracion-casa": House,
+  "paseo-arnes": Footprints,
 };
 
 export function IconoTipo({ tipo, className }: { tipo: TipoRegistro; className?: string }) {

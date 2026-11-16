@@ -1,6 +1,7 @@
 "use client";
 
 import { Footprints } from "lucide-react";
+import { ICONOS_ACTIVIDAD } from "@/components/iconos";
 import { SelectorMascota } from "@/components/selector-mascota";
 import { SinMascota } from "@/components/sin-mascota";
 import { useRegistroRapido } from "@/components/registro-rapido";
@@ -10,7 +11,7 @@ import { Chip } from "@/components/ui/chip";
 import { actividadDelDia, historialActividad, progresoObjetivo } from "@/lib/actividad";
 import { formatearFecha } from "@/lib/fechas";
 import { objetivoDe } from "@/lib/mascota";
-import { ETIQUETA_ACTIVIDAD, type RegistroDe } from "@/lib/registros";
+import { ETIQUETA_ACTIVIDAD, type RegistroDe, type TipoActividad } from "@/lib/registros";
 import { useVistaMascota } from "@/lib/store/vistas";
 
 function TextoMinutos({ minutos, distanciaKm, cantidad }: { minutos: number; distanciaKm?: number; cantidad: number }) {
@@ -18,6 +19,15 @@ function TextoMinutos({ minutos, distanciaKm, cantidad }: { minutos: number; dis
     <span className="text-etiqueta font-extrabold text-suave-texto">
       {minutos} min · {cantidad} {cantidad === 1 ? "actividad" : "actividades"}
       {distanciaKm !== undefined && ` · ${distanciaKm.toLocaleString("es", { maximumFractionDigits: 2 })} km`}
+    </span>
+  );
+}
+
+function IconoActividad({ tipo }: { tipo: TipoActividad }) {
+  const Icono = ICONOS_ACTIVIDAD[tipo];
+  return (
+    <span className="grid size-11 shrink-0 place-items-center rounded-control bg-turquesa/25 text-tinta">
+      <Icono aria-hidden className="size-5" />
     </span>
   );
 }
@@ -102,6 +112,8 @@ export default function ActividadDiaria() {
               <ul className="flex flex-col gap-2">
                 {deHoy.map((r) => (
                   <li key={r.id} className="flex items-center justify-between gap-3 rounded-tarjeta bg-papel p-4 shadow-calida ring-1 ring-linea">
+                    <div className="flex min-w-0 items-center gap-3">
+                      <IconoActividad tipo={r.tipoActividad} />
                     <div className="flex flex-col gap-1">
                       <span className="flex items-center gap-2 text-cuerpo font-black">
                         {ETIQUETA_ACTIVIDAD[r.tipoActividad]}
@@ -111,6 +123,7 @@ export default function ActividadDiaria() {
                         {r.minutos} min
                         {r.distanciaKm !== undefined && ` · ${r.distanciaKm.toLocaleString("es", { maximumFractionDigits: 2 })} km`}
                       </span>
+                    </div>
                     </div>
                   </li>
                 ))}

@@ -1,9 +1,9 @@
 "use client";
 
-import { Activity, Check } from "lucide-react";
+import { Check } from "lucide-react";
 import { useState } from "react";
 import { GraficoPeso } from "@/components/grafico-peso";
-import { IconoTipo } from "@/components/iconos";
+import { ICONOS_ACTIVIDAD, IconoTipo } from "@/components/iconos";
 import { SelectorMascota } from "@/components/selector-mascota";
 import { SinMascota } from "@/components/sin-mascota";
 import { Aviso } from "@/components/ui/aviso";
@@ -235,6 +235,7 @@ export function FormularioRegistro({ tipo: tipoParam = null, cuidadoId = null, e
               <div role="radiogroup" aria-label="Tipo de actividad" className="grid grid-cols-1 gap-2 min-[430px]:grid-cols-2">
                 {actividadesPara(mascota.especie).map((t) => {
                   const activo = v("tipoActividad") === t;
+                  const Icono = ICONOS_ACTIVIDAD[t];
                   return (
                     <button
                       key={t}
@@ -252,7 +253,7 @@ export function FormularioRegistro({ tipo: tipoParam = null, cuidadoId = null, e
                       )}
                     >
                       <span className={cn("grid size-9 shrink-0 place-items-center rounded-full", activo ? "bg-naranja text-tinta" : "bg-hundido text-tinta")}>
-                        <Activity aria-hidden className="size-4" />
+                        <Icono aria-hidden className="size-4" />
                       </span>
                       {ETIQUETA_ACTIVIDAD[t]}
                     </button>
