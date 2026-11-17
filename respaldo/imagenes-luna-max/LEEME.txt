@@ -1,0 +1,4 @@
+Respaldo de las capturas anteriores de Peluvet (con Luna y Max).
+Origen: commit 41359fb (git show HEAD:public/images/capturas/<archivo>).
+Estas copias no se usan en la app. No borrar.
+Las capturas actuales (Milo y Toby) están en public/images/capturas/.

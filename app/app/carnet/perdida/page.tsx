@@ -13,7 +13,7 @@ import { Campo } from "@/components/ui/campo";
 import { MascotaAvatar } from "@/components/ui/mascota-avatar";
 import { codigoMascota, contactoSchema, razaOMestizo, type Contacto, type Mascota } from "@/lib/mascota";
 import { ETIQUETA_ESPECIE } from "@/lib/personajes";
-import { datosDeIdentificacion } from "@/lib/qr";
+import { datosDeIdentificacion, TEXTO_QR_IDENTIFICA } from "@/lib/qr";
 import { useHuellas } from "@/lib/store/hooks";
 
 function Formulario({ mascota, alCambiar }: { mascota: Mascota; alCambiar: (c: Contacto) => void }) {
@@ -122,7 +122,7 @@ export default function Perdida() {
                 etiqueta={`Código QR de ${mascota.nombre}`}
                 className="size-32"
               />
-              <p className="text-cuerpo font-bold">Escanéalo para ver su nombre y su especie.</p>
+              <p className="text-cuerpo font-bold">{TEXTO_QR_IDENTIFICA}</p>
             </div>
           </div>
         </section>

@@ -10,7 +10,7 @@ import type { DatosCarnet } from "@/lib/compartir";
 import { reducirFoto } from "@/lib/foto";
 import { codigoMascota, dijeDe, type Mascota } from "@/lib/mascota";
 import { PLANTILLA } from "@/lib/plantilla";
-import { datosDeIdentificacion } from "@/lib/qr";
+import { datosDeIdentificacion, TEXTO_QR_IDENTIFICA } from "@/lib/qr";
 import { useHuellas } from "@/lib/store/hooks";
 
 /** El carnet de la mascota como pieza propia: foto o personaje, datos y estado de vacunas según sus registros. */
@@ -100,7 +100,7 @@ export function CarnetDigital({ mascota, datos, alCompartir }: { mascota: Mascot
           />
           <div className="min-w-0">
             <p className="text-etiqueta text-suave-texto">Identificación</p>
-            <p className="text-cuerpo font-black">Escanéalo para ver su nombre y su especie.</p>
+            <p className="text-cuerpo font-black">{TEXTO_QR_IDENTIFICA}</p>
             <p className="text-cuerpo text-suave-texto">No muestra tus datos de contacto.</p>
           </div>
         </div>

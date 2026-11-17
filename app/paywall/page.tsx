@@ -69,7 +69,8 @@ export default function Paywall() {
           <p className="mt-6 text-etiqueta font-black tracking-wider text-aviso">PELUVET PRO</p>
           <h1 className="mt-2 text-display font-black tracking-tight">Ya puedes usar el carnet de {mascota.nombre}</h1>
           <p className="mt-2 text-cuerpo text-suave-texto">
-            Gratis: un carnet completo para una mascota. Pro permite hasta {PLANTILLA.limites.mascotasPro} mascotas.
+            Gratis: {PLANTILLA.limites.mascotasGratis} mascota, con carnet, calendario e historial completos. Pro: hasta{" "}
+            {PLANTILLA.limites.mascotasPro} mascotas, con lo mismo para cada una.
           </p>
 
           <div role="radiogroup" aria-label="Plan" className="mt-6 grid grid-cols-2 gap-3">
@@ -96,13 +97,6 @@ export default function Paywall() {
               );
             })}
           </div>
-          {precios.diasPrueba > 0 && (
-            <p className="mt-3 text-center text-cuerpo text-suave-texto">
-              {PLANTILLA.modoSimulacion
-                ? `Prueba de ${precios.diasPrueba} días (simulación): no se cobra nada.`
-                : `Prueba de ${precios.diasPrueba} días.`}
-            </p>
-          )}
 
           <ul className="mt-6 flex flex-col gap-3">
             {PLANTILLA.beneficiosPro.map((b) => (
@@ -144,6 +138,24 @@ export default function Paywall() {
             </div>
           </section>
 
+          <section aria-label="Qué pasa al elegir" className="mt-6 flex flex-col gap-2 rounded-tarjeta border border-linea bg-papel p-4">
+            <h2 className="text-cuerpo font-black">Qué pasa al elegir</h2>
+            <ul className="flex flex-col gap-2 text-cuerpo">
+              <li>
+                <span className="font-black">Seguir gratis:</span> 1 mascota con su carnet, calendario e historial. No se
+                activa ningún cobro.
+              </li>
+              {precios.diasPrueba > 0 && (
+              <li>
+                <span className="font-black">Probar Pro {precios.diasPrueba} días:</span> hasta {PLANTILLA.limites.mascotasPro}{" "}
+                mascotas durante la prueba.{" "}
+                {PLANTILLA.modoSimulacion ? "Es una simulación: no se cobra nada." : "Dura " + precios.diasPrueba + " días."}
+              </li>
+              )}
+              <li className="text-suave-texto">En los dos casos, el siguiente paso es escribir tu correo para entrar al carnet.</li>
+            </ul>
+          </section>
+
           <div className="mt-6 flex flex-col gap-3">
             {avisosDePlantilla && <Aviso>{PLANTILLA.textos.avisoSimulacion}</Aviso>}
           </div>
@@ -159,7 +171,9 @@ export default function Paywall() {
             <div className="flex flex-col gap-2">
               {precios.diasPrueba > 0 && (
                 <Boton disabled={enCurso} onClick={() => elegir("prueba-simulada")}>
-                  {enCurso ? "Un momento…" : `Probar ${precios.diasPrueba} días${PLANTILLA.modoSimulacion ? " (simulación)" : ""}`}
+                  {enCurso
+                    ? "Un momento…"
+                    : `Probar Pro ${precios.diasPrueba} días${PLANTILLA.modoSimulacion ? " (simulación)" : ""}`}
                 </Boton>
               )}
               <Boton

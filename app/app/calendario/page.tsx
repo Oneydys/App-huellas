@@ -27,6 +27,7 @@ import {
 } from "@/lib/fechas";
 import { nombreDePais } from "@/lib/paises";
 import { PLANTILLA } from "@/lib/plantilla";
+import { detalleRegistro, ETIQUETA_TIPO, tituloRegistro, type Registro } from "@/lib/registros";
 import { nuevoId } from "@/lib/store/hooks";
 import { useVistaMascota } from "@/lib/store/vistas";
 
@@ -154,8 +155,31 @@ function FilaCuidado({
   );
 }
 
+/** Registros guardados en la fecha elegida (peso, visitas, observaciones y demás), separados de los cuidados programados. */
+function RegistrosDelDia({ registros }: { registros: Registro[] }) {
+  return (
+    <section aria-label="Registros de este día" className="flex flex-col gap-3">
+      <h3 className="text-cuerpo font-black text-suave-texto">Registros guardados</h3>
+      <ul className="flex flex-col gap-3">
+        {registros.map((r) => (
+          <li key={r.id} className="flex items-start gap-3 rounded-tarjeta border border-linea bg-papel p-4">
+            <span className="grid size-11 shrink-0 place-items-center rounded-control bg-hundido text-turquesa-texto">
+              <IconoTipo tipo={r.tipo} className="size-5" />
+            </span>
+            <div className="min-w-0 flex-1">
+              <p className="text-etiqueta font-black tracking-wider text-suave-texto">{ETIQUETA_TIPO[r.tipo].toUpperCase()}</p>
+              <p className="text-cuerpo font-black">{tituloRegistro(r)}</p>
+              {detalleRegistro(r) && <p className="text-cuerpo text-suave-texto">{detalleRegistro(r)}</p>}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 export default function Calendario() {
-  const { mascota, hoy, calendario, despachar } = useVistaMascota();
+  const { mascota, hoy, calendario, registros, despachar } = useVistaMascota();
   const hechoHoy = useHechoHoy();
   const { abrir } = useRegistroRapido();
   const [visible, setVisible] = useState<{ anio: number; mes: number } | null>(null);
@@ -168,8 +192,11 @@ export default function Calendario() {
   const semanas = semanasDelMes(anio, mes);
   const porFecha = new Map<FechaISO, PropuestaCuidado[]>();
   for (const p of calendario.propuestas) porFecha.set(p.fecha, [...(porFecha.get(p.fecha) ?? []), p]);
+  const porRegistroFecha = new Map<FechaISO, Registro[]>();
+  for (const r of registros) porRegistroFecha.set(r.fecha, [...(porRegistroFecha.get(r.fecha) ?? []), r]);
 
   const lista = dia ? (porFecha.get(dia) ?? []) : calendario.propuestas;
+  const registrosDia = dia ? (porRegistroFecha.get(dia) ?? []) : [];
   const moverMes = (delta: number) => {
     const d = new Date(Date.UTC(anio, mes - 1 + delta, 1));
     setVisible({ anio: d.getUTCFullYear(), mes: d.getUTCMonth() + 1 });
@@ -227,6 +254,7 @@ export default function Calendario() {
         <div className="grid grid-cols-7 gap-1">
           {semanas.flat().map(({ fecha, delMes }) => {
             const cuidados = porFecha.get(fecha) ?? [];
+            const registrosEnFecha = porRegistroFecha.get(fecha) ?? [];
             const esHoy = fecha === hoy;
             const elegido = fecha === dia;
             return (
@@ -234,7 +262,7 @@ export default function Calendario() {
                 key={fecha}
                 type="button"
                 aria-pressed={elegido}
-                aria-label={`${formatearFecha(fecha)}${esHoy ? ", hoy" : ""}${cuidados.length ? `, ${cuidados.length} cuidado${cuidados.length > 1 ? "s" : ""}` : ""}`}
+                aria-label={`${formatearFecha(fecha)}${esHoy ? ", hoy" : ""}${cuidados.length ? `, ${cuidados.length} cuidado${cuidados.length > 1 ? "s" : ""}` : ""}${registrosEnFecha.length ? `, ${registrosEnFecha.length} registro${registrosEnFecha.length > 1 ? "s" : ""}` : ""}`}
                 onClick={() => setDia(elegido ? null : fecha)}
                 className={cn(
                   "relative grid aspect-square min-h-11 place-items-center rounded-control text-cuerpo font-bold transition-colors duration-200",
@@ -244,7 +272,7 @@ export default function Calendario() {
                 )}
               >
                 {Number(fecha.slice(8))}
-                {cuidados.length > 0 && (
+                {cuidados.length + registrosEnFecha.length > 0 && (
                   <span
                     aria-hidden
                     className={cn("absolute bottom-1 size-1.5 rounded-full", elegido ? "bg-tinta" : "bg-naranja-hondo")}
@@ -264,16 +292,24 @@ export default function Calendario() {
             Programar
           </Boton>
         </div>
-        {lista.length === 0 ? (
+        {dia && registrosDia.length === 0 && lista.length === 0 ? (
           <p className="rounded-tarjeta bg-hundido p-4 text-cuerpo text-suave-texto">
-            {dia ? "No hay cuidados ese día." : "Aún no hay cuidados propuestos."}{" "}
-            {dia && (
-              <button type="button" onClick={() => setDia(null)} className="font-black text-tinta underline underline-offset-4">
-                Ver todos
-              </button>
-            )}
+            No hay registros ni cuidados ese día.{" "}
+            <button type="button" onClick={() => setDia(null)} className="font-black text-tinta underline underline-offset-4">
+              Ver todos
+            </button>
           </p>
-        ) : (
+        ) : null}
+        {dia && registrosDia.length > 0 && <RegistrosDelDia registros={registrosDia} />}
+        {!dia && lista.length === 0 && (
+          <p className="rounded-tarjeta bg-hundido p-4 text-cuerpo text-suave-texto">Aún no hay cuidados propuestos.</p>
+        )}
+        {dia && lista.length === 0 && registrosDia.length > 0 && (
+          <p className="text-cuerpo text-suave-texto">No hay cuidados programados ese día.</p>
+        )}
+        {lista.length > 0 && (
+          <>
+            {dia && <h3 className="text-cuerpo font-black text-suave-texto">Cuidados programados</h3>}
           <div className="flex flex-col gap-6">
             {GRUPOS.map((g) => {
               // Sin día elegido, el grupo «Ese día» (que acepta todo) no se muestra: evita repetir la lista entera.
@@ -297,6 +333,7 @@ export default function Calendario() {
               );
             })}
           </div>
+          </>
         )}
       </Aparece>
 

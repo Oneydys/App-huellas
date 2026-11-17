@@ -51,9 +51,9 @@ const PREGUNTAS = [
 ] as const;
 
 const CAPTURAS = [
-  { src: "/images/capturas/inicio.png", titulo: "Inicio", texto: "Su próximo cuidado, siempre al frente.", alt: "Pantalla de inicio de Peluvet con el carnet de Luna y su próximo cuidado" },
-  { src: "/images/capturas/calendario.png", titulo: "Calendario", texto: "Qué toca, qué viene y qué ya pasó.", alt: "Calendario de cuidados de Luna con próximas fechas" },
-  { src: "/images/capturas/carnet.png", titulo: "Carnet", texto: "Su carnet digital, listo para compartir.", alt: "Carnet digital de Luna con foto, datos y estado de vacunas" },
+  { src: "/images/capturas/inicio.png", titulo: "Inicio", texto: "Su próximo cuidado, siempre al frente.", alt: "Pantalla de inicio de Peluvet con el carnet de Milo y su próximo cuidado" },
+  { src: "/images/capturas/calendario.png", titulo: "Calendario", texto: "Qué toca, qué viene y qué ya pasó.", alt: "Calendario de cuidados de Milo con próximas fechas" },
+  { src: "/images/capturas/carnet.png", titulo: "Carnet", texto: "Su carnet digital, listo para compartir.", alt: "Carnet digital de Milo con foto, datos y estado de vacunas" },
 ] as const;
 
 export default function Portada() {
@@ -67,8 +67,8 @@ export default function Portada() {
       {/* Cabecera: texto y CTA. El carnet con la captura real va bajo el CTA en móvil y a la derecha desde 768 px. */}
       <section className="mt-6 md:grid md:grid-cols-2 md:items-center md:gap-8">
         <div className="flex flex-col gap-6">
-          <div className="rounded-tarjeta bg-gradient-to-br from-naranja-claro to-naranja-hondo p-6 text-tinta md:p-8">
-            <p className="text-etiqueta font-black tracking-wider">CARNET DE SALUD PARA PERROS Y GATOS</p>
+          <div className="rounded-tarjeta bg-papel p-6 text-tinta shadow-calida ring-1 ring-linea md:p-8">
+            <p className="text-etiqueta font-black tracking-wider text-turquesa-texto">CARNET DE SALUD PARA PERROS Y GATOS</p>
             <h1 className="mt-3 text-heroe font-black tracking-tight">Sus cuidados, a la vista</h1>
             <p className="mt-3 text-cuerpo font-bold">
               Guarda vacunas, peso y visitas. Consulta sus próximas fechas de cuidado.
@@ -90,11 +90,11 @@ export default function Portada() {
         <ul
           tabIndex={0}
           aria-label="Capturas de la app, desliza para ver más"
-          className="sin-barra -mx-6 mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-2"
+          className="mt-4 grid grid-cols-2 justify-items-center gap-4"
         >
           {CAPTURAS.map((c) => (
-            <li key={c.src} className="flex w-56 shrink-0 snap-center flex-col gap-2">
-              <MarcoTelefono src={c.src} alt={c.alt} />
+            <li key={c.src} className="flex w-full max-w-56 flex-col gap-2">
+              <MarcoTelefono src={c.src} alt={c.alt} fluido />
               <p className="text-cuerpo font-black">{c.titulo}</p>
               <p className="-mt-2 text-cuerpo text-suave-texto">{c.texto}</p>
             </li>
@@ -108,8 +108,8 @@ export default function Portada() {
         </h2>
         <ul className="mt-4 flex flex-col gap-4">
           {VALORES.map(({ icono: Icono, titulo, texto }) => (
-            <li key={titulo} className="flex items-start gap-3">
-              <span className="grid size-11 shrink-0 place-items-center rounded-control bg-hundido text-naranja">
+            <li key={titulo} className="flex items-start gap-3 rounded-tarjeta bg-papel p-4 shadow-calida ring-1 ring-linea">
+              <span className="grid size-11 shrink-0 place-items-center rounded-control bg-turquesa/15 text-turquesa-texto">
                 <Icono aria-hidden className="size-5" />
               </span>
               <div>
@@ -126,7 +126,7 @@ export default function Portada() {
         <p className="mt-3 text-center text-cuerpo text-suave-texto">{textoGarantia()}</p>
       </div>
 
-      <section aria-labelledby="gratis" className="mt-10 rounded-tarjeta bg-hundido p-4">
+      <section aria-labelledby="gratis" className="mt-10 rounded-tarjeta bg-hundido p-5 ring-1 ring-linea">
         <h2 id="gratis" className="text-titulo font-black">
           Lo esencial es gratis.
         </h2>
@@ -150,7 +150,7 @@ export default function Portada() {
         </h2>
         <div className="mt-4 flex flex-col gap-5">
           {PREGUNTAS.map((p) => (
-            <div key={p.pregunta}>
+            <div key={p.pregunta} className="rounded-tarjeta bg-papel p-4 shadow-calida ring-1 ring-linea">
               <h3 className="text-cuerpo font-black">{p.pregunta}</h3>
               <p className="mt-1 text-cuerpo text-suave-texto">{p.respuesta}</p>
             </div>

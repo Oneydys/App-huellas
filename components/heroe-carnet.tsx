@@ -25,19 +25,13 @@ function Huella({ className }: { className?: string }) {
 export function HeroeCarnet({ className }: { className?: string }) {
   return (
     <div className={cn("mx-auto w-full max-w-88 md:max-w-none", className)}>
-      <div className="relative overflow-hidden rounded-tarjeta bg-gradient-to-br from-naranja-claro to-naranja-hondo pt-14">
-        {/* Fondo fotográfico detrás del dispositivo: decorativo, la información va en el dispositivo. */}
-        <Image
-          src="/images/portada/perro-gato.webp"
-          alt="Perro dorado y gato atigrado tumbados juntos"
-          fill
-          sizes="(max-width: 767px) 100vw, 480px"
-          className="object-cover object-center"
-          priority
-        />
-        <Huella className="-left-2 top-[18%] size-16 -rotate-12" />
-        <Huella className="-right-3 top-[46%] size-14 rotate-12" />
-        <Huella className="left-[6%] top-[68%] size-12 -rotate-6" />
+      <div className="relative overflow-hidden rounded-tarjeta bg-turquesa/15 pt-14 ring-1 ring-linea">
+        {/* Formas decorativas en turquesa y naranja, sin fotografías de fondo. */}
+        <span aria-hidden className="pointer-events-none absolute -right-14 -top-14 size-56 rounded-full bg-turquesa/30" />
+        <span aria-hidden className="pointer-events-none absolute -bottom-16 -left-12 size-44 rounded-full bg-naranja/25" />
+        <Huella className="-left-2 top-[18%] size-16 -rotate-12 fill-turquesa/30" />
+        <Huella className="-right-3 top-[46%] size-14 rotate-12 fill-naranja/35" />
+        <Huella className="left-[6%] top-[68%] size-12 -rotate-6 fill-turquesa/30" />
 
         <div aria-hidden className="absolute right-3 top-3 z-20 rotate-6 rounded-chip bg-papel p-2 shadow-calida">
           <svg viewBox="-2 -2 25 25" className="size-14 text-tinta" shapeRendering="crispEdges">
@@ -49,10 +43,10 @@ export function HeroeCarnet({ className }: { className?: string }) {
         <div className="heroe-mascara relative z-10 mx-auto w-[min(64%,14rem)] -rotate-[4deg] md:w-[min(74%,17rem)]">
           <div className="flotar-lento rounded-[2.2rem] bg-tinta p-1.5 shadow-marco">
             <Image
-              src="/images/capturas/heroe-huellas.webp"
-              alt="Pantalla principal de la app Peluvet"
+              src="/images/capturas/inicio.png"
+              alt="Pantalla de inicio de Peluvet con el carnet de Milo"
               width={780}
-              height={2130}
+              height={1688}
               priority
               fetchPriority="high"
               sizes="(max-width: 767px) 224px, 272px"

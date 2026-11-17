@@ -3,8 +3,14 @@ import { razaOMestizo, type Mascota } from "./mascota";
 import { IDS_PERSONAJE } from "./personajes";
 import { esMarcador, PLANTILLA } from "./plantilla";
 
+/**
+ * Lo que ve quien escanea: la misma información que muestra /encontrada (nombre, especie, raza y código).
+ * Úsalo en todas las tarjetas que muestran el QR para que el texto no se separe de la página.
+ */
+export const TEXTO_QR_IDENTIFICA = "Escanéalo para ver su nombre, su especie, su raza y su código.";
+
 /** Colores del QR: tinta sobre papel. Son los tokens de app/globals.css (lo comprueba lib/qr.test.ts). */
-export const COLORES_QR = { oscuro: "#1f1a4d", claro: "#ffffff" } as const;
+export const COLORES_QR = { oscuro: "#241d45", claro: "#ffffff" } as const;
 
 /**
  * Lo único que viaja en el código QR: lo que identifica a la mascota.
