@@ -51,7 +51,7 @@ export const PERSONAJES: readonly Personaje[] = [
     imagen: "/images/personajes/photo-shihtzu.webp",
     dije: "Huesito con huellita dorado",
     alt: "Perro Shih Tzu con lazo rosa y dije dorado de hueso con huellita",
-    nombreSugerido: "Rocky",
+    nombreSugerido: "Mía",
   },
 ];
 
