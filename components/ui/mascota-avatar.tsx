@@ -9,6 +9,7 @@ export function MascotaAvatar({
   className,
   priority,
   foto,
+  sinSombra,
 }: {
   personaje: IdPersonaje;
   /** Si hay foto propia, se muestra en lugar del personaje (recortada en círculo). */
@@ -17,6 +18,8 @@ export function MascotaAvatar({
   tamano: number;
   className?: string;
   priority?: boolean;
+  /** Quita la sombra bajo el personaje (p. ej. en las tarjetas de elección del onboarding). */
+  sinSombra?: boolean;
 }) {
   const p = personajePorId(personaje);
   if (foto) {
@@ -44,7 +47,7 @@ export function MascotaAvatar({
       priority={priority}
       // Sin prioridad, la imagen se carga ya: son pequeñas y casi siempre están en la primera pantalla.
       loading={priority ? undefined : "eager"}
-      className={cn("object-contain drop-shadow-[0_14px_10px_rgba(36,29,69,0.25)]", className)}
+      className={cn("object-contain", !sinSombra && "drop-shadow-[0_14px_10px_rgba(36,29,69,0.25)]", className)}
       style={{ width: tamano, height: tamano }}
     />
   );

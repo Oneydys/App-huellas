@@ -1,9 +1,9 @@
 "use client";
 
 import { ArrowLeft, Check, Minus, Plus } from "lucide-react";
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { CuidadoDestacado } from "@/components/cuidado";
+import { MarcoFoto } from "@/components/marco-foto";
 import { Boton } from "@/components/ui/boton";
 import { Campo, Selector } from "@/components/ui/campo";
 import { MascotaAvatar } from "@/components/ui/mascota-avatar";
@@ -254,14 +254,11 @@ export function AsistenteMascota({
                 {/* Ilustración de marca: llena la parte baja del bloque naranja. Es decorativa; el texto ya lo explica. */}
                 <div className="relative mx-auto mt-4 w-full">
                   <span aria-hidden className="escenario-personaje absolute inset-0" />
-                  <Image
-                    src="/images/huellas-mascot.png"
-                    alt=""
-                    width={1368}
-                    height={1149}
+                  <MarcoFoto
+                    src="/images/personajes/golden.webp"
+                    alt="Golden retriever sentado con collar azul y dije de estrella azul"
                     priority
-                    sizes="(max-width: 440px) calc(100vw - 96px), 344px"
-                    className="relative h-auto w-full drop-shadow-[0_14px_10px_rgba(36,29,69,0.25)]"
+                    className="w-[78%]"
                   />
                 </div>
               </div>
@@ -279,7 +276,7 @@ export function AsistenteMascota({
                         activo ? "border-naranja shadow-calida" : "border-transparent",
                       )}
                     >
-                      <MascotaAvatar personaje={p.id} tamano={120} />
+                      <MascotaAvatar personaje={p.id} tamano={120} sinSombra />
                       <span className="mt-1 w-full text-cuerpo font-black">{p.nombre}</span>
                       <span className="w-full text-cuerpo text-suave-texto text-pretty">Dije: {p.dije}</span>
                       {activo && (
