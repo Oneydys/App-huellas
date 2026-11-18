@@ -7,6 +7,7 @@ import { Aviso } from "@/components/ui/aviso";
 import { Boton } from "@/components/ui/boton";
 import { Campo } from "@/components/ui/campo";
 import { PantallaCargando } from "@/components/ui/esqueleto";
+import { MarcoFoto } from "@/components/marco-foto";
 import { Logotipo, MascotaAvatar } from "@/components/ui/mascota-avatar";
 import { NavLegal } from "@/components/nav-legal";
 import { avisosDePlantilla } from "@/lib/plantilla";
@@ -48,7 +49,13 @@ export default function Acceso() {
       ) : (
         <>
           <div className="mt-6 flex items-center gap-4 rounded-tarjeta bg-gradient-to-br from-naranja-claro to-naranja-hondo p-4 text-tinta">
-            <MascotaAvatar personaje={mascota.personaje} tamano={96} priority />
+            {mascota.foto ? (
+              <div className="w-24 shrink-0">
+                <MarcoFoto src={mascota.foto} alt={`Foto de ${mascota.nombre}`} sizes="96px" priority />
+              </div>
+            ) : (
+              <MascotaAvatar personaje={mascota.personaje} tamano={96} priority />
+            )}
             <div>
               <p className="text-etiqueta font-black tracking-wider">EL CARNET DE</p>
               <p className="text-titulo font-black">{mascota.nombre}</p>
