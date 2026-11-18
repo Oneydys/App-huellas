@@ -1,6 +1,7 @@
 "use client";
 
 import { Chip } from "@/components/ui/chip";
+import { MarcoFoto } from "@/components/marco-foto";
 import { MascotaAvatar } from "@/components/ui/mascota-avatar";
 import { dijeDe, describirEdad, razaOMestizo, type Mascota } from "@/lib/mascota";
 import { nombreDePais } from "@/lib/paises";
@@ -62,7 +63,13 @@ export function TarjetaCarnet({
         <span aria-hidden className="escenario-personaje absolute -inset-3" />
         <div className="flotar relative">
           {/* Tamaño fluido: en 320 px el personaje mide 120 px y deja sitio al nombre y a los datos (el tamaño inline se sustituye con !). */}
-          <MascotaAvatar personaje={mascota.personaje} foto={mascota.foto} tamano={168} priority className="!size-[clamp(120px,36vw,168px)]" />
+          {mascota.foto ? (
+            <div className="w-[clamp(120px,36vw,168px)]">
+              <MarcoFoto src={mascota.foto} alt={`Foto de ${mascota.nombre}`} sizes="168px" priority />
+            </div>
+          ) : (
+            <MascotaAvatar personaje={mascota.personaje} tamano={168} priority className="!size-[clamp(120px,36vw,168px)]" />
+          )}
         </div>
       </div>
     </section>
