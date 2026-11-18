@@ -515,19 +515,28 @@ export function AsistenteMascota({
             <>
               <section
                 aria-label={`Carnet de ${resultado.mascota.nombre}`}
-                className="relative -mx-2 mb-6 min-h-60 overflow-hidden rounded-tarjeta bg-gradient-to-br from-naranja-claro to-naranja-hondo p-6 text-tinta"
+                className={cn(
+                  "relative -mx-2 mb-6 min-h-60 overflow-hidden rounded-tarjeta bg-gradient-to-br from-naranja-claro to-naranja-hondo p-6 text-tinta",
+                  resultado.mascota.foto && "min-h-[19rem] pr-48",
+                )}
               >
                 <p className="text-etiqueta font-black tracking-wider">EL CARNET DE</p>
                 <h1 ref={titulo} tabIndex={-1} className="mt-1 text-display font-black tracking-tight outline-none">
                   {resultado.mascota.nombre}
                 </h1>
                 <p className="mt-2 max-w-40 text-cuerpo font-bold">Ya tiene un lugar para su historia.</p>
-                <MascotaAvatar
-                  personaje={resultado.mascota.personaje}
-                  tamano={190}
-                  priority
-                  className="absolute -bottom-2 -right-2"
-                />
+                {resultado.mascota.foto ? (
+                  <div className="absolute bottom-4 right-3 w-[184px]">
+                    <MarcoFoto src={resultado.mascota.foto} alt={`Foto de ${resultado.mascota.nombre}`} sizes="184px" priority />
+                  </div>
+                ) : (
+                  <MascotaAvatar
+                    personaje={resultado.mascota.personaje}
+                    tamano={190}
+                    priority
+                    className="absolute -bottom-2 -right-2"
+                  />
+                )}
               </section>
               <h2 className="mb-3 text-titulo font-black">Lo próximo para {resultado.mascota.nombre}</h2>
               {resultado.destacado ? (
