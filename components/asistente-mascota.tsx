@@ -10,6 +10,7 @@ import { MascotaAvatar } from "@/components/ui/mascota-avatar";
 import { Aviso } from "@/components/ui/aviso";
 import { calcularCalendario, cuidadoDestacado, type PropuestaCuidado } from "@/lib/calendario-vivo";
 import { hoyISO } from "@/lib/fechas";
+import { reducirFoto } from "@/lib/foto";
 import {
   crearMascota,
   describirEdad,
@@ -41,6 +42,8 @@ interface Borrador {
   pais: CodigoPais | "";
   peso: string;
   prioridad: Prioridad;
+  /** Foto opcional de la mascota (JPEG en base64, reducida en el navegador). */
+  foto?: string;
 }
 
 interface Resultado {
@@ -119,6 +122,8 @@ export function AsistenteMascota({
   const [b, setB] = useState<Borrador>(INICIAL);
   const [errores, setErrores] = useState<Record<string, string>>({});
   const [resultado, setResultado] = useState<Resultado | null>(null);
+  const [errorFoto, setErrorFoto] = useState("");
+  const entradaFoto = useRef<HTMLInputElement>(null);
   const titulo = useRef<HTMLHeadingElement>(null);
   const primeraVez = useRef(true);
 
@@ -185,6 +190,7 @@ export function AsistenteMascota({
         dije: b.dije,
         pais: b.pais,
         prioridad: b.prioridad,
+        ...(b.foto ? { foto: b.foto } : {}),
       },
       { id, hoy },
     );
@@ -325,6 +331,48 @@ export function AsistenteMascota({
                   Usar «{personaje.nombreSugerido}»
                 </button>
               )}
+              <section aria-label="Foto de tu mascota (opcional)" className="mt-8 flex items-center gap-4 rounded-tarjeta border border-linea bg-papel p-4">
+                <span className="grid size-20 shrink-0 place-items-center overflow-hidden rounded-full bg-hundido">
+                  <MascotaAvatar personaje={personaje.id} foto={b.foto} tamano={b.foto ? 80 : 64} />
+                </span>
+                <div className="flex min-w-0 flex-1 flex-col gap-2">
+                  <p className="text-cuerpo font-black">Foto (opcional)</p>
+                  <p className="text-cuerpo text-suave-texto">Si la subes, aparece en su carnet en lugar del dibujo.</p>
+                  <div className="flex flex-wrap gap-2">
+                    <Boton variante="secundario" className="min-h-11 px-4 text-cuerpo" onClick={() => entradaFoto.current?.click()}>
+                      {b.foto ? "Cambiar foto" : "Agregar foto"}
+                    </Boton>
+                    {b.foto && (
+                      <Boton variante="fantasma" className="min-h-11 px-3 text-cuerpo" onClick={() => actualizar("foto", undefined)}>
+                        Quitar
+                      </Boton>
+                    )}
+                  </div>
+                  {errorFoto && (
+                    <p role="alert" className="text-cuerpo font-bold text-error">
+                      {errorFoto}
+                    </p>
+                  )}
+                </div>
+                <input
+                  ref={entradaFoto}
+                  type="file"
+                  accept="image/*"
+                  className="sr-only"
+                  tabIndex={-1}
+                  aria-hidden
+                  onChange={async (e) => {
+                    const f = e.target.files?.[0];
+                    e.target.value = "";
+                    if (!f) return;
+                    const r = await reducirFoto(f);
+                    if (r.ok) {
+                      actualizar("foto", r.foto);
+                      setErrorFoto("");
+                    } else setErrorFoto(r.error);
+                  }}
+                />
+              </section>
             </>
           )}
 
