@@ -24,7 +24,7 @@ export const PERSONAJES: readonly Personaje[] = [
     imagen: "/images/personajes/photo-europeo.webp",
     dije: "Huella turquesa",
     alt: "Gato gris y blanco con collar turquesa y dije de huella turquesa",
-    nombreSugerido: "Luna",
+    nombreSugerido: "Milo",
   },
   {
     id: "persa",
