@@ -380,14 +380,23 @@ export function AsistenteMascota({
             <>
               <section
                 aria-label={`Carnet de ${nombre}`}
-                className="relative -mx-2 min-h-60 overflow-hidden rounded-tarjeta bg-gradient-to-br from-naranja-claro to-naranja-hondo p-6 text-tinta"
+                className={cn(
+                  "relative -mx-2 min-h-60 overflow-hidden rounded-tarjeta bg-gradient-to-br from-naranja-claro to-naranja-hondo p-6 text-tinta",
+                  b.foto && "min-h-[19rem] pr-48",
+                )}
               >
                 <p className="text-etiqueta font-black tracking-wider">CARNET DE SALUD</p>
                 <h1 ref={titulo} tabIndex={-1} className="mt-1 break-words text-display font-black tracking-tight outline-none">
                   {nombre} ya tiene carnet
                 </h1>
                 <p className="mt-2 max-w-40 text-cuerpo font-bold">{personaje.nombre}</p>
-                <MascotaAvatar personaje={personaje.id} tamano={170} priority className="absolute -bottom-2 -right-2" />
+                {b.foto ? (
+                  <div className="absolute bottom-4 right-3 w-[184px]">
+                    <MarcoFoto src={b.foto} alt={`Foto de ${nombre}`} sizes="128px" priority />
+                  </div>
+                ) : (
+                  <MascotaAvatar personaje={personaje.id} tamano={170} priority className="absolute -bottom-2 -right-2" />
+                )}
               </section>
               <p className="mt-6 text-cuerpo text-suave-texto">
                 Su edad y sus datos servirán para proponer fechas orientativas de cuidado.

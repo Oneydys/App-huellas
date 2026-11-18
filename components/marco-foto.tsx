@@ -6,7 +6,7 @@ import { cn } from "@/lib/cn";
  * La foto va entera (object-contain): no se recorta cabeza, patas ni cuerpo.
  * La ventana de la foto está calculada sobre el diseño original del marco (1086 × 1448).
  */
-export const MARCO_VENTANA = { izquierda: 12, arriba: 9, ancho: 76, alto: 83 } as const;
+export const MARCO_VENTANA = { izquierda: 9.3, arriba: 7.9, ancho: 79.6, alto: 84.8 } as const;
 
 export function MarcoFoto({
   src,
@@ -32,10 +32,11 @@ export function MarcoFoto({
           height: `${MARCO_VENTANA.alto}%`,
         }}
       >
-        <Image src={src} alt={alt} fill priority={priority} sizes={sizes} className="object-contain" />
+        {/* Las fotos subidas llegan como data URL: no pasan por el optimizador de imágenes. */}
+        <Image src={src} alt={alt} fill priority={priority} sizes={sizes} unoptimized={src.startsWith("data:")} className="object-contain" />
       </div>
       <Image
-        src="/images/marco/marco-peluvet.webp"
+        src="/images/marco/marco-peluvet-v6.webp"
         alt=""
         aria-hidden
         fill
