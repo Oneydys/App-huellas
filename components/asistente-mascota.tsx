@@ -14,14 +14,16 @@ import { reducirFoto } from "@/lib/foto";
 import {
   crearMascota,
   describirEdad,
+  dijeDe,
   ETIQUETA_PRIORIDAD,
   nacimientoDesdeEdad,
   PRIORIDADES,
+  razaOMestizo,
   type Mascota,
   type Prioridad,
 } from "@/lib/mascota";
-import { PAISES, type CodigoPais } from "@/lib/paises";
-import { PERSONAJES, personajePorId, type IdPersonaje } from "@/lib/personajes";
+import { nombreDePais, PAISES, type CodigoPais } from "@/lib/paises";
+import { ETIQUETA_ESPECIE, PERSONAJES, personajePorId, type IdPersonaje } from "@/lib/personajes";
 import { PLANTILLA } from "@/lib/plantilla";
 import { crearRegistro, parsearKg, type Registro } from "@/lib/registros";
 import { nuevoId, useHuellas } from "@/lib/store/hooks";
@@ -389,7 +391,7 @@ export function AsistenteMascota({
                 <h1 ref={titulo} tabIndex={-1} className="mt-1 break-words text-display font-black tracking-tight outline-none">
                   {nombre} ya tiene carnet
                 </h1>
-                <p className="mt-2 max-w-40 text-cuerpo font-bold">{personaje.nombre}</p>
+                <p className="mt-2 max-w-40 text-cuerpo font-bold">{ETIQUETA_ESPECIE[personaje.especie]}</p>
                 {b.foto ? (
                   <div className="absolute bottom-4 right-3 w-[184px]">
                     <MarcoFoto src={b.foto} alt={`Foto de ${nombre}`} sizes="128px" priority />
@@ -517,7 +519,7 @@ export function AsistenteMascota({
                 aria-label={`Carnet de ${resultado.mascota.nombre}`}
                 className={cn(
                   "relative -mx-2 mb-6 min-h-60 overflow-hidden rounded-tarjeta bg-gradient-to-br from-naranja-claro to-naranja-hondo p-6 text-tinta",
-                  resultado.mascota.foto && "min-h-[19rem] pr-48",
+                  "min-h-[19rem] pr-48",
                 )}
               >
                 <p className="text-etiqueta font-black tracking-wider">EL CARNET DE</p>
@@ -525,6 +527,18 @@ export function AsistenteMascota({
                   {resultado.mascota.nombre}
                 </h1>
                 <p className="mt-2 max-w-40 text-cuerpo font-bold">Ya tiene un lugar para su historia.</p>
+                <div className="mt-3 flex flex-col text-cuerpo font-bold">
+                  <p>
+                    {razaOMestizo(resultado.mascota)} · {describirEdad(resultado.mascota, hoyISO())}
+                  </p>
+                  {resultado.mascota.pais && <p>{nombreDePais(resultado.mascota.pais)}</p>}
+                  {dijeDe(resultado.mascota) && (
+                    <p className="mt-2">
+                      <span aria-hidden className="mr-2 inline-block size-3 rounded-full bg-turquesa align-middle ring-2 ring-papel" />
+                      Dije: {dijeDe(resultado.mascota)}
+                    </p>
+                  )}
+                </div>
                 {resultado.mascota.foto ? (
                   <div className="absolute bottom-4 right-3 w-[184px]">
                     <MarcoFoto src={resultado.mascota.foto} alt={`Foto de ${resultado.mascota.nombre}`} sizes="184px" priority />
