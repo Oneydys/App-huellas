@@ -263,7 +263,7 @@ export function AsistenteMascota({
                 <div className="relative mx-auto mt-4 w-full">
                   <span aria-hidden className="escenario-personaje absolute inset-0" />
                   <MarcoFoto
-                    src="/images/personajes/golden.webp"
+                    src="/images/personajes/golden-completo.webp"
                     alt="Golden retriever sentado con collar azul y dije de estrella azul"
                     priority
                     className="w-[78%]"
