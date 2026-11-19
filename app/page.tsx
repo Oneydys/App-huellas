@@ -80,7 +80,7 @@ export default function Portada() {
       <section className="mt-6 md:grid md:grid-cols-2 md:items-center md:gap-8">
         <div className="flex flex-col gap-6">
           <div className="rounded-tarjeta bg-papel p-6 text-tinta shadow-calida ring-1 ring-linea md:p-8">
-            <p className="inline-flex items-center gap-2 self-start rounded-chip bg-hundido px-3 py-1.5 text-etiqueta font-black tracking-wider text-turquesa-texto">
+            <p className="inline-flex items-center gap-2 self-start rounded-chip bg-hundido px-3 py-1.5 text-etiqueta font-black tracking-wider text-tinta">
               <PawPrint aria-hidden className="size-4 fill-turquesa text-turquesa" />
               CARNET DE SALUD PARA PERROS Y GATOS
             </p>

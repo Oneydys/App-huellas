@@ -282,7 +282,7 @@ export function AsistenteMascota({
                       className={cn(
                         "relative flex flex-col items-center rounded-tarjeta border-2 p-3 text-left transition-[transform,border-color,box-shadow,background-color] duration-[120ms] ease-huellas active:scale-[0.97]",
                         // Elegido: amarillo muy claro (fuera de la paleta base, a confirmar); sin elegir: turquesa claro.
-                        activo ? "border-naranja bg-[#fffbea] shadow-calida" : "border-transparent bg-hundido",
+                        activo ? "border-naranja bg-amarillo-claro shadow-calida" : "border-transparent bg-hundido",
                       )}
                     >
                       <MascotaAvatar personaje={p.id} tamano={120} sinSombra />

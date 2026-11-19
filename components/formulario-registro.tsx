@@ -26,6 +26,7 @@ import {
 } from "@/lib/registros";
 import { nuevoId } from "@/lib/store/hooks";
 import { useVistaMascota } from "@/lib/store/vistas";
+import { useBaseDelPanel } from "@/lib/rutas";
 
 type Valores = Record<string, string>;
 
@@ -71,6 +72,7 @@ interface Props extends OpcionesRegistro {
 }
 
 export function FormularioRegistro({ tipo: tipoParam = null, cuidadoId = null, enHoja = false, alTerminar }: Props) {
+  const base = useBaseDelPanel();
   const { mascota, hoy, calendario, registros, despachar } = useVistaMascota();
   const [tipo, setTipo] = useState<TipoRegistro>(esTipo(tipoParam) ? tipoParam : "peso");
   const [valores, setValores] = useState<Valores>({});
@@ -130,7 +132,7 @@ export function FormularioRegistro({ tipo: tipoParam = null, cuidadoId = null, e
           {enHoja ? (
             <Boton onClick={alTerminar}>Listo</Boton>
           ) : (
-            <BotonLink href="/app/carnet">Ver el carnet</BotonLink>
+            <BotonLink href={`${base}/carnet`}>Ver el carnet</BotonLink>
           )}
           <Boton
             variante="secundario"

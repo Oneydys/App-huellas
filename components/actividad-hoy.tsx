@@ -7,12 +7,14 @@ import type { FechaISO } from "@/lib/fechas";
 import { objetivoDe, type Mascota } from "@/lib/mascota";
 import type { Registro } from "@/lib/registros";
 import { MascotaAvatar } from "@/components/ui/mascota-avatar";
+import { useBaseDelPanel } from "@/lib/rutas";
 
 /**
  * Tarjeta «Actividad de hoy» de Inicio. Toda la tarjeta lleva a la sección Actividad diaria.
  * Sin registros de hoy no muestra cifras: invita a registrar la primera actividad.
  */
 export function ActividadHoy({ mascota, registros, hoy }: { mascota: Mascota; registros: readonly Registro[]; hoy: FechaISO }) {
+  const base = useBaseDelPanel();
   const resumen = actividadDelDia(registros, mascota.id, hoy);
   const objetivo = objetivoDe(mascota);
   const progreso = progresoObjetivo(resumen.minutos, objetivo);
@@ -20,7 +22,7 @@ export function ActividadHoy({ mascota, registros, hoy }: { mascota: Mascota; re
 
   return (
     <Link
-      href="/app/actividad"
+      href={`${base}/actividad`}
       aria-label={`Actividad de hoy de ${mascota.nombre}. Abrir actividad diaria`}
       className="block overflow-hidden rounded-tarjeta bg-papel shadow-calida ring-1 ring-linea transition-transform duration-[120ms] active:scale-[0.98]"
     >

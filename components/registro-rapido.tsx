@@ -6,6 +6,7 @@ import { createContext, useCallback, useContext, useMemo, useState } from "react
 import type { OpcionesRegistro } from "@/components/formulario-registro";
 import { Hoja } from "@/components/ui/hoja";
 import { useHuellas } from "@/lib/store/hooks";
+import { useBaseDelPanel } from "@/lib/rutas";
 
 // El formulario solo hace falta al abrir la hoja: se descarga entonces, no en la primera carga.
 const FormularioRegistro = dynamic(() => import("@/components/formulario-registro").then((m) => m.FormularioRegistro));
@@ -19,6 +20,7 @@ export function useRegistroRapido() {
 /** Hoja de registro rápido: se abre desde el botón "+" de la navegación y desde los atajos. */
 export function ProveedorRegistroRapido({ children }: { children: React.ReactNode }) {
   const router = useRouter();
+  const base = useBaseDelPanel();
   const { mascota } = useHuellas();
   const [estado, setEstado] = useState<{ abierta: boolean; opciones: OpcionesRegistro; clave: number }>({
     abierta: false,
@@ -28,10 +30,10 @@ export function ProveedorRegistroRapido({ children }: { children: React.ReactNod
 
   const abrir = useCallback(
     (opciones: OpcionesRegistro = {}) => {
-      if (!mascota) return router.push("/app/mascotas/nueva");
+      if (!mascota) return router.push(`${base}/mascotas/nueva`);
       setEstado((e) => ({ abierta: true, opciones, clave: e.clave + 1 }));
     },
-    [mascota, router],
+    [base, mascota, router],
   );
   const cerrar = useCallback(() => setEstado((e) => ({ ...e, abierta: false })), []);
   const valor = useMemo(() => ({ abrir }), [abrir]);

@@ -24,8 +24,8 @@ afterEach(() => {
 });
 
 describe("proxy.ts", () => {
-  it("solo se aplica a /app y sus subrutas", () => {
-    expect(matcher.matcher).toEqual(["/app", "/app/:path*"]);
+  it("se aplica a /app y /demo y sus subrutas", () => {
+    expect(matcher.matcher).toEqual(["/app", "/app/:path*", "/demo", "/demo/:path*"]);
   });
 
   it("sin variables de Supabase deja pasar /app sin llamar a la red", async () => {
@@ -83,5 +83,35 @@ describe("proxy.ts", () => {
     const respuesta = await proxy(peticion("/app", TOKEN));
     expect(respuesta.headers.get("location")).toBeNull();
     expect(respuesta.headers.get("x-middleware-next")).toBe("1");
+  });
+});
+
+describe("demostración separada de /app", () => {
+  it("con configuración, la cookie huellas-demo NO abre /app: redirige a /acceso", async () => {
+    vi.stubEnv("SUPABASE_URL", ENTORNO_SUPABASE.SUPABASE_URL);
+    vi.stubEnv("SUPABASE_ANON_KEY", ENTORNO_SUPABASE.SUPABASE_ANON_KEY);
+    vi.stubEnv("SUPABASE_SERVICE_ROLE_KEY", ENTORNO_SUPABASE.SUPABASE_SERVICE_ROLE_KEY);
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("{}", { status: 401 })));
+    const req = new NextRequest("http://localhost:3000/app", { headers: { cookie: "huellas-demo=1" } });
+    const res = await proxy(req);
+    expect(res.status).toBe(307);
+    expect(res.headers.get("location")).toBe("http://localhost:3000/acceso");
+  });
+
+  it("con configuración, /demo redirige a /acceso sin llamar a la red", async () => {
+    for (const [nombre, valor] of Object.entries(ENTORNO_SUPABASE)) vi.stubEnv(nombre, valor);
+    const fetchEspia = vi.fn();
+    vi.stubGlobal("fetch", fetchEspia);
+    const res = await proxy(peticion("/demo"));
+    expect(res.status).toBe(307);
+    expect(res.headers.get("location")).toBe("http://localhost:3000/acceso");
+    expect(fetchEspia).not.toHaveBeenCalled();
+  });
+
+  it("sin configuración, /demo sigue disponible", async () => {
+    vi.stubEnv("SUPABASE_URL", "");
+    vi.stubEnv("SUPABASE_ANON_KEY", "");
+    const res = await proxy(peticion("/demo/actividad"));
+    expect(res.status).toBe(200);
   });
 });

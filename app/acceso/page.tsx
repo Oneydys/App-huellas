@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Marco } from "@/components/marco";
 import { Aviso } from "@/components/ui/aviso";
 import { Boton } from "@/components/ui/boton";
@@ -11,7 +11,7 @@ import { MarcoFoto } from "@/components/marco-foto";
 import { Logotipo, MascotaAvatar } from "@/components/ui/mascota-avatar";
 import { NavLegal } from "@/components/nav-legal";
 import { avisosDePlantilla } from "@/lib/plantilla";
-import { solicitarAcceso } from "@/lib/servicios";
+import { accesoRealConfigurado, iniciarSesionConContrasena, solicitarAcceso } from "@/lib/servicios";
 import { useRequiereMascota } from "@/lib/store/guardias";
 import { useHuellas } from "@/lib/store/hooks";
 
@@ -20,14 +20,40 @@ export default function Acceso() {
   const router = useRouter();
   const { listo, mascota, despachar } = useHuellas();
   const [correo, setCorreo] = useState("");
+  const [contrasena, setContrasena] = useState("");
   const [error, setError] = useState("");
   const [enCurso, setEnCurso] = useState(false);
+  // Demostración solo sin Supabase. Mientras no se sabe el estado, el botón queda oculto.
+  const [demoDisponible, setDemoDisponible] = useState(false);
 
-  async function enviar(e: React.FormEvent) {
-    e.preventDefault();
+  useEffect(() => {
+    let vigente = true;
+    accesoRealConfigurado().then((configurado) => {
+      if (vigente) setDemoDisponible(!configurado);
+    });
+    return () => {
+      vigente = false;
+    };
+  }, []);
+
+  async function enviar() {
     setError("");
     setEnCurso(true);
     const r = await solicitarAcceso(correo);
+    if (!r.ok) {
+      setError(r.error);
+      setEnCurso(false);
+      return;
+    }
+    despachar({ tipo: "acceso/iniciar" });
+    router.push("/demo");
+  }
+
+  async function entrarConContrasena(e: React.FormEvent) {
+    e.preventDefault();
+    setError("");
+    setEnCurso(true);
+    const r = await iniciarSesionConContrasena(correo, contrasena);
     if (!r.ok) {
       setError(r.error);
       setEnCurso(false);
@@ -65,7 +91,7 @@ export default function Acceso() {
           <p className="mt-2 text-cuerpo text-suave-texto">
             Escribe tu correo para entrar al carnet.
           </p>
-          <form onSubmit={enviar} noValidate className="mt-6 flex flex-col gap-4">
+          <form onSubmit={entrarConContrasena} noValidate className="mt-6 flex flex-col gap-4">
             <Campo
               etiqueta="Tu correo"
               type="email"
@@ -79,9 +105,26 @@ export default function Acceso() {
                 setError("");
               }}
             />
+            <Campo
+              etiqueta="Tu contraseña"
+              type="password"
+              autoComplete="current-password"
+              placeholder="Tu contraseña"
+              value={contrasena}
+              error={error}
+              onChange={(e) => {
+                setContrasena(e.target.value);
+                setError("");
+              }}
+            />
             <Boton type="submit" disabled={enCurso}>
-              {enCurso ? "Entrando…" : "Entrar a la app"}
+              {enCurso ? "Entrando…" : "Entrar con contraseña"}
             </Boton>
+            {demoDisponible && (
+              <Boton type="button" variante="secundario" disabled={enCurso} onClick={() => enviar()}>
+                Entrar a la app
+              </Boton>
+            )}
           </form>
           {avisosDePlantilla && (
             <Aviso className="mt-6">

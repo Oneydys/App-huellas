@@ -29,6 +29,7 @@ import {
 } from "@/lib/registros";
 import { exportarJSON, nombreArchivoCopia } from "@/lib/store/almacen";
 import { useVistaMascota } from "@/lib/store/vistas";
+import { useBaseDelPanel } from "@/lib/rutas";
 
 // La imagen para compartir (canvas) solo se descarga la primera vez que se abre la hoja.
 const HojaCompartirCarnet = dynamic(() => import("@/components/compartir-carnet").then((m) => m.HojaCompartirCarnet));
@@ -41,6 +42,7 @@ const TILES: { tipo: Extract<TipoRegistro, "peso" | "vacuna" | "desparasitacion"
 ];
 
 export default function Carnet() {
+  const base = useBaseDelPanel();
   const { mascota, hoy, registros, calendario, estado, despachar } = useVistaMascota();
   const [filtro, setFiltro] = useState<TipoRegistro | "todo">("todo");
   const { mostrar } = useAvisos();
@@ -74,7 +76,7 @@ export default function Carnet() {
             <Share2 aria-hidden className="size-5" />
             Compartir carnet
           </Boton>
-          <BotonLink href="/app/carnet/perdida" variante="secundario">
+          <BotonLink href={`${base}/carnet/perdida`} variante="secundario">
             <MapPinned aria-hidden className="size-5" />
             Tarjeta de mascota perdida
           </BotonLink>
@@ -111,7 +113,7 @@ export default function Carnet() {
       <Aparece className="flex flex-col gap-3">
         <div className="flex items-center justify-between gap-3">
           <h2 className="text-titulo font-black">Historial</h2>
-          <BotonLink href="/app/registrar" variante="secundario" className="min-h-11 px-4 text-cuerpo">
+          <BotonLink href={`${base}/registrar`} variante="secundario" className="min-h-11 px-4 text-cuerpo">
             <Plus aria-hidden className="size-4" />
             Agregar
           </BotonLink>
@@ -141,7 +143,7 @@ export default function Carnet() {
             <p className="mt-1 text-cuerpo text-suave-texto">
               Agrega una vacuna, un peso o una visita para iniciar su historial.
             </p>
-            <BotonLink href="/app/registrar" className="mt-4">
+            <BotonLink href={`${base}/registrar`} className="mt-4">
               Agregar el primero
             </BotonLink>
           </div>
@@ -183,7 +185,7 @@ export default function Carnet() {
       </Aparece>
 
       <Aparece className="flex flex-col gap-3">
-        <BotonLink href="/app/resumen" variante="secundario">
+        <BotonLink href={`${base}/resumen`} variante="secundario">
           <FileText aria-hidden className="size-5" />
           Resumen para el veterinario
         </BotonLink>

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { configuracionFaltante, conexionActiva, leerHottok, leerSupabase } from "./config";
+import { configuracionFaltante, conexionActiva, leerHottok, leerSupabase, leerSupabaseAuth } from "./config";
 
 // Valores ficticios marcados como prueba. No son claves reales.
 const COMPLETO = {
@@ -54,5 +54,17 @@ describe("configuración del backend", () => {
     expect(configuracionFaltante("supabase", { ...COMPLETO, SUPABASE_URL: "no-es-una-url" })).toEqual([
       "SUPABASE_URL",
     ]);
+  });
+});
+
+describe("leerSupabaseAuth", () => {
+  it("funciona solo con la URL y la clave pública, sin clave de administración", () => {
+    const r = leerSupabaseAuth({ SUPABASE_URL: "https://ejemplo.supabase.co/", SUPABASE_ANON_KEY: "publica" });
+    expect(r).toEqual({ url: "https://ejemplo.supabase.co", anonKey: "publica" });
+  });
+
+  it("sin clave pública o con URL no válida devuelve null", () => {
+    expect(leerSupabaseAuth({ SUPABASE_URL: "https://ejemplo.supabase.co" })).toBeNull();
+    expect(leerSupabaseAuth({ SUPABASE_URL: "http://ejemplo.com", SUPABASE_ANON_KEY: "x" })).toBeNull();
   });
 });

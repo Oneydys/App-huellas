@@ -97,7 +97,7 @@ export function crearRepositorioCompras(config: ConfigSupabase, fetchFn: typeof 
  * lo que puede leer, y no hace falta la clave de servicio en el proxy.
  */
 export function crearDepsAccesoSupabase(
-  config: ConfigSupabase,
+  config: Pick<ConfigSupabase, "url" | "anonKey">,
   fetchFn: typeof fetch = fetch,
 ): Omit<DepsAcceso, "configurado"> {
   return {

@@ -21,6 +21,7 @@ import { diasEntre, describirDias, formatearFecha } from "@/lib/fechas";
 import { PLANTILLA } from "@/lib/plantilla";
 import { ETIQUETA_TIPO } from "@/lib/registros";
 import { useVistaMascota } from "@/lib/store/vistas";
+import { useBaseDelPanel } from "@/lib/rutas";
 
 const CATEGORIAS = ["vacuna", "desparasitacion", "peso", "visita"] as const;
 const TONO: Record<EstadoCategoria, "exito" | "naranja" | "aviso" | "neutro"> = {
@@ -37,6 +38,7 @@ const CORTO: Record<EstadoCategoria, string> = {
 };
 
 export default function Inicio() {
+  const base = useBaseDelPanel();
   const { mascota, hoy, registros, calendario, destacado } = useVistaMascota();
   const { abrir } = useRegistroRapido();
   const hechoHoy = useHechoHoy();
@@ -78,7 +80,7 @@ export default function Inicio() {
               ) : destacado.categoria === "peso" ? (
                 <Boton onClick={() => abrir({ tipo: "peso" })}>Anotar su peso</Boton>
               ) : null}
-              <BotonLink href="/app/calendario" variante="secundario" className="bg-papel">
+              <BotonLink href={`${base}/calendario`} variante="secundario" className="bg-papel">
                 Ver el calendario
               </BotonLink>
             </div>
@@ -139,7 +141,7 @@ export default function Inicio() {
 
       <Aparece>
         <Link
-          href="/app/urgencia"
+          href={`${base}/urgencia`}
           className="flex items-center gap-3 rounded-tarjeta bg-hundido p-4 transition-transform duration-[120ms] active:scale-[0.98]"
         >
           <span className="grid size-11 shrink-0 place-items-center rounded-control bg-papel text-error">

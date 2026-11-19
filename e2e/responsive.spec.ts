@@ -10,7 +10,7 @@ async function entrarConDemo(page: Page) {
   await page.getByRole("button", { name: "Seguir con el plan gratis" }).click();
   await page.getByLabel("Tu correo").fill("prueba@ejemplo.com");
   await page.getByRole("button", { name: "Entrar a la app" }).click();
-  await expect(page).toHaveURL(/\/app$/);
+  await expect(page).toHaveURL(/\/demo$/);
 }
 
 const anchoDocumento = (page: Page) => page.evaluate(() => document.documentElement.scrollWidth);

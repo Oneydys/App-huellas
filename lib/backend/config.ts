@@ -72,3 +72,14 @@ export function leerHottok(entorno: Entorno = process.env): string | null {
   if (!conexionActiva("hotmart", entorno)) return null;
   return leerValor(entorno, "HOTMART_HOTTOK");
 }
+
+/**
+ * Solo lo que necesita el inicio de sesión: la dirección del proyecto y la clave pública.
+ * No usa SUPABASE_SERVICE_ROLE_KEY: esa clave es de administrador y nunca se requiere para entrar.
+ */
+export function leerSupabaseAuth(entorno: Entorno = process.env): { url: string; anonKey: string } | null {
+  const url = leerValor(entorno, "SUPABASE_URL").replace(/\/+$/, "");
+  const anonKey = leerValor(entorno, "SUPABASE_ANON_KEY");
+  if (url === "" || anonKey === "" || !esUrlAceptable(url)) return null;
+  return { url, anonKey };
+}

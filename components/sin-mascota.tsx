@@ -6,6 +6,7 @@ import { Aparece, Escalonado } from "@/components/ui/aparece";
 import { Boton, BotonLink } from "@/components/ui/boton";
 import { crearDemo } from "@/lib/demo";
 import { useHuellas } from "@/lib/store/hooks";
+import { useBaseDelPanel } from "@/lib/rutas";
 
 const PASOS = [
   { icono: IdCard, texto: "Crea su carnet con su nombre y su personaje." },
@@ -15,6 +16,7 @@ const PASOS = [
 
 /** Estado vacío: el usuario real empieza sin datos y puede crear su mascota o ver la demostración. */
 export function SinMascota() {
+  const base = useBaseDelPanel();
   const { hoy, despachar } = useHuellas();
   return (
     <Escalonado className="flex flex-1 flex-col gap-6 py-2">
@@ -58,7 +60,7 @@ export function SinMascota() {
       </Aparece>
 
       <Aparece className="flex flex-col gap-3">
-        <BotonLink href="/app/mascotas/nueva">Crear su carnet</BotonLink>
+        <BotonLink href={`${base}/mascotas/nueva`}>Crear su carnet</BotonLink>
         <Boton variante="secundario" onClick={() => despachar({ tipo: "demo/cargar", demo: crearDemo(hoy) })}>
           Ver con datos de demostración
         </Boton>

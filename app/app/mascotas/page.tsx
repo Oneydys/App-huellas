@@ -19,6 +19,7 @@ import { ETIQUETA_ESPECIE, personajesDe, type IdPersonaje } from "@/lib/personaj
 import { limiteDeMascotas } from "@/lib/plantilla";
 import { planVigente, puedeAgregarMascota } from "@/lib/store/selectores";
 import { useHuellas } from "@/lib/store/hooks";
+import { useBaseDelPanel } from "@/lib/rutas";
 
 function FormularioEdicion({ mascota, hoy, alGuardar }: { mascota: Mascota; hoy: string; alGuardar: (cambios: Mascota) => void }) {
   const [nombre, setNombre] = useState(mascota.nombre);
@@ -169,6 +170,7 @@ function FormularioEdicion({ mascota, hoy, alGuardar }: { mascota: Mascota; hoy:
 }
 
 export default function Mascotas() {
+  const base = useBaseDelPanel();
   const router = useRouter();
   const { estado, hoy, despachar } = useHuellas();
   const [editando, setEditando] = useState<Mascota | null>(null);
@@ -212,7 +214,7 @@ export default function Mascotas() {
                   className="min-h-11 flex-1 px-4 text-cuerpo"
                   onClick={() => {
                     despachar({ tipo: "mascota/activar", id: m.id });
-                    router.push("/app/carnet");
+                    router.push(`${base}/carnet`);
                   }}
                 >
                   Ver carnet
@@ -241,7 +243,7 @@ export default function Mascotas() {
 
       <Aparece>
         {puedeAgregarMascota(estado, hoy) ? (
-          <BotonLink href="/app/mascotas/nueva" variante="secundario">
+          <BotonLink href={`${base}/mascotas/nueva`} variante="secundario">
             <Plus aria-hidden className="size-5" />
             Agregar otra mascota
           </BotonLink>

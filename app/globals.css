@@ -26,6 +26,8 @@
   --color-exito: #237a48;
   --color-error: #b93b3b;
   --color-aviso: #a76000;
+  /* Amarillo muy claro: tarjeta del personaje elegido en el onboarding. Tono pendiente de confirmar. */
+  --color-amarillo-claro: #fffbea;
 
   --radius-tarjeta: 26px;
   --radius-control: 22px;

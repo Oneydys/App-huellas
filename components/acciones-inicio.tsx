@@ -1,9 +1,11 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { BotonLink, Boton } from "@/components/ui/boton";
 import { Esqueleto } from "@/components/ui/esqueleto";
 import { crearDemo } from "@/lib/demo";
+import { accesoRealConfigurado } from "@/lib/servicios";
 import { useHuellas } from "@/lib/store/hooks";
 
 /** Botones de la portada: cambian si ya hay una mascota guardada en este dispositivo. El principal mide 64 px en la portada. */
@@ -12,6 +14,17 @@ export function AccionesInicio() {
   const { listo, estado, mascota, hoy, despachar } = useHuellas();
   // Modificador "!" de Tailwind 4: sustituye el mínimo de 56 px de la variante primaria, sin depender del orden del CSS.
   const principal = "min-h-16! md:w-full";
+  // La demostración existe solo sin Supabase. Mientras no se sabe el estado, el botón queda oculto.
+  const [demoDisponible, setDemoDisponible] = useState(false);
+  useEffect(() => {
+    let vigente = true;
+    accesoRealConfigurado().then((configurado) => {
+      if (vigente) setDemoDisponible(!configurado);
+    });
+    return () => {
+      vigente = false;
+    };
+  }, []);
 
   if (!listo) {
     return (
@@ -40,19 +53,21 @@ export function AccionesInicio() {
       <BotonLink id="cta-inicio-arriba" data-evento="inicio-compra" href="/onboarding" className={principal}>
         Crear el carnet de mi mascota
       </BotonLink>
-      <Boton
-        id="cta-ver-demo"
-        data-evento="ver-demostracion"
-        data-captura="oculto"
-        variante="secundario"
-        onClick={() => {
-          // La demo ya trae una mascota, así que salta el onboarding, pero pasa por planes y acceso.
-          despachar({ tipo: "demo/cargar", demo: crearDemo(hoy) });
-          router.push("/paywall");
-        }}
-      >
-        Ver con datos de demostración
-      </Boton>
+      {demoDisponible && (
+        <Boton
+          id="cta-ver-demo"
+          data-evento="ver-demostracion"
+          data-captura="oculto"
+          variante="secundario"
+          onClick={() => {
+            // La demo ya trae una mascota, así que salta el onboarding, pero pasa por planes y acceso.
+            despachar({ tipo: "demo/cargar", demo: crearDemo(hoy) });
+            router.push("/paywall");
+          }}
+        >
+          Ver con datos de demostración
+        </Boton>
+      )}
     </div>
   );
 }

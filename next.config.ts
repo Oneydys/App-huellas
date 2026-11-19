@@ -29,6 +29,13 @@ const nextConfig: NextConfig = {
     "/opengraph-image": ["./app/_og/*.woff", "./public/images/huellas-mascot.png", "./public/images/peluvet-emblema.png"],
     "/huella-semana/tarjeta": ["./app/_og/*.woff", "./public/images/huellas-mascot.png"],
   },
+  // La demostración vive en /demo y muestra las mismas pantallas. No pasa por el control de acceso de /app.
+  async rewrites() {
+    return [
+      { source: "/demo", destination: "/app" },
+      { source: "/demo/:path*", destination: "/app/:path*" },
+    ];
+  },
   async headers() {
     return [
       {

@@ -4,6 +4,6 @@ import type { MetadataRoute } from "next";
 // contacto para quien encuentra una mascota no.
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: { userAgent: "*", allow: "/", disallow: ["/app", "/encontrada/"] },
+    rules: { userAgent: "*", allow: "/", disallow: ["/app", "/demo", "/encontrada/"] },
   };
 }

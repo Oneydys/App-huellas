@@ -8,8 +8,10 @@ import { BotonLink } from "@/components/ui/boton";
 import { limiteDeMascotas } from "@/lib/plantilla";
 import { planVigente, puedeAgregarMascota } from "@/lib/store/selectores";
 import { useHuellas } from "@/lib/store/hooks";
+import { useBaseDelPanel } from "@/lib/rutas";
 
 export default function NuevaMascota() {
+  const base = useBaseDelPanel();
   const router = useRouter();
   const { estado, hoy } = useHuellas();
 
@@ -23,7 +25,7 @@ export default function NuevaMascota() {
           agregar más.
         </Aviso>
         <BotonLink href="/paywall">Ver planes</BotonLink>
-        <BotonLink href="/app/mascotas" variante="secundario">
+        <BotonLink href={`${base}/mascotas`} variante="secundario">
           Volver a mis mascotas
         </BotonLink>
       </div>
@@ -33,11 +35,11 @@ export default function NuevaMascota() {
   return (
     <div className="flex flex-1 flex-col">
       <div className="mb-2 flex justify-end">
-        <Link href="/app/mascotas" className="inline-flex min-h-11 items-center text-cuerpo font-black text-suave-texto underline underline-offset-4">
+        <Link href={`${base}/mascotas`} className="inline-flex min-h-11 items-center text-cuerpo font-black text-suave-texto underline underline-offset-4">
           Cancelar
         </Link>
       </div>
-      <AsistenteMascota modo="agregar" alTerminar={() => router.push("/app")} />
+      <AsistenteMascota modo="agregar" alTerminar={() => router.push(`${base}`)} />
     </div>
   );
 }

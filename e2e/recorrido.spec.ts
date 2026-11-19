@@ -20,7 +20,7 @@ async function entrarConDemo(page: Page) {
   await page.getByRole("button", { name: "Seguir con el plan gratis" }).click();
   await page.getByLabel("Tu correo").fill("prueba@ejemplo.com");
   await page.getByRole("button", { name: "Entrar a la app" }).click();
-  await expect(page).toHaveURL(/\/app$/);
+  await expect(page).toHaveURL(/\/demo$/);
 }
 
 /** Dibuja el SVG del QR de la pantalla en un lienzo y devuelve el texto que contiene el código. */
@@ -57,7 +57,7 @@ test("la demo pasa por planes y acceso antes de entrar a la app", async ({ page 
 
   await page.getByLabel("Tu correo").fill("prueba@ejemplo.com");
   await page.getByRole("button", { name: "Entrar a la app" }).click();
-  await expect(page).toHaveURL(/\/app$/);
+  await expect(page).toHaveURL(/\/demo$/);
   await expect(page.getByRole("heading", { name: "Próximo cuidado de Milo" })).toBeVisible();
 });
 
@@ -81,7 +81,7 @@ test("no precarga la ilustración de una mascota que tiene foto propia", async (
   await page.getByRole("button", { name: "Seguir con el plan gratis" }).click();
   await page.getByLabel("Tu correo").fill("prueba@ejemplo.com");
   await page.getByRole("button", { name: "Entrar a la app" }).click();
-  await expect(page).toHaveURL(/\/app$/);
+  await expect(page).toHaveURL(/\/demo$/);
 
   // Milo y Toby tienen foto propia: la pista de precarga del layout no debe pedir ninguna ilustración.
   const precargas = () =>
@@ -102,13 +102,13 @@ test("Actividad de hoy abre la sección, registra un paseo y el historial lo mue
   await page.getByRole("button", { name: "Seguir con el plan gratis" }).click();
   await page.getByLabel("Tu correo").fill("prueba@ejemplo.com");
   await page.getByRole("button", { name: "Entrar a la app" }).click();
-  await expect(page).toHaveURL(/\/app$/);
+  await expect(page).toHaveURL(/\/demo$/);
 
   // Toby es un perro: el paseo es una actividad válida para él. Inicio muestra su tarjeta de actividad.
   await page.getByRole("button", { name: /Toby/ }).first().click();
   await expect(page.getByText("ACTIVIDAD DE HOY")).toBeVisible();
   await page.getByRole("link", { name: /Actividad de hoy de Toby/ }).click();
-  await expect(page).toHaveURL(/\/app\/actividad$/);
+  await expect(page).toHaveURL(/\/demo\/actividad$/);
   await expect(page.getByRole("heading", { name: "Actividad diaria" })).toBeVisible();
 
   // Registrar un paseo con distancia: la distancia solo se pide en los paseos.
@@ -133,7 +133,7 @@ test("un gato ve sus actividades, el paseo con arnés es opcional y el registro 
   await page.getByRole("button", { name: "Seguir con el plan gratis" }).click();
   await page.getByLabel("Tu correo").fill("prueba@ejemplo.com");
   await page.getByRole("button", { name: "Entrar a la app" }).click();
-  await expect(page).toHaveURL(/\/app$/);
+  await expect(page).toHaveURL(/\/demo$/);
 
   // Milo es un gato: sus actividades son las de gato, sin paseo obligatorio.
   await page.goto("/app/actividad");
@@ -167,7 +167,7 @@ test("el onboarding muestra el carnet listo tras el nombre, responde dudas y lle
   await page.getByRole("link", { name: "Crear el carnet de mi mascota" }).first().click();
   await expect(page).toHaveURL(/\/onboarding$/);
 
-  await page.getByRole("button", { name: /Gato europeo/ }).click();
+  await page.getByRole("button", { name: /Gato mestizo/ }).click();
   await page.getByRole("button", { name: "Continuar", exact: true }).click(); // personaje (promesa y especie)
 
   await page.getByLabel("Nombre de tu mascota").fill("Michi");
@@ -285,7 +285,7 @@ test("ninguna pantalla de la app tiene desborde horizontal a 375 px", async ({ p
   await page.getByRole("button", { name: "Seguir con el plan gratis" }).click();
   await page.getByLabel("Tu correo").fill("prueba@ejemplo.com");
   await page.getByRole("button", { name: "Entrar a la app" }).click();
-  await expect(page).toHaveURL(/\/app$/);
+  await expect(page).toHaveURL(/\/demo$/);
 
   for (const ruta of RUTAS_APP) {
     await page.goto(ruta);
@@ -301,7 +301,7 @@ test("cada pantalla de la app tiene su título y no se indexa", async ({ page })
   await page.getByRole("button", { name: "Seguir con el plan gratis" }).click();
   await page.getByLabel("Tu correo").fill("prueba@ejemplo.com");
   await page.getByRole("button", { name: "Entrar a la app" }).click();
-  await expect(page).toHaveURL(/\/app$/);
+  await expect(page).toHaveURL(/\/demo$/);
 
   await page.goto("/app/calendario");
   await expect(page).toHaveTitle("Calendario · Peluvet");

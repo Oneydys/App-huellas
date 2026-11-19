@@ -11,6 +11,7 @@ import { Boton, BotonLink } from "@/components/ui/boton";
 import { Chip } from "@/components/ui/chip";
 import { Hoja } from "@/components/ui/hoja";
 import { crearDemo } from "@/lib/demo";
+import { cerrarSesion } from "@/lib/servicios";
 import { descargarArchivo } from "@/lib/descargar";
 import { formatearFecha } from "@/lib/fechas";
 import { limiteDeMascotas, PLANTILLA } from "@/lib/plantilla";
@@ -18,6 +19,7 @@ import { exportarJSON, importarJSON, nombreArchivoCopia } from "@/lib/store/alma
 import type { EstadoApp } from "@/lib/store/estado";
 import { hayDatosDemo, planVigente } from "@/lib/store/selectores";
 import { useHuellas } from "@/lib/store/hooks";
+import { useBaseDelPanel } from "@/lib/rutas";
 
 function Fila({ href, icono: Icono, titulo, texto }: { href: string; icono: typeof PawPrint; titulo: string; texto: string }) {
   return (
@@ -38,6 +40,7 @@ function Fila({ href, icono: Icono, titulo, texto }: { href: string; icono: type
 }
 
 export default function Perfil() {
+  const base = useBaseDelPanel();
   const router = useRouter();
   const { estado, hoy, despachar } = useHuellas();
   const archivo = useRef<HTMLInputElement>(null);
@@ -94,8 +97,8 @@ export default function Perfil() {
 
       <Aparece className="flex flex-col gap-3">
         <h2 className="text-titulo font-black">Tu espacio</h2>
-        <Fila href="/app/mascotas" icono={PawPrint} titulo="Mis mascotas" texto={`${estado.mascotas.length} en este dispositivo`} />
-        <Fila href="/app/urgencia" icono={Siren} titulo="¿Algo te preocupa?" texto="Señales de alerta y cuándo llamar al veterinario" />
+        <Fila href={`${base}/mascotas`} icono={PawPrint} titulo="Mis mascotas" texto={`${estado.mascotas.length} en este dispositivo`} />
+        <Fila href={`${base}/urgencia`} icono={Siren} titulo="¿Algo te preocupa?" texto="Señales de alerta y cuándo llamar al veterinario" />
       </Aparece>
 
       <Aparece className="flex flex-col gap-3">
@@ -143,6 +146,18 @@ export default function Perfil() {
             Cargar datos de demostración
           </Boton>
         )}
+      </Aparece>
+
+      <Aparece className="flex flex-col gap-3">
+        <Boton
+          variante="secundario"
+          onClick={async () => {
+            await cerrarSesion();
+            router.push("/acceso");
+          }}
+        >
+          Cerrar sesión
+        </Boton>
       </Aparece>
 
       <Aparece className="flex flex-col gap-3">
