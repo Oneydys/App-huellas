@@ -384,7 +384,7 @@ export function AsistenteMascota({
                 aria-label={`Carnet de ${nombre}`}
                 className={cn(
                   "relative -mx-2 min-h-60 overflow-hidden rounded-tarjeta bg-gradient-to-br from-naranja-claro to-naranja-hondo p-6 text-tinta",
-                  b.foto && "min-h-[19rem] pr-48",
+                  "min-h-[19rem] pr-48",
                 )}
               >
                 <p className="text-etiqueta font-black tracking-wider">CARNET DE SALUD</p>
@@ -392,13 +392,10 @@ export function AsistenteMascota({
                   {nombre} ya tiene carnet
                 </h1>
                 <p className="mt-2 max-w-40 text-cuerpo font-bold">{ETIQUETA_ESPECIE[personaje.especie]}</p>
-                {b.foto ? (
-                  <div className="absolute bottom-4 right-3 w-[184px]">
-                    <MarcoFoto src={b.foto} alt={`Foto de ${nombre}`} sizes="128px" priority />
-                  </div>
-                ) : (
-                  <MascotaAvatar personaje={personaje.id} tamano={170} priority className="absolute -bottom-2 -right-2" />
-                )}
+                {/* Sin foto propia, el personaje también va dentro del marco. */}
+                <div className="absolute bottom-4 right-3 w-[184px]">
+                  <MarcoFoto src={b.foto ?? personaje.imagen} alt={b.foto ? `Foto de ${nombre}` : ETIQUETA_ESPECIE[personaje.especie]} sizes="128px" priority />
+                </div>
               </section>
               <p className="mt-6 text-cuerpo text-suave-texto">
                 Su edad y sus datos servirán para proponer fechas orientativas de cuidado.
@@ -539,18 +536,15 @@ export function AsistenteMascota({
                     </p>
                   )}
                 </div>
-                {resultado.mascota.foto ? (
-                  <div className="absolute bottom-4 right-3 w-[184px]">
-                    <MarcoFoto src={resultado.mascota.foto} alt={`Foto de ${resultado.mascota.nombre}`} sizes="184px" priority />
-                  </div>
-                ) : (
-                  <MascotaAvatar
-                    personaje={resultado.mascota.personaje}
-                    tamano={190}
+                {/* Sin foto propia, el personaje también va dentro del marco. */}
+                <div className="absolute bottom-4 right-3 w-[184px]">
+                  <MarcoFoto
+                    src={resultado.mascota.foto ?? personajePorId(resultado.mascota.personaje).imagen}
+                    alt={`Foto de ${resultado.mascota.nombre}`}
+                    sizes="184px"
                     priority
-                    className="absolute -bottom-2 -right-2"
                   />
-                )}
+                </div>
               </section>
               <h2 className="mb-3 text-titulo font-black">Lo próximo para {resultado.mascota.nombre}</h2>
               {resultado.destacado ? (
