@@ -6,6 +6,7 @@ import { CodigoQr } from "@/components/codigo-qr";
 import { useAvisos } from "@/components/toast";
 import { Chip } from "@/components/ui/chip";
 import { MascotaAvatar } from "@/components/ui/mascota-avatar";
+import { cn } from "@/lib/cn";
 import type { DatosCarnet } from "@/lib/compartir";
 import { reducirFoto } from "@/lib/foto";
 import { codigoMascota, dijeDe, type Mascota } from "@/lib/mascota";
@@ -54,7 +55,7 @@ export function CarnetDigital({ mascota, datos, alCompartir }: { mascota: Mascot
 
       <div className="relative -mt-14 px-6 pb-6">
         <div className="relative size-28">
-          <div className="grid size-28 place-items-center overflow-hidden rounded-full border-4 border-papel bg-hundido shadow-calida">
+          <div className={cn("grid size-28 place-items-center overflow-hidden border-4 border-papel bg-hundido shadow-calida", mascota.foto ? "rounded-2xl" : "rounded-full")}>
             <MascotaAvatar personaje={mascota.personaje} foto={mascota.foto} tamano={mascota.foto ? 112 : 104} priority />
           </div>
           <button

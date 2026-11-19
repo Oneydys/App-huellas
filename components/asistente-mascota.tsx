@@ -334,7 +334,7 @@ export function AsistenteMascota({
                 </button>
               )}
               <section aria-label="Foto de tu mascota (opcional)" className="mt-8 flex items-center gap-4 rounded-tarjeta border border-linea bg-papel p-4">
-                <span className="grid size-20 shrink-0 place-items-center overflow-hidden rounded-full bg-hundido">
+                <span className={cn("grid size-20 shrink-0 place-items-center overflow-hidden bg-hundido", b.foto ? "rounded-2xl" : "rounded-full")}>
                   <MascotaAvatar personaje={personaje.id} foto={b.foto} tamano={b.foto ? 80 : 64} />
                 </span>
                 <div className="flex min-w-0 flex-1 flex-col gap-2">

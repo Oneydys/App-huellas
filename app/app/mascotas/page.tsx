@@ -81,7 +81,7 @@ function FormularioEdicion({ mascota, hoy, alGuardar }: { mascota: Mascota; hoy:
         ))}
       </div>
       <div className="flex items-center gap-3">
-        <span className="grid size-16 shrink-0 place-items-center overflow-hidden rounded-full bg-hundido">
+        <span className={cn("grid size-16 shrink-0 place-items-center overflow-hidden bg-hundido", foto ? "rounded-2xl" : "rounded-full")}>
           <MascotaAvatar personaje={personaje} foto={foto} tamano={foto ? 64 : 56} />
         </span>
         <div className="flex flex-wrap gap-2">

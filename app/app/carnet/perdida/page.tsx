@@ -2,6 +2,7 @@
 
 import { Printer } from "lucide-react";
 import { useState } from "react";
+import { cn } from "@/lib/cn";
 import { CodigoQr } from "@/components/codigo-qr";
 import { SelectorMascota } from "@/components/selector-mascota";
 import { SinMascota } from "@/components/sin-mascota";
@@ -103,7 +104,7 @@ export default function Perdida() {
             <p className="text-cuerpo font-bold">Por favor, ayúdame a volver a casa</p>
           </header>
           <div className="flex flex-col items-center gap-3 px-6 py-6 text-center">
-            <div className="grid size-28 place-items-center overflow-hidden rounded-full border-4 border-naranja bg-hundido">
+            <div className={cn("grid size-28 place-items-center overflow-hidden border-4 border-naranja bg-hundido", mascota.foto ? "rounded-2xl" : "rounded-full")}>
               <MascotaAvatar personaje={mascota.personaje} foto={mascota.foto} tamano={mascota.foto ? 112 : 104} />
             </div>
             <h2 className="break-words text-display font-black">Me llamo {mascota.nombre}</h2>

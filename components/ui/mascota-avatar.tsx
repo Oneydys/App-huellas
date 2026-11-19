@@ -30,7 +30,8 @@ export function MascotaAvatar({
         width={tamano}
         height={tamano}
         unoptimized
-        className={cn("rounded-full bg-papel object-contain", className)}
+        // Con foto propia se muestra entera: un cuadro redondeado no recorta orejas, cola ni patas.
+        className={cn("rounded-2xl bg-papel object-contain", className)}
         style={{ width: tamano, height: tamano }}
       />
     );
