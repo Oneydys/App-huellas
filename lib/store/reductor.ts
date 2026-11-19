@@ -93,14 +93,28 @@ export function reducir(estado: EstadoApp, accion: Accion): EstadoApp {
     case "cuidado/eliminar":
       return { ...estado, cuidados: estado.cuidados.filter((c) => c.id !== accion.id) };
     case "demo/cargar": {
-      const yaCargada = accion.demo.mascotas.every((d) => estado.mascotas.some((m) => m.id === d.id));
-      if (yaCargada) return estado;
-      const mascotas = [...estado.mascotas, ...accion.demo.mascotas.filter((d) => !estado.mascotas.some((m) => m.id === d.id))];
+      // Las entradas de demostración se actualizan con su versión actual (p. ej. una foto nueva),
+      // así un navegador con datos demo guardados no se queda con los antiguos.
+      const actualizar = <T extends { id: string }>(actuales: T[], nuevos: T[]): T[] => {
+        const porId = new Map(nuevos.map((n) => [n.id, n]));
+        const reemplazados = actuales.map((a) => porId.get(a.id) ?? a);
+        const faltan = nuevos.filter((n) => !actuales.some((a) => a.id === n.id));
+        return [...reemplazados, ...faltan];
+      };
+      const mascotas = actualizar(estado.mascotas, accion.demo.mascotas);
+      const registros = actualizar(estado.registros, accion.demo.registros);
+      const cuidados = actualizar(estado.cuidados, accion.demo.cuidados);
+      const sinCambios =
+        JSON.stringify(mascotas) === JSON.stringify(estado.mascotas) &&
+        JSON.stringify(registros) === JSON.stringify(estado.registros) &&
+        JSON.stringify(cuidados) === JSON.stringify(estado.cuidados) &&
+        estado.accesoSimulado;
+      if (sinCambios) return estado;
       return {
         ...estado,
         mascotas,
-        registros: [...estado.registros, ...accion.demo.registros.filter((d) => !estado.registros.some((r) => r.id === d.id))],
-        cuidados: [...estado.cuidados, ...accion.demo.cuidados.filter((d) => !estado.cuidados.some((c) => c.id === d.id))],
+        registros,
+        cuidados,
         mascotaActivaId: estado.mascotaActivaId ?? accion.demo.mascotas[0]?.id ?? null,
         accesoSimulado: true,
       };

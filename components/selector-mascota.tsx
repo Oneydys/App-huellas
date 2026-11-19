@@ -23,8 +23,9 @@ export function SelectorMascota({ className }: { className?: string }) {
               activa ? "border-naranja bg-hundido" : "border-transparent shadow-calida",
             )}
           >
-            <span className="grid size-8 place-items-center overflow-hidden rounded-chip bg-hundido">
-              <MascotaAvatar personaje={m.personaje} foto={m.foto} tamano={32} />
+            {/* Con foto propia el recuadro es más grande, para que se vea el cuerpo completo. */}
+            <span className={cn("grid place-items-center overflow-hidden bg-hundido", m.foto ? "size-11 rounded-control" : "size-8 rounded-chip")}>
+              <MascotaAvatar personaje={m.personaje} foto={m.foto} tamano={m.foto ? 44 : 32} />
             </span>
             {m.nombre}
             {m.origen === "demo" && (

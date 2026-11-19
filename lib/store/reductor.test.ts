@@ -98,6 +98,16 @@ describe("store: reductor", () => {
     expect(e.registros).toEqual([]);
   });
 
+  it("una demostración guardada con datos antiguos se actualiza al volver a cargarla", () => {
+    const demo = crearDemo(HOY);
+    const antigua = { ...demo, mascotas: demo.mascotas.map((m) => ({ ...m, foto: undefined })) };
+    const e = reducir(estadoVacio(), { tipo: "demo/cargar", demo: antigua });
+    const nueva = reducir(e, { tipo: "demo/cargar", demo });
+    expect(nueva.mascotas.find((m) => m.origen === "demo" && m.foto)).toBeDefined();
+    expect(nueva.mascotas.filter((m) => m.origen === "demo")).toHaveLength(demo.mascotas.length);
+    expect(reducir(nueva, { tipo: "demo/cargar", demo })).toBe(nueva);
+  });
+
   it("la demostración se carga una sola vez y se quita sin tocar los datos reales", () => {
     const real = reducir(estadoVacio(), { tipo: "mascota/agregar", mascota: nueva("real", "Rocky"), registros: [peso("rp", "real", 20)] });
     const demo = crearDemo(HOY);
