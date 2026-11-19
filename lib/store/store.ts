@@ -1,6 +1,8 @@
 import { reducir, type Accion } from "./reductor";
 import { estadoVacio, type EstadoApp } from "./estado";
 import { CLAVE_ALMACEN, cargarEstado, guardarEstado, type AlmacenLike } from "./almacen";
+import { crearDemo } from "../demo";
+import { hoyISO } from "../fechas";
 
 // Almacén externo mínimo (sin dependencias) que se lee con useSyncExternalStore.
 // Hoy guarda en localStorage. Para conectar una base de datos real, sustituye
@@ -21,9 +23,26 @@ function almacenNavegador(): AlmacenLike | null {
   }
 }
 
+/**
+ * Las mascotas de demostración guardadas en el navegador toman la foto actual de la demostración.
+ * Así una foto antigua no se queda para siempre. Los datos del usuario no se tocan.
+ */
+export function actualizarFotosDemo(estado: EstadoApp): EstadoApp {
+  if (!estado.mascotas.some((m) => m.origen === "demo")) return estado;
+  const fotos = new Map(crearDemo(hoyISO()).mascotas.map((m) => [m.id, m.foto]));
+  let cambio = false;
+  const mascotas = estado.mascotas.map((m) => {
+    const foto = m.origen === "demo" ? fotos.get(m.id) : undefined;
+    if (foto === undefined || foto === m.foto) return m;
+    cambio = true;
+    return { ...m, foto };
+  });
+  return cambio ? { ...estado, mascotas } : estado;
+}
+
 function leerAlmacen(): EstadoApp {
   const almacen = almacenNavegador();
-  return almacen ? cargarEstado(almacen).estado : estadoVacio();
+  return almacen ? actualizarFotosDemo(cargarEstado(almacen).estado) : estadoVacio();
 }
 
 function escribirAlmacen(estado: EstadoApp): void {
