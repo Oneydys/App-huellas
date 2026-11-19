@@ -1,4 +1,5 @@
 import { CalendarDays, Check, FileText, IdCard, PawPrint, QrCode } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { AccionesInicio, CtaPrincipal } from "@/components/acciones-inicio";
 import { BarraCtaFija } from "@/components/barra-cta-fija";
@@ -65,6 +66,17 @@ export default function Portada() {
       </header>
 
       {/* Cabecera: texto y CTA. El carnet con la captura real va bajo el CTA en móvil y a la derecha desde 768 px. */}
+      {/* Foto de la portada: el perro y el gato juntos, sin texto dentro de la imagen. */}
+      <Image
+        src="/images/portada/perro-gato.webp"
+        alt="Un perro y un gato juntos"
+        width={914}
+        height={1000}
+        priority
+        sizes="(max-width: 768px) 100vw, 50vw"
+        className="mt-4 h-auto w-full rounded-tarjeta"
+      />
+
       <section className="mt-6 md:grid md:grid-cols-2 md:items-center md:gap-8">
         <div className="flex flex-col gap-6">
           <div className="rounded-tarjeta bg-papel p-6 text-tinta shadow-calida ring-1 ring-linea md:p-8">
