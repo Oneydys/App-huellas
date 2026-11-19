@@ -30,7 +30,7 @@ export function MascotaAvatar({
         width={tamano}
         height={tamano}
         unoptimized
-        className={cn("rounded-full object-cover", className)}
+        className={cn("rounded-full bg-papel object-contain", className)}
         style={{ width: tamano, height: tamano }}
       />
     );

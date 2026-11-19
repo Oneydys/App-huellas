@@ -112,11 +112,17 @@ export async function generarImagenCarnet(
     const foto = await cargar(visual.foto);
     const cx = x + w / 2;
     const cy = iy + lado / 2;
+    // La foto entera dentro del círculo: se ajusta sin recortar ni estirar (como en la app).
+    const escala = Math.min(400 / foto.width, 400 / foto.height);
+    const fw = foto.width * escala;
+    const fh = foto.height * escala;
     ctx.save();
     ctx.beginPath();
     ctx.arc(cx, cy, 200, 0, Math.PI * 2);
     ctx.clip();
-    ctx.drawImage(foto, cx - 200, cy - 200, 400, 400);
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(cx - 200, cy - 200, 400, 400);
+    ctx.drawImage(foto, cx - fw / 2, cy - fh / 2, fw, fh);
     ctx.restore();
     ctx.lineWidth = 12;
     ctx.strokeStyle = c.papel;
