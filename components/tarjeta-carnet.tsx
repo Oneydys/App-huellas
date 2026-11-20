@@ -2,8 +2,8 @@
 
 import { Chip } from "@/components/ui/chip";
 import { MarcoFoto } from "@/components/marco-foto";
-import { MascotaAvatar } from "@/components/ui/mascota-avatar";
 import { dijeDe, describirEdad, razaOMestizo, type Mascota } from "@/lib/mascota";
+import { personajePorId } from "@/lib/personajes";
 import { nombreDePais } from "@/lib/paises";
 
 /** Portada de la mascota: escenario naranja con el personaje en primer plano. El nombre se ve siempre. */
@@ -63,13 +63,15 @@ export function TarjetaCarnet({
         <span aria-hidden className="escenario-personaje absolute -inset-3" />
         <div className="flotar relative">
           {/* Tamaño fluido: en 320 px el personaje mide 120 px y deja sitio al nombre y a los datos (el tamaño inline se sustituye con !). */}
-          {mascota.foto ? (
-            <div className="w-[clamp(120px,36vw,168px)]">
-              <MarcoFoto src={mascota.foto} alt={`Foto de ${mascota.nombre}`} sizes="168px" priority />
-            </div>
-          ) : (
-            <MascotaAvatar personaje={mascota.personaje} tamano={168} priority className="!size-[clamp(120px,36vw,168px)]" />
-          )}
+          {/* Con o sin foto propia, la mascota va dentro del mismo marco del carnet. */}
+          <div className="w-[clamp(120px,36vw,168px)]">
+            <MarcoFoto
+              src={mascota.foto ?? personajePorId(mascota.personaje).imagen}
+              alt={mascota.foto ? `Foto de ${mascota.nombre}` : `Dibujo de ${mascota.nombre}`}
+              sizes="168px"
+              priority
+            />
+          </div>
         </div>
       </div>
     </section>
