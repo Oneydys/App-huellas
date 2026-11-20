@@ -2,7 +2,7 @@
 
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { reducirFoto } from "@/lib/foto";
 import { SinMascota } from "@/components/sin-mascota";
 import { Aviso } from "@/components/ui/aviso";
@@ -176,6 +176,17 @@ export default function Mascotas() {
   const [editando, setEditando] = useState<Mascota | null>(null);
   const [borrando, setBorrando] = useState<Mascota | null>(null);
   const [limite, setLimite] = useState(false);
+
+  // Desde Inicio se llega con ?editar=<id>: abre directamente el formulario de esa mascota.
+  useEffect(() => {
+    const id = new URLSearchParams(window.location.search).get("editar");
+    if (!id) return;
+    const mascotaAEditar = estado.mascotas.find((m) => m.id === id);
+    // Sincronización única al entrar desde el enlace de Inicio: no se repite porque depende solo de la URL.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (mascotaAEditar) setEditando(mascotaAEditar);
+    window.history.replaceState(null, "", window.location.pathname);
+  }, [estado.mascotas]);
 
   if (estado.mascotas.length === 0) return <SinMascota />;
   const maximo = limiteDeMascotas(planVigente(estado, hoy));

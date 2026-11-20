@@ -62,6 +62,13 @@ export default function Inicio() {
           <span aria-hidden className="pointer-events-none absolute -bottom-12 -left-8 size-32 rounded-full bg-naranja/25" />
           <div className="relative">
             <TarjetaCarnet mascota={mascota} hoy={hoy} />
+            <BotonLink
+              href={`${base}/mascotas?editar=${encodeURIComponent(mascota.id)}`}
+              variante="secundario"
+              className="mt-3 w-full bg-papel"
+            >
+              Editar datos de {mascota.nombre}
+            </BotonLink>
           </div>
         </div>
       </Aparece>
