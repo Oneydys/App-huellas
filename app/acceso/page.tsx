@@ -8,8 +8,9 @@ import { Boton } from "@/components/ui/boton";
 import { Campo } from "@/components/ui/campo";
 import { PantallaCargando } from "@/components/ui/esqueleto";
 import { MarcoFoto } from "@/components/marco-foto";
-import { Logotipo, MascotaAvatar } from "@/components/ui/mascota-avatar";
+import { Logotipo } from "@/components/ui/mascota-avatar";
 import { NavLegal } from "@/components/nav-legal";
+import { personajePorId } from "@/lib/personajes";
 import { avisosDePlantilla } from "@/lib/plantilla";
 import { accesoRealConfigurado, iniciarSesionConContrasena, solicitarAcceso } from "@/lib/servicios";
 import { useRequiereMascota } from "@/lib/store/guardias";
@@ -75,13 +76,15 @@ export default function Acceso() {
       ) : (
         <>
           <div className="mt-6 flex items-center gap-4 rounded-tarjeta bg-gradient-to-br from-naranja-claro to-naranja-hondo p-4 text-tinta">
-            {mascota.foto ? (
-              <div className="w-24 shrink-0">
-                <MarcoFoto src={mascota.foto} alt={`Foto de ${mascota.nombre}`} sizes="96px" priority />
-              </div>
-            ) : (
-              <MascotaAvatar personaje={mascota.personaje} tamano={96} priority />
-            )}
+            {/* Con o sin foto propia, la mascota va dentro del mismo marco del carnet. */}
+            <div className="w-24 shrink-0">
+              <MarcoFoto
+                src={mascota.foto ?? personajePorId(mascota.personaje).imagen}
+                alt={mascota.foto ? `Foto de ${mascota.nombre}` : `Dibujo de ${mascota.nombre}`}
+                sizes="96px"
+                priority
+              />
+            </div>
             <div>
               <p className="text-etiqueta font-black tracking-wider">EL CARNET DE</p>
               <p className="text-titulo font-black">{mascota.nombre}</p>
