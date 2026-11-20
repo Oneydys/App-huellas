@@ -81,6 +81,7 @@ export default function Perfil() {
           Hasta {limiteDeMascotas(plan)} {limiteDeMascotas(plan) === 1 ? "mascota propia" : "mascotas propias"}.
           {enPrueba && estado.pruebaIniciadaEn && ` Desde el ${formatearFecha(estado.pruebaIniciadaEn)}.`}
         </p>
+        <p className="mt-1 text-cuerpo">Incluye el carnet, el calendario y el historial completos de cada mascota.</p>
         {pruebaTerminada && (
           <p className="mt-1 text-cuerpo font-bold">Tu prueba terminó. Tus datos siguen aquí; puedes ver los planes cuando quieras.</p>
         )}
