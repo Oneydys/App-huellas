@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { BotonLink } from "@/components/ui/boton";
 import { cn } from "@/lib/cn";
 import { textoGarantiaCorta } from "@/lib/plantilla";
+import { destinoContinuar, useAccesoRealConfigurado } from "@/lib/acceso-real";
 import { useHuellas } from "@/lib/store/hooks";
 
 /**
@@ -13,6 +14,7 @@ import { useHuellas } from "@/lib/store/hooks";
 export function BarraCtaFija({ observar }: { observar: string }) {
   const { listo, mascota, estado } = useHuellas();
   const [visible, setVisible] = useState(false);
+  const configurado = useAccesoRealConfigurado();
 
   useEffect(() => {
     const el = document.getElementById(observar);
@@ -36,7 +38,7 @@ export function BarraCtaFija({ observar }: { observar: string }) {
       <BotonLink
         id="cta-inicio-fija"
         data-evento="inicio-compra"
-        href={tiene ? (estado.accesoSimulado ? "/app" : "/paywall") : "/onboarding"}
+        href={tiene ? destinoContinuar(estado.accesoSimulado, configurado) : "/onboarding"}
         tabIndex={visible ? 0 : -1}
         className="min-h-16! w-full"
       >

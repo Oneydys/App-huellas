@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { BotonLink, Boton } from "@/components/ui/boton";
 import { Esqueleto } from "@/components/ui/esqueleto";
 import { crearDemo } from "@/lib/demo";
-import { accesoRealConfigurado } from "@/lib/servicios";
+import { destinoContinuar, useAccesoRealConfigurado } from "@/lib/acceso-real";
 import { useHuellas } from "@/lib/store/hooks";
 
 /** Botones de la portada: cambian si ya hay una mascota guardada en este dispositivo. El principal mide 64 px en la portada. */
@@ -15,16 +14,8 @@ export function AccionesInicio() {
   // Modificador "!" de Tailwind 4: sustituye el mínimo de 56 px de la variante primaria, sin depender del orden del CSS.
   const principal = "min-h-16! md:w-full";
   // La demostración existe solo sin Supabase. Mientras no se sabe el estado, el botón queda oculto.
-  const [demoDisponible, setDemoDisponible] = useState(false);
-  useEffect(() => {
-    let vigente = true;
-    accesoRealConfigurado().then((configurado) => {
-      if (vigente) setDemoDisponible(!configurado);
-    });
-    return () => {
-      vigente = false;
-    };
-  }, []);
+  const configurado = useAccesoRealConfigurado();
+  const demoDisponible = configurado === false;
 
   if (!listo) {
     return (
@@ -38,7 +29,7 @@ export function AccionesInicio() {
   if (mascota) {
     return (
       <div className="flex flex-col gap-3">
-        <BotonLink id="cta-inicio-arriba" data-evento="inicio-compra" href={estado.accesoSimulado ? "/app" : "/paywall"} className={principal}>
+        <BotonLink id="cta-inicio-arriba" data-evento="inicio-compra" href={destinoContinuar(estado.accesoSimulado, configurado)} className={principal}>
           Continuar con {mascota.nombre}
         </BotonLink>
         <BotonLink id="cta-otra-mascota" data-evento="crear-otra-mascota" href="/onboarding" variante="secundario">
@@ -77,13 +68,14 @@ export function AccionesInicio() {
  * crear el carnet, o continuar si ya hay una mascota guardada en este dispositivo.
  */
 export function CtaPrincipal({ id }: { id: string }) {
+  const configurado = useAccesoRealConfigurado();
   const { listo, estado, mascota } = useHuellas();
   if (!listo) return null;
   return (
     <BotonLink
       id={id}
       data-evento="inicio-compra"
-      href={mascota ? (estado.accesoSimulado ? "/app" : "/paywall") : "/onboarding"}
+      href={mascota ? destinoContinuar(estado.accesoSimulado, configurado) : "/onboarding"}
       className="min-h-16! md:w-full"
     >
       {mascota ? `Continuar con ${mascota.nombre}` : "Crear el carnet de mi mascota"}
