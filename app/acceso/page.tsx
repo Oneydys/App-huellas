@@ -13,11 +13,9 @@ import { NavLegal } from "@/components/nav-legal";
 import { personajePorId } from "@/lib/personajes";
 import { avisosDePlantilla } from "@/lib/plantilla";
 import { accesoRealConfigurado, iniciarSesionConContrasena, solicitarAcceso } from "@/lib/servicios";
-import { useRequiereMascota } from "@/lib/store/guardias";
 import { useHuellas } from "@/lib/store/hooks";
 
 export default function Acceso() {
-  useRequiereMascota();
   const router = useRouter();
   const { listo, mascota, despachar } = useHuellas();
   const [correo, setCorreo] = useState("");
@@ -69,12 +67,13 @@ export default function Acceso() {
       <header>
         <Logotipo />
       </header>
-      {!listo || !mascota ? (
+      {!listo ? (
         <div className="mt-6">
           <PantallaCargando />
         </div>
       ) : (
         <>
+          {mascota && (
           <div className="mt-6 flex items-center gap-4 rounded-tarjeta bg-gradient-to-br from-naranja-claro to-naranja-hondo p-4 text-tinta">
             {/* Con o sin foto propia, la mascota va dentro del mismo marco del carnet. */}
             <div className="w-24 shrink-0">
@@ -90,9 +89,12 @@ export default function Acceso() {
               <p className="text-titulo font-black">{mascota.nombre}</p>
             </div>
           </div>
-          <h1 className="mt-6 text-display font-black tracking-tight">Entra al carnet de {mascota.nombre}</h1>
+          )}
+          <h1 className="mt-6 text-display font-black tracking-tight">
+            {mascota ? `Entra al carnet de ${mascota.nombre}` : "Entra a tu cuenta de Peluvet"}
+          </h1>
           <p className="mt-2 text-cuerpo text-suave-texto">
-            Escribe tu correo para entrar al carnet.
+            {mascota ? "Escribe tu correo para entrar al carnet." : "Escribe tu correo y tu contraseña para entrar."}
           </p>
           <form onSubmit={entrarConContrasena} noValidate className="mt-6 flex flex-col gap-4">
             <Campo
